@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#1e40af" />
+    <title>SahamMaster 30 Hari - Belajar Trading Dari Nol</title>
+    <link rel="manifest" href="/manifest.json">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    
+    <!-- Critical CSS: Render Hero Section Instantly without waiting for Tailwind -->
+    <style>
+      body { margin: 0; font-family: 'Inter', sans-serif; background-color: #f8fafc; color: #0f172a; }
+      
+      /* Manual Styles for Critical Hero Section */
+      .c-nav { height: 80px; width: 100%; position: fixed; top: 0; z-index: 50; background: rgba(255,255,255,0.95); border-bottom: 1px solid #f1f5f9; }
+      .c-hero { padding-top: 140px; padding-bottom: 60px; text-align: center; position: relative; overflow: hidden; background: linear-gradient(180deg, #ffffff 0%, #eff6ff 100%); }
+      .c-badge { display: inline-flex; align-items: center; padding: 6px 12px; background: #fef2f2; color: #dc2626; border-radius: 99px; font-size: 11px; font-weight: 700; text-transform: uppercase; border: 1px solid #fee2e2; margin-bottom: 24px; }
+      .c-title { font-size: 36px; font-weight: 900; line-height: 1.1; color: #0f172a; margin: 0 0 24px 0; letter-spacing: -1px; }
+      .c-title span { color: #2563eb; }
+      .c-desc { font-size: 16px; color: #64748b; margin: 0 auto 32px auto; max-width: 700px; line-height: 1.6; padding: 0 20px; }
+      .c-btn { background-color: #2563eb; color: white; font-weight: 700; font-size: 18px; padding: 16px 32px; border-radius: 16px; border: none; cursor: pointer; display: inline-flex; align-items: center; text-decoration: none; box-shadow: 0 10px 15px -3px rgba(37, 99, 235, 0.3); transition: transform 0.2s; }
+      .c-btn:hover { background-color: #1d4ed8; transform: translateY(-2px); }
+      
+      /* Mobile optimization */
+      @media (min-width: 768px) {
+        .c-title { font-size: 64px; margin-bottom: 32px; }
+        .c-desc { font-size: 20px; margin-bottom: 48px; }
+      }
+
+      /* Custom scrollbar */
+      ::-webkit-scrollbar { width: 8px; height: 8px; }
+      ::-webkit-scrollbar-track { background: #f1f5f9; }
+      ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 4px; }
+      ::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
+    </style>
+
+    <link rel="preconnect" href="https://cdn.tailwindcss.com">
+    <script src="https://cdn.tailwindcss.com?plugins=typography"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    
+  <script type="importmap">
+{
+  "imports": {
+    "react/": "https://esm.sh/react@^19.2.3/",
+    "react": "https://esm.sh/react@^19.2.3",
+    "lucide-react": "https://esm.sh/lucide-react@^0.562.0",
+    "@google/genai": "https://esm.sh/@google/genai@^1.37.0",
+    "react-dom/": "https://esm.sh/react-dom@^19.2.3/",
+    "react-router-dom": "https://esm.sh/react-router-dom@6.22.3",
+    "react-markdown": "https://esm.sh/react-markdown@^10.1.0",
+    "recharts": "https://esm.sh/recharts@^3.6.0",
+    "@supabase/supabase-js": "https://esm.sh/@supabase/supabase-js@2.39.0"
+  }
+}
+</script>
+
+<!-- Meta Pixel Code -->
+<script>
+!function(f,b,e,v,n,t,s)
+{if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+n.queue=[];t=b.createElement(e);t.async=!0;
+t.src=v;s=b.getElementsByTagName(e)[0];
+s.parentNode.insertBefore(t,s)}(window, document,'script',
+'https://connect.facebook.net/en_US/fbevents.js');
+fbq('init', '882028021251299');
+fbq('track', 'PageView');
+</script>
+<!-- End Meta Pixel Code -->
+
+<link rel="stylesheet" href="/index.css">
+</head>
+  <body class="bg-slate-50 text-slate-900 antialiased">
+    <noscript><img height="1" width="1" style="display:none"
+    src="https://www.facebook.com/tr?id=882028021251299&ev=PageView&noscript=1"
+    /></noscript>
+    <div id="root"></div>
+  <script type="module" src="/index.tsx"></script>
+</body>
+</html>
