@@ -61,12 +61,24 @@ const LandingPage: React.FC = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [showStickyCTA, setShowStickyCTA] = useState(false);
   const [isCheckoutOpen, setIsCheckoutOpen] = useState(false);
+  const [dynamicPrice, setDynamicPrice] = useState<number | null>(null);
   
   // State untuk menunda logic berat agar Hero muncul duluan
   const [isLowPriorityReady, setIsLowPriorityReady] = useState(false);
   
   const [socialProof, setSocialProof] = useState({ name: '', show: false, time: '' });
   const [timeLeft, setTimeLeft] = useState({ minutes: 14, seconds: 59 });
+
+  useEffect(() => {
+    fetch('/api/public/checkout-settings')
+      .then(res => res.json())
+      .then(data => {
+        if (data && data.price) {
+          setDynamicPrice(data.price);
+        }
+      })
+      .catch(err => console.error(err));
+  }, []);
 
   const toggleFaq = (index: number) => {
     setOpenFaq(openFaq === index ? null : index);
@@ -93,12 +105,13 @@ const LandingPage: React.FC = () => {
   const handleTrackAddToCart = () => {
     // @ts-ignore
     if (typeof window !== 'undefined' && window.fbq) {
+      const eventId = 'evt_atc_' + Date.now() + '_' + Math.floor(Math.random() * 1000);
       // @ts-ignore
       window.fbq('track', 'AddToCart', {
         content_name: 'Kelas SahamMaster 30 Hari',
         currency: 'IDR',
         value: 99000,
-      });
+      }, { eventID: eventId });
     }
   };
 
@@ -279,7 +292,7 @@ const LandingPage: React.FC = () => {
                 }}
                 className="c-btn"
               >
-                Ambil Promo Rp 99.000
+                Ambil Promo Rp {dynamicPrice ? dynamicPrice.toLocaleString('id-ID') : '99.000'}
                 <ArrowRight className="w-5 h-5 ml-2" />
               </button>
             </div>
@@ -785,7 +798,7 @@ const LandingPage: React.FC = () => {
                                     <div className="bg-red-100 text-red-600 text-[10px] md:text-xs font-bold px-3 py-1 rounded-full uppercase">Hemat 97%</div>
                                 </div>
                                 <p className="text-slate-500 font-medium mb-2 uppercase tracking-wide text-[10px] md:text-xs">Harga Promo Spesial</p>
-                                <h3 className="text-4xl md:text-6xl font-black text-blue-600 mb-2">Rp 99.000</h3>
+                                <h3 className="text-4xl md:text-6xl font-black text-blue-600 mb-2">Rp {dynamicPrice ? dynamicPrice.toLocaleString('id-ID') : '99.000'}</h3>
                                 <p className="text-xs md:text-sm text-slate-400 mb-6 md:mb-8 font-medium">Sekali bayar. Akses selamanya.</p>
                                 
                                 <button 
@@ -893,7 +906,7 @@ const LandingPage: React.FC = () => {
         <div className="flex items-center justify-between">
             <div>
                 <p className="text-[10px] text-slate-500 line-through">Rp 3.250.000</p>
-                <p className="text-lg font-black text-blue-600 leading-none">Rp 99.000</p>
+                <p className="text-lg font-black text-blue-600 leading-none">Rp {dynamicPrice ? dynamicPrice.toLocaleString('id-ID') : '99.000'}</p>
             </div>
             <button 
                 onClick={() => {

@@ -86,6 +86,33 @@ const CheckoutModal: React.FC<CheckoutModalProps> = ({ isOpen, onClose }) => {
     }
   };
 
+  const handleGoogleSuccess = async (credentialResponse: any) => {
+    setLoading(true);
+    try {
+      const res = await fetch('/api/checkout/google', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ token: credentialResponse.credential })
+      });
+      const data = await res.json();
+      
+      if (data.invoice_url) {
+        trackEvent('Lead', { email: 'google-auth@example.com' });
+        if (settings?.price) trackEvent('Purchase', { currency: 'IDR', value: Number(settings.price) });
+        
+        setTimeout(() => {
+          window.location.href = data.invoice_url;
+        }, 300);
+      } else {
+        alert(data.error || 'Terjadi kesalahan');
+        setLoading(false);
+      }
+    } catch (err) {
+      alert('Gagal terhubung ke server');
+      setLoading(false);
+    }
+  };
+
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/80 backdrop-blur-sm animate-in fade-in duration-200">
       <div className="bg-white w-full max-w-md rounded-3xl shadow-2xl overflow-hidden relative animate-in zoom-in-95 duration-200 max-h-[90vh] flex flex-col">
@@ -108,6 +135,31 @@ const CheckoutModal: React.FC<CheckoutModalProps> = ({ isOpen, onClose }) => {
                   {settings ? `Rp ${(settings.price || 0).toLocaleString('id-ID')}` : 'Loading...'}
                 </span>
               </div>
+              
+              {settings?.google_client_id ? (
+                <GoogleOAuthProvider clientId={settings.google_client_id}>
+                  <div className="mb-6">
+                    <div className="flex justify-center w-full">
+                      <GoogleLogin 
+                        onSuccess={handleGoogleSuccess} 
+                        onError={() => alert('Login Google Gagal')}
+                        text="continue_with"
+                        theme="filled_blue"
+                        width="100%"
+                        shape="pill"
+                      />
+                    </div>
+                    <div className="relative mt-5">
+                      <div className="absolute inset-0 flex items-center">
+                        <span className="w-full border-t border-slate-200" />
+                      </div>
+                      <div className="relative flex justify-center text-xs uppercase">
+                        <span className="bg-white px-3 text-slate-400 font-medium tracking-wider">Atau isi form manual</span>
+                      </div>
+                    </div>
+                  </div>
+                </GoogleOAuthProvider>
+              ) : null}
 
               <form onSubmit={handleProcess} className="space-y-4">
                 <div>

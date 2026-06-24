@@ -1,13 +1,26 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { AlertCircle, Loader2 } from 'lucide-react';
+import { GoogleOAuthProvider, GoogleLogin } from '@react-oauth/google';
 
 const Login: React.FC = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
+  const [clientId, setClientId] = useState('');
   const navigate = useNavigate();
+
+  useEffect(() => {
+    fetch('/api/public/checkout-settings')
+      .then(res => res.json())
+      .then(data => {
+        if (data.google_client_id) {
+          setClientId(data.google_client_id);
+        }
+      })
+      .catch(console.error);
+  }, []);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -63,6 +76,30 @@ const Login: React.FC = () => {
     }
   };
 
+  const handleGoogleLogin = async (credentialResponse: any) => {
+    setLoading(true);
+    setError('');
+    try {
+      const res = await fetch('/api/auth/google', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ token: credentialResponse.credential })
+      });
+      const data = await res.json();
+      
+      if (res.ok && data.token) {
+        localStorage.setItem('token', data.token);
+        navigate('/akses-member-area');
+      } else {
+        setError(data.error || 'Gagal login dengan Google');
+        setLoading(false);
+      }
+    } catch (err) {
+      setError('Gagal terhubung ke server');
+      setLoading(false);
+    }
+  };
+
   return (
     <div className="bg-slate-50 text-slate-900 min-h-screen flex flex-col justify-center items-center py-12 sm:px-6 lg:px-8" style={{ backgroundImage: "url('https://www.transparenttextures.com/patterns/cubes.png')" }}>
       <div className="sm:mx-auto sm:w-full sm:max-w-md animate-in fade-in slide-in-from-bottom-4 duration-700">
@@ -76,6 +113,31 @@ const Login: React.FC = () => {
         </div>
 
         <div className="bg-white py-8 px-4 shadow-xl shadow-slate-200/50 sm:rounded-2xl sm:px-10 border border-slate-100 ring-1 ring-black/5">
+          {clientId && (
+            <GoogleOAuthProvider clientId={clientId}>
+              <div className="mb-6">
+                <div className="flex justify-center w-full">
+                  <GoogleLogin 
+                    onSuccess={handleGoogleLogin} 
+                    onError={() => setError('Login Google Gagal')}
+                    text="signin_with"
+                    theme="filled_blue"
+                    width="100%"
+                    shape="pill"
+                  />
+                </div>
+                <div className="relative mt-5">
+                  <div className="absolute inset-0 flex items-center">
+                    <span className="w-full border-t border-slate-200" />
+                  </div>
+                  <div className="relative flex justify-center text-xs uppercase">
+                    <span className="bg-white px-3 text-slate-400 font-medium tracking-wider">Atau login dengan email</span>
+                  </div>
+                </div>
+              </div>
+            </GoogleOAuthProvider>
+          )}
+
           <form onSubmit={handleSubmit} className="space-y-6">
             {error && (
               <div className="bg-red-50 border-l-4 border-red-500 p-4 rounded-md flex">

@@ -50,8 +50,12 @@ export const MetaPixel = () => {
   return null;
 };
 
-export const trackEvent = (eventName: string, data: any = {}) => {
+export const trackEvent = (eventName: string, data: any = {}, eventId?: string) => {
   if (typeof window !== 'undefined' && window.fbq) {
-    window.fbq('track', eventName, data);
+    if (eventId) {
+      window.fbq('track', eventName, data, { eventID: eventId });
+    } else {
+      window.fbq('track', eventName, data);
+    }
   }
 };
