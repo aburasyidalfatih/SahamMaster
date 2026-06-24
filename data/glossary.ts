@@ -1,0 +1,27 @@
+import { GlossaryTerm } from "../types";
+
+export const GLOSSARY_DATA: GlossaryTerm[] = [
+  { term: "ARA (Auto Reject Atas)", definition: "Batas kenaikan harga tertinggi saham dalam sehari. Jika sudah ARA, saham tidak bisa naik lagi hari itu, biasanya antrian Offer kosong.", category: "General" },
+  { term: "ARB (Auto Reject Bawah)", definition: "Batas penurunan harga terendah saham dalam sehari. Jika ARB, saham tidak bisa turun lagi, biasanya antrian Bid kosong (dikunci).", category: "General" },
+  { term: "Bandarmologi", definition: "Ilmu menganalisa pergerakan 'Big Player' atau institusi besar yang memiliki modal besar untuk menggerakkan harga saham.", category: "Bandarmologi" },
+  { term: "Bearish", definition: "Kondisi pasar atau saham yang sedang tren TURUN (dilambangkan dengan Beruang yang mencakar ke bawah).", category: "General" },
+  { term: "Bid", definition: "Kolom antrian BELI. Jika Anda ingin membeli saham dengan harga murah (nawar), Anda antri di Bid.", category: "Technical" },
+  { term: "Bluechip", definition: "Saham lapis satu dengan kapitalisasi pasar besar (>100 Triliun), fundamental kuat, dan pergerakan stabil.", category: "General" },
+  { term: "Breakout", definition: "Kondisi ketika harga saham berhasil menembus area Resistance (atap) dengan volume tinggi. Sinyal beli kuat.", category: "Technical" },
+  { term: "Bullish", definition: "Kondisi pasar atau saham yang sedang tren NAIK (dilambangkan dengan Banteng yang menanduk ke atas).", category: "General" },
+  { term: "Capital Gain", definition: "Keuntungan yang didapat dari selisih harga jual dikurangi harga beli.", category: "General" },
+  { term: "Cut Loss", definition: "Menjual saham dalam posisi rugi untuk membatasi kerugian agar tidak semakin dalam.", category: "Technical" },
+  { term: "Dividen", definition: "Pembagian laba perusahaan kepada pemegang saham.", category: "General" },
+  { term: "Emiten", definition: "Sebutan untuk perusahaan yang sahamnya terdaftar di Bursa Efek Indonesia (Contoh: BBCA, TLKM).", category: "General" },
+  { term: "HAKA (Hajar Kanan)", definition: "Membeli saham langsung di harga Offer teratas tanpa antri. Strategi agresif.", category: "Technical" },
+  { term: "HAKI (Hajar Kiri)", definition: "Menjual saham langsung di harga Bid teratas tanpa antri. Strategi buang barang cepat.", category: "Technical" },
+  { term: "IHSG", definition: "Indeks Harga Saham Gabungan. Indikator pergerakan rata-rata seluruh saham di Indonesia.", category: "General" },
+  { term: "Lot", definition: "Satuan pembelian saham. 1 Lot = 100 Lembar.", category: "General" },
+  { term: "Offer", definition: "Kolom antrian JUAL. Jika Anda ingin menjual saham, Anda antri di Offer.", category: "Technical" },
+  { term: "Pom-pom", definition: "Istilah untuk influencer atau pihak yang menghasut orang lain untuk membeli saham tertentu agar harganya naik.", category: "Bandarmologi" },
+  { term: "Resistance", definition: "Batas atas harga (atap) yang sulit ditembus.", category: "Technical" },
+  { term: "Scalping", definition: "Gaya trading super cepat (hitungan menit) mengambil profit kecil (1-3%) berkali-kali.", category: "Technical" },
+  { term: "Support", definition: "Batas bawah harga (lantai) yang menjaga harga tidak jatuh lebih dalam.", category: "Technical" },
+  { term: "Suspend", definition: "Penghentian sementara perdagangan suatu saham oleh Bursa karena masalah tertentu atau pergerakan tidak wajar.", category: "General" },
+  { term: "Swing Trading", definition: "Gaya trading santai dengan menahan saham beberapa hari hingga minggu mengikuti tren.", category: "Technical" },
+];

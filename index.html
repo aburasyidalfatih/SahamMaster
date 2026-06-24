@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#1e40af" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <script>
+      // Redirect old member area URL to new /member/ path
+      if(window.location.hash === '#/akses-member-area' || window.location.hash.indexOf('#/akses-member-area') === 0) {
+        window.location.href = '/member/';
+      }
+    </script>
+    <script>
+      // Dynamic price: fetch from API then replace all hardcoded prices in the DOM
+      (function(){
+        fetch('/api/public/checkout-settings').then(function(r){return r.json()}).then(function(d){
+          if(!d.price || d.price===99000) return; // skip if default
+          var formatted = 'Rp ' + d.price.toLocaleString('id-ID');
+          window.__SM_PRICE = formatted;
+          window.__SM_PRICE_RAW = d.price;
+          
+          function replacePrice(){
+            // Walk all text nodes and replace "Rp 99.000" with dynamic price
+            var walker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT, null, false);
+            var node;
+            while(node = walker.nextNode()){
+              if(node.nodeValue && node.nodeValue.indexOf('99.000') !== -1){
+                node.nodeValue = node.nodeValue.replace(/Rp\s*99\.000/g, formatted).replace(/99\.000/g, d.price.toLocaleString('id-ID'));
+              }
+              if(node.nodeValue && node.nodeValue.indexOf('Ambil Promo Rp') !== -1){
+                node.nodeValue = node.nodeValue.replace(/Ambil Promo Rp\s*99\.000/, 'Ambil Promo ' + formatted);
+              }
+            }
+          }
+          
+          // Run immediately and also observe for lazy-loaded content
+          setTimeout(replacePrice, 500);
+          setTimeout(replacePrice, 1500);
+          setTimeout(replacePrice, 3000);
+          
+          var observer = new MutationObserver(function(){ replacePrice(); });
+          observer.observe(document.body, {childList:true, subtree:true});
+          // Stop observing after 30s to save resources
+          setTimeout(function(){ observer.disconnect(); }, 30000);
+        }).catch(function(){});
+      })();
+    </script>
+    <title>SahamMaster 30 Hari - Belajar Trading Dari Nol</title>
+    <link rel="icon" type="image/png" href="/logo.png" />
+    <link rel="apple-touch-icon" href="/logo.png" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    
+    <!-- Critical CSS: Render Hero Section Instantly without waiting for Tailwind -->
+    <style>
+      body { margin: 0; font-family: 'Inter', sans-serif; background-color: #f8fafc; color: #0f172a; }
+      
+      /* Manual Styles for Critical Hero Section */
+      .c-nav { height: 80px; width: 100%; position: fixed; top: 0; z-index: 50; background: rgba(255,255,255,0.95); border-bottom: 1px solid #f1f5f9; }
+      .c-hero { padding-top: 140px; padding-bottom: 60px; text-align: center; position: relative; overflow: hidden; background: linear-gradient(180deg, #ffffff 0%, #eff6ff 100%); }
+      .c-badge { display: inline-flex; align-items: center; padding: 6px 12px; background: #fef2f2; color: #dc2626; border-radius: 99px; font-size: 11px; font-weight: 700; text-transform: uppercase; border: 1px solid #fee2e2; margin-bottom: 24px; }
+      .c-title { font-size: 36px; font-weight: 900; line-height: 1.1; color: #0f172a; margin: 0 0 24px 0; letter-spacing: -1px; }
+      .c-title span { color: #2563eb; }
+      .c-desc { font-size: 16px; color: #64748b; margin: 0 auto 32px auto; max-width: 700px; line-height: 1.6; padding: 0 20px; }
+      .c-btn { background-color: #2563eb; color: white; font-weight: 700; font-size: 18px; padding: 16px 32px; border-radius: 16px; border: none; cursor: pointer; display: inline-flex; align-items: center; text-decoration: none; box-shadow: 0 10px 15px -3px rgba(37, 99, 235, 0.3); transition: transform 0.2s; }
+      .c-btn:hover { background-color: #1d4ed8; transform: translateY(-2px); }
+      
+      /* Mobile optimization */
+      @media (min-width: 768px) {
+        .c-title { font-size: 64px; margin-bottom: 32px; }
+        .c-desc { font-size: 20px; margin-bottom: 48px; }
+      }
+
+      /* Custom scrollbar */
+      ::-webkit-scrollbar { width: 8px; height: 8px; }
+      ::-webkit-scrollbar-track { background: #f1f5f9; }
+      ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 4px; }
+      ::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
+      
+      /* Initial Loader to Prevent FOUC */
+      #initial-loader {
+        position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+        background: #f8fafc; display: flex; flex-direction: column; justify-content: center; align-items: center;
+        z-index: 99999; transition: opacity 0.5s ease, visibility 0.5s ease;
+      }
+      .spinner {
+        width: 48px; height: 48px; border: 4px solid #e2e8f0; border-top: 4px solid #2563eb;
+        border-radius: 50%; animation: spin 1s linear infinite; margin-bottom: 16px;
+      }
+      @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+      .loader-text { font-size: 14px; font-weight: 700; color: #64748b; letter-spacing: 1px; text-transform: uppercase; }
+      .hide-loader { opacity: 0; visibility: hidden; }
+    </style>
+
+    <link rel="dns-prefetch" href="https://esm.sh">
+    <link rel="preconnect" href="https://esm.sh" crossorigin>
+    
+    <!-- Preload critical assets -->
+    <link rel="preload" as="image" href="/logo.png">
+    <link rel="modulepreload" href="/assets/index-BlmYnIxO.js">
+
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <meta name="description" content="Platform edukasi saham terbaik di Indonesia dengan kurikulum 30 hari dan bimbingan AI Mentor SahamPro." />
+    
+
+<!-- Deferred CSS Loading -->
+<link rel="stylesheet" href="/index.css">
+
+</head>
+    <body class="bg-slate-50 text-slate-900 antialiased">
+    
+
+    <div id="initial-loader" role="status" aria-live="polite" aria-label="Sedang memuat halaman SahamMaster">
+      <div class="spinner" aria-hidden="true"></div>
+      <div class="loader-text" aria-hidden="true">SahamMaster</div>
+    </div>
+    
+    <div id="root"></div>
+  <script type="module" src="/index.tsx"></script>
+</body>
+</html>
