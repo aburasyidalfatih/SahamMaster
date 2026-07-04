@@ -78,6 +78,28 @@ const LandingPage: React.FC = () => {
         }
       })
       .catch(err => console.error(err));
+      
+      // Capture UTM parameters
+    if (typeof window !== 'undefined') {
+      const urlParams = new URLSearchParams(window.location.search);
+      const utms = ['utm_source', 'utm_medium', 'utm_campaign', 'utm_content'];
+      utms.forEach(param => {
+        const val = urlParams.get(param);
+        if (val) {
+          sessionStorage.setItem(param, val);
+        }
+      });
+      
+      // Track Landing Page View (Internal Funnel)
+      if (!sessionStorage.getItem('tracked_view')) {
+        fetch('/api/analytics/track', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ type: 'view' })
+        }).catch(err => console.error('Error tracking view:', err));
+        sessionStorage.setItem('tracked_view', 'true');
+      }
+    }
   }, []);
 
   const toggleFaq = (index: number) => {
@@ -113,6 +135,13 @@ const LandingPage: React.FC = () => {
         value: 99000,
       }, { eventID: eventId });
     }
+    
+    // Track Form Click (Internal Funnel)
+    fetch('/api/analytics/track', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ type: 'click' })
+    }).catch(err => console.error('Error tracking click:', err));
   };
 
   // --- CRITICAL OPTIMIZATION ---

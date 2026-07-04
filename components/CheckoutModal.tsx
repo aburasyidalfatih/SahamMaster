@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { X, CheckCircle, ArrowRight, Lock, Copy } from 'lucide-react';
+import { X, Lock, User, Mail, Phone, KeyRound } from 'lucide-react';
 import { trackEvent } from './MetaPixel';
+
 
 interface CheckoutModalProps {
   isOpen: boolean;
@@ -10,14 +11,11 @@ interface CheckoutModalProps {
 const CheckoutModal: React.FC<CheckoutModalProps> = ({ isOpen, onClose }) => {
   const [loading, setLoading] = useState(false);
   const [settings, setSettings] = useState<any>(null);
+  const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
+  const [phone, setPhone] = useState('');
+  const [password, setPassword] = useState('');
   
-  const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    phone: '',
-    password: ''
-  });
-
   useEffect(() => {
     if (isOpen && !settings) {
       fetch('/api/public/checkout-settings')
@@ -35,47 +33,41 @@ const CheckoutModal: React.FC<CheckoutModalProps> = ({ isOpen, onClose }) => {
 
   if (!isOpen) return null;
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
-  };
-
-  const handleProcess = async (e: React.FormEvent) => {
+  const handleFormSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!formData.name || !formData.email || !formData.phone || !formData.password) {
-      alert('Semua kolom wajib diisi');
+    if (!name.trim() || !email.trim() || !phone.trim() || !password.trim()) {
+      alert('Semua field wajib diisi');
       return;
     }
-    if (formData.password.length < 6) {
-      alert('Password minimal 6 karakter');
-      return;
-    }
-
     setLoading(true);
-
-    const fd = new FormData();
-    fd.append('name', formData.name);
-    fd.append('email', formData.email);
-    fd.append('phone', formData.phone);
-    fd.append('password', formData.password);
-
+    
+    // Generate unique event ID for Meta CAPI deduplication
+    const leadEventId = 'evt_lead_' + Date.now();
+    
     try {
       const res = await fetch('/checkout', {
         method: 'POST',
-        body: fd
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          name: name.trim(),
+          email: email.trim().toLowerCase(),
+          phone: phone.trim(),
+          password,
+          event_id: leadEventId,
+          utm_source: sessionStorage.getItem('utm_source') || '',
+          utm_medium: sessionStorage.getItem('utm_medium') || '',
+          utm_campaign: sessionStorage.getItem('utm_campaign') || '',
+          utm_content: sessionStorage.getItem('utm_content') || ''
+        })
       });
       const data = await res.json();
       
       if (data.redirect_url) {
-        // Track Conversion
-        trackEvent('Lead', { email: formData.email });
-        if (settings?.price) {
-           trackEvent('Purchase', { currency: 'IDR', value: Number(settings.price) });
-        }
-        
-        // Slight delay to ensure pixel fires before redirect
-        setTimeout(() => {
-          window.location.href = data.redirect_url;
-        }, 300);
+        trackEvent('Lead', { email: email.trim() }, leadEventId);
+        window.location.href = data.redirect_url;
+      } else if (data.invoice_url) {
+        trackEvent('Lead', { email: email.trim() }, leadEventId);
+        window.location.href = data.invoice_url;
       } else {
         alert(data.error || 'Terjadi kesalahan');
         setLoading(false);
@@ -86,32 +78,7 @@ const CheckoutModal: React.FC<CheckoutModalProps> = ({ isOpen, onClose }) => {
     }
   };
 
-  const handleGoogleSuccess = async (credentialResponse: any) => {
-    setLoading(true);
-    try {
-      const res = await fetch('/api/checkout/google', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ token: credentialResponse.credential })
-      });
-      const data = await res.json();
-      
-      if (data.invoice_url) {
-        trackEvent('Lead', { email: 'google-auth@example.com' });
-        if (settings?.price) trackEvent('Purchase', { currency: 'IDR', value: Number(settings.price) });
-        
-        setTimeout(() => {
-          window.location.href = data.invoice_url;
-        }, 300);
-      } else {
-        alert(data.error || 'Terjadi kesalahan');
-        setLoading(false);
-      }
-    } catch (err) {
-      alert('Gagal terhubung ke server');
-      setLoading(false);
-    }
-  };
+
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/80 backdrop-blur-sm animate-in fade-in duration-200">
@@ -129,62 +96,97 @@ const CheckoutModal: React.FC<CheckoutModalProps> = ({ isOpen, onClose }) => {
                 <p className="text-slate-500 text-sm mt-1">Lengkapi data untuk membuat akun</p>
               </div>
 
-              <div className="bg-blue-50 border border-blue-100 rounded-xl p-4 mb-6 flex justify-between items-center">
+              <div className="bg-blue-50 border border-blue-100 rounded-xl p-4 mb-5 flex justify-between items-center">
                 <span className="text-slate-600 font-semibold text-sm">Total Bayar</span>
                 <span className="text-blue-700 font-black text-xl">
                   {settings ? `Rp ${(settings.price || 0).toLocaleString('id-ID')}` : 'Loading...'}
                 </span>
               </div>
-              
-              {settings?.google_client_id ? (
-                <GoogleOAuthProvider clientId={settings.google_client_id}>
-                  <div className="mb-6">
-                    <div className="flex justify-center w-full">
-                      <GoogleLogin 
-                        onSuccess={handleGoogleSuccess} 
-                        onError={() => alert('Login Google Gagal')}
-                        text="continue_with"
-                        theme="filled_blue"
-                        width="100%"
-                        shape="pill"
-                      />
-                    </div>
-                    <div className="relative mt-5">
-                      <div className="absolute inset-0 flex items-center">
-                        <span className="w-full border-t border-slate-200" />
-                      </div>
-                      <div className="relative flex justify-center text-xs uppercase">
-                        <span className="bg-white px-3 text-slate-400 font-medium tracking-wider">Atau isi form manual</span>
-                      </div>
-                    </div>
-                  </div>
-                </GoogleOAuthProvider>
-              ) : null}
 
-              <form onSubmit={handleProcess} className="space-y-4">
-                <div>
-                  <label className="block text-xs font-bold text-slate-600 mb-1">Nama *</label>
-                  <input required name="name" value={formData.name} onChange={handleChange} type="text" placeholder="Nama Anda (Bebas)" className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500" />
+              {/* Benefit Items */}
+              <div className="mb-5 border border-slate-100 rounded-xl p-4">
+                <p className="text-xs font-bold text-slate-500 uppercase tracking-wider mb-3">Apa yang Anda dapat:</p>
+                <div className="space-y-3">
+                  {[
+                    { icon: '📊', name: 'Modul Trading 30 Hari', price: 'Rp 1.500.000' },
+                    { icon: '🤖', name: 'Akses AI Mentor IDX', price: 'Rp 750.000' },
+                    { icon: '⚡', name: 'Tools Pro', price: 'Rp 500.000' },
+                    { icon: '🎓', name: 'Ujian & Sertifikat', price: 'Rp 500.000' },
+                  ].map((item, i) => (
+                    <div key={i} className="flex items-center justify-between">
+                      <div className="flex items-center gap-2.5">
+                        <span className="text-lg">{item.icon}</span>
+                        <span className="text-sm font-semibold text-slate-700">{item.name}</span>
+                      </div>
+                      <span className="text-xs text-slate-400 line-through">{item.price}</span>
+                    </div>
+                  ))}
                 </div>
-                <div>
-                  <label className="block text-xs font-bold text-slate-600 mb-1">Email Aktif *</label>
-                  <input required name="email" value={formData.email} onChange={handleChange} type="email" placeholder="Untuk login & invoice" className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500" />
+                <div className="border-t border-slate-100 mt-3 pt-3 flex justify-between items-center">
+                  <span className="text-xs font-bold text-slate-500">Total Nilai Asli</span>
+                  <span className="text-sm font-bold text-red-400 line-through">Rp 3.250.000</span>
                 </div>
-                <div>
-                  <label className="block text-xs font-bold text-slate-600 mb-1">No. WhatsApp *</label>
-                  <input required name="phone" value={formData.phone} onChange={handleChange} type="text" placeholder="08xxxxxxxxxx" className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500" />
+              </div>
+
+              {/* Registration Form */}
+              <form onSubmit={handleFormSubmit} className="space-y-3 mb-4">
+                <div className="relative">
+                  <User className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
+                  <input
+                    type="text"
+                    placeholder="Nama Lengkap"
+                    value={name}
+                    onChange={e => setName(e.target.value)}
+                    className="w-full pl-10 pr-4 py-3 rounded-xl border border-slate-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-100 outline-none text-sm transition-all"
+                    required
+                  />
                 </div>
-                <div>
-                  <label className="block text-xs font-bold text-slate-600 mb-1">Buat Password *</label>
-                  <input required name="password" value={formData.password} onChange={handleChange} type="password" placeholder="Minimal 6 karakter" className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500" />
+                <div className="relative">
+                  <Mail className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
+                  <input
+                    type="email"
+                    placeholder="Email"
+                    value={email}
+                    onChange={e => setEmail(e.target.value)}
+                    className="w-full pl-10 pr-4 py-3 rounded-xl border border-slate-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-100 outline-none text-sm transition-all"
+                    required
+                  />
+                </div>
+                <div className="relative">
+                  <Phone className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
+                  <input
+                    type="tel"
+                    placeholder="No. WhatsApp (08xxx)"
+                    value={phone}
+                    onChange={e => setPhone(e.target.value)}
+                    className="w-full pl-10 pr-4 py-3 rounded-xl border border-slate-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-100 outline-none text-sm transition-all"
+                    required
+                  />
+                </div>
+                <div className="relative">
+                  <KeyRound className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
+                  <input
+                    type="password"
+                    placeholder="Buat Password"
+                    value={password}
+                    onChange={e => setPassword(e.target.value)}
+                    className="w-full pl-10 pr-4 py-3 rounded-xl border border-slate-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-100 outline-none text-sm transition-all"
+                    required
+                    minLength={6}
+                  />
                 </div>
 
-                <button disabled={loading || !settings} type="submit" className="w-full mt-4 bg-blue-600 hover:bg-blue-700 disabled:bg-blue-400 text-white font-bold py-3.5 rounded-xl transition-all flex items-center justify-center gap-2">
-                  {loading ? 'Memproses...' : 'Lanjutkan Pembayaran'}
-                  {!loading && <ArrowRight className="w-5 h-5" />}
+                <button
+                  type="submit"
+                  disabled={loading}
+                  className="w-full py-3.5 bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white font-bold rounded-xl shadow-lg shadow-blue-500/25 transition-all duration-200 disabled:opacity-50 text-sm"
+                >
+                  {loading ? 'Memproses...' : 'Daftar & Bayar Sekarang'}
                 </button>
               </form>
-              <p className="text-center text-xs text-slate-400 mt-4 flex items-center justify-center gap-1">
+
+
+              <p className="text-center text-xs text-slate-400 mt-6 flex items-center justify-center gap-1">
                 <Lock className="w-3 h-3" /> Data Anda aman & terenkripsi
               </p>
             </div>

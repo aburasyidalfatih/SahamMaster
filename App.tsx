@@ -1,5 +1,5 @@
 import React, { Suspense, lazy } from 'react';
-import { HashRouter, Routes, Route, Navigate } from 'react-router-dom';
+import { HashRouter, Routes, Route, Navigate, useLocation } from 'react-router-dom';
 import { Loader2 } from 'lucide-react';
 import { MetaPixel } from './components/MetaPixel';
 
@@ -22,6 +22,16 @@ const PageLoader = () => (
   </div>
 );
 
+// Protected Route: Redirects to /login if no auth token is found
+const ProtectedRoute: React.FC<{ children: React.ReactElement }> = ({ children }) => {
+  const token = localStorage.getItem('token');
+  const location = useLocation();
+  if (!token) {
+    return <Navigate to="/login" state={{ from: location }} replace />;
+  }
+  return children;
+};
+
 const App: React.FC = () => {
   return (
     <HashRouter>
@@ -32,8 +42,8 @@ const App: React.FC = () => {
           {/* Halaman Utama (Landing Page) - Bundle terpisah */}
           <Route path="/" element={<LandingPage />} />
           
-          {/* Member Area (Aplikasi Utama) - Bundle terpisah, didownload on-demand */}
-          <Route path="/akses-member-area" element={<MemberArea />} />
+          {/* Member Area (Aplikasi Utama) - Dilindungi ProtectedRoute */}
+          <Route path="/akses-member-area" element={<ProtectedRoute><MemberArea /></ProtectedRoute>} />
           
           {/* Halaman Login */}
           <Route path="/login" element={<Login />} />

@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import App from './App';
+import './index.css';
 
 const rootElement = document.getElementById('root');
 if (!rootElement) {
@@ -13,6 +14,11 @@ root.render(
     <App />
   </React.StrictMode>
 );
+
+// Automatically reload the page if a chunk fails to load (due to new deployment / PWA cache mismatch)
+window.addEventListener('vite:preloadError', (event) => {
+  window.location.reload();
+});
 
 // Prevent FOUC from Tailwind CDN by hiding loader after a short delay
 setTimeout(() => {

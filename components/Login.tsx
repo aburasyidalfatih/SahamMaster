@@ -34,39 +34,26 @@ const Login: React.FC = () => {
     setLoading(true);
 
     try {
-      // 1. Coba login sebagai Admin
-      const adminResponse = await fetch('/api/admin/login', {
+      const res = await fetch('/api/auth/login', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ email: email.trim().toLowerCase(), password })
       });
 
-      if (adminResponse.ok) {
-        const adminData = await adminResponse.json();
-        if (adminData.token) {
-          localStorage.setItem('adminToken', adminData.token);
+      const data = await res.json();
+
+      if (res.ok && data.token) {
+        if (data.role === 'admin') {
+          localStorage.setItem('adminToken', data.token);
           window.location.href = '/admin/';
-          return;
-        }
-      }
-
-      // 2. Jika bukan admin, coba login sebagai Member
-      const memberRes = await fetch('/api/auth/login', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email: email.trim().toLowerCase(), password })
-      });
-      
-      if (memberRes.ok) {
-        const memberData = await memberRes.json();
-        if (memberData.token) {
-          localStorage.setItem('token', memberData.token);
+        } else {
+          localStorage.setItem('token', data.token);
           navigate('/akses-member-area');
-          return;
         }
+        return;
       }
 
-      setError('Email atau password salah.');
+      setError(data.error || 'Email atau password salah.');
       setLoading(false);
 
     } catch (err) {
@@ -88,8 +75,13 @@ const Login: React.FC = () => {
       const data = await res.json();
       
       if (res.ok && data.token) {
-        localStorage.setItem('token', data.token);
-        navigate('/akses-member-area');
+        if (data.role === 'admin') {
+          localStorage.setItem('adminToken', data.token);
+          window.location.href = '/admin/';
+        } else {
+          localStorage.setItem('token', data.token);
+          navigate('/akses-member-area');
+        }
       } else {
         setError(data.error || 'Gagal login dengan Google');
         setLoading(false);

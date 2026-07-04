@@ -1,5 +1,5 @@
 import React from 'react';
-import { Download, Smartphone, Award } from 'lucide-react';
+import { Download, Smartphone, Award, LogOut } from 'lucide-react';
 import { ViewState, UserProgress } from '../../types';
 
 interface SidebarProps {
@@ -70,13 +70,24 @@ const Sidebar: React.FC<SidebarProps> = ({
         )}
       </div>
       
-      <div className="mt-auto p-6 border-t border-slate-100">
+      <div className="mt-auto p-6 border-t border-slate-100 space-y-4">
          {progress.passedExam && (
              <div className="bg-green-50 p-4 rounded-xl border border-green-100 text-center">
                  <Award className="w-8 h-8 text-green-600 mx-auto mb-2" />
                  <p className="text-xs font-bold text-green-800">Sertifikat Tersedia</p>
              </div>
          )}
+         <button
+           onClick={() => {
+             localStorage.removeItem('token');
+             localStorage.removeItem('adminToken');
+             window.location.href = '/';
+           }}
+           className="w-full flex items-center px-4 py-3 rounded-xl text-sm font-medium text-slate-500 hover:text-red-600 hover:bg-red-50 transition-all duration-200"
+         >
+           <LogOut className="w-5 h-5 mr-3 text-slate-400" />
+           Keluar
+         </button>
       </div>
     </aside>
   );
