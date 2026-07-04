@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://saham.kelasmaster.id/sitemap.xml
+
