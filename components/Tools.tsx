@@ -91,7 +91,7 @@ const Tools: React.FC = () => {
         const buyVal = t.buyPrice * t.lots * 100;
         const sellVal = sellPrice * t.lots * 100;
         const pnl = sellVal - buyVal; 
-        const pnlPercent = ((sellPrice - t.buyPrice) / t.buyPrice) * 100;
+        const pnlPercent = t.buyPrice > 0 ? ((sellPrice - t.buyPrice) / t.buyPrice) * 100 : 0;
         
         return {
           ...t,

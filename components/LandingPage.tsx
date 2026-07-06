@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect, useRef } from 'react';
 // useNavigate dihapus karena Landing Page sekarang independen tanpa routing internal
 import { 
@@ -132,7 +131,7 @@ const LandingPage: React.FC = () => {
       window.fbq('track', 'AddToCart', {
         content_name: 'Kelas SahamMaster 30 Hari',
         currency: 'IDR',
-        value: 99000,
+        value: dynamicPrice ?? 99000,
       }, { eventID: eventId });
     }
     
@@ -198,7 +197,8 @@ const LandingPage: React.FC = () => {
   // Social Proof Logic (Delayed)
   useEffect(() => {
     if (!isLowPriorityReady) return;
-
+    
+    let timeoutId: any;
     const showNotification = () => {
       const randomName = RECENT_BUYERS[Math.floor(Math.random() * RECENT_BUYERS.length)];
       const randomTime = Math.floor(Math.random() * 10) + 1; 
@@ -209,7 +209,7 @@ const LandingPage: React.FC = () => {
         show: true
       });
 
-      setTimeout(() => {
+      timeoutId = setTimeout(() => {
         setSocialProof(prev => ({ ...prev, show: false }));
       }, 4000);
     };
@@ -219,7 +219,11 @@ const LandingPage: React.FC = () => {
     const interval = setInterval(() => {
       showNotification();
     }, 12000);
-    return () => clearInterval(interval);
+    
+    return () => {
+      clearInterval(interval);
+      if (timeoutId) clearTimeout(timeoutId);
+    };
   }, [isLowPriorityReady]);
 
   return (
