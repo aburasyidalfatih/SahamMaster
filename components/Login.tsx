@@ -48,7 +48,7 @@ const Login: React.FC = () => {
           window.location.href = '/admin/';
         } else {
           localStorage.setItem('token', data.token);
-          navigate('/akses-member-area');
+          window.location.href = '/member/';
         }
         return;
       }
@@ -80,7 +80,7 @@ const Login: React.FC = () => {
           window.location.href = '/admin/';
         } else {
           localStorage.setItem('token', data.token);
-          navigate('/akses-member-area');
+          window.location.href = '/member/';
         }
       } else {
         setError(data.error || 'Gagal login dengan Google');

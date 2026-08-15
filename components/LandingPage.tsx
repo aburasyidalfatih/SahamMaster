@@ -19,7 +19,6 @@ const RECENT_BUYERS = [
 ];
 
 // High Performance Lazy Wrapper dengan Height Prediction
-// minHeight penting agar scrollbar tidak loncat-loncat (Layout Shift) saat loading
 const LazySection = ({ children, className, id, minHeight = "min-h-[100px]" }: { children: React.ReactNode, className?: string, id?: string, minHeight?: string }) => {
   const [isVisible, setIsVisible] = useState(false);
   const ref = useRef<HTMLDivElement>(null);
@@ -28,18 +27,12 @@ const LazySection = ({ children, className, id, minHeight = "min-h-[100px]" }: {
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
-          // Gunakan requestIdleCallback jika tersedia untuk tidak memblokir main thread saat scroll cepat
-          if ('requestIdleCallback' in window) {
-            // @ts-ignore
-            window.requestIdleCallback(() => setIsVisible(true));
-          } else {
-            setIsVisible(true);
-          }
+          setIsVisible(true);
           observer.disconnect(); 
         }
       },
       { 
-        rootMargin: '200px', // Load 200px sebelum elemen masuk viewport
+        rootMargin: '600px',
         threshold: 0
       } 
     );
@@ -49,7 +42,7 @@ const LazySection = ({ children, className, id, minHeight = "min-h-[100px]" }: {
   }, []);
 
   return (
-    <div ref={ref} id={id} className={className} style={{ contentVisibility: 'auto' }}>
+    <div ref={ref} id={id} className={className}>
        {isVisible ? children : <div className={`w-full ${minHeight} bg-transparent`} />}
     </div>
   );

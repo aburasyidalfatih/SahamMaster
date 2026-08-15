@@ -6,7 +6,6 @@ import { MetaPixel } from './components/MetaPixel';
 // Code Splitting: Komponen di-import menggunakan lazy loading
 // Browser tidak akan mendownload kode MemberArea saat user hanya membuka LandingPage
 const LandingPage = lazy(() => import('./components/LandingPage'));
-const MemberArea = lazy(() => import('./components/MemberArea'));
 const Login = lazy(() => import('./components/Login'));
 
 // Komponen Loading Ringan (Hanya muncul sepersekian detik saat pindah halaman)
@@ -42,8 +41,7 @@ const App: React.FC = () => {
           {/* Halaman Utama (Landing Page) - Bundle terpisah */}
           <Route path="/" element={<LandingPage />} />
           
-          {/* Member Area (Aplikasi Utama) - Dilindungi ProtectedRoute */}
-          <Route path="/akses-member-area" element={<ProtectedRoute><MemberArea /></ProtectedRoute>} />
+          {/* Member Area telah dipisahkan ke project member-ui */}
           
           {/* Halaman Login */}
           <Route path="/login" element={<Login />} />

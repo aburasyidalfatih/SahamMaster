@@ -54,19 +54,6 @@
       ::-webkit-scrollbar-track { background: #f1f5f9; }
       ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 4px; }
       ::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
-      
-      #initial-loader {
-        position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-        background: #ffffff; display: flex; flex-direction: column; justify-content: center; align-items: center;
-        z-index: 99999; transition: opacity 0.3s ease, visibility 0.3s ease;
-      }
-      .spinner {
-        width: 44px; height: 44px; border: 3.5px solid #e2e8f0; border-top: 3.5px solid #2563eb;
-        border-radius: 50%; animation: spin 0.8s linear infinite; margin-bottom: 12px;
-      }
-      @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
-      .loader-text { font-size: 13px; font-weight: 800; color: #475569; letter-spacing: 1.5px; text-transform: uppercase; }
-      .hide-loader { opacity: 0; visibility: hidden; pointer-events: none; }
     </style>
 
     <!-- Open Graph / Facebook / WhatsApp -->
@@ -202,12 +189,6 @@
     </script>
   </head>
   <body class="bg-slate-50 text-slate-900 antialiased">
-    <!-- Initial Splash Loader -->
-    <div id="initial-loader" role="status" aria-live="polite" aria-label="Sedang memuat SahamMaster">
-      <div class="spinner" aria-hidden="true"></div>
-      <div class="loader-text" aria-hidden="true">SahamMaster</div>
-    </div>
-    
     <div id="root"></div>
     <script type="module" src="/index.tsx"></script>
     

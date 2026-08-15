@@ -19,14 +19,3 @@ root.render(
 window.addEventListener('vite:preloadError', (event) => {
   window.location.reload();
 });
-
-// Prevent FOUC from Tailwind CDN by hiding loader after a short delay
-setTimeout(() => {
-  const loader = document.getElementById('initial-loader');
-  if (loader) {
-    loader.classList.add('hide-loader');
-    setTimeout(() => {
-      if (loader.parentNode) loader.parentNode.removeChild(loader);
-    }, 500);
-  }
-}, 400);
