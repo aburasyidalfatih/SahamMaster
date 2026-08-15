@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 // useNavigate dihapus karena Landing Page sekarang independen tanpa routing internal
 import { 
-  TrendingUp, BookOpen, MessageSquare, ShieldCheck, CheckCircle, 
+  TrendingUp, BookOpen, MessageSquare, ShieldCheck, CheckCircle, CheckCircle2,
   ArrowRight, Zap, Trophy, AlertTriangle, 
   Clock, DollarSign, ChevronDown, ChevronUp, Lock, BrainCircuit, Activity, Sparkles,
   Gift, Calculator, FileText, Menu, X, ShoppingBag, Briefcase, GraduationCap, Baby, XCircle,
@@ -487,6 +487,138 @@ const LandingPage: React.FC = () => {
                                     <CheckCircle className="w-4 h-4 text-emerald-500 mr-2" />
                                     <span className="font-extrabold text-[11px] md:text-xs">Diskusi 24 Jam</span>
                                 </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+      </LazySection>
+
+      {/* Problems & Why You Need SahamMaster Section */}
+      <LazySection id="masalah-trader" className="bg-white" minHeight="min-h-[600px]">
+            <section className="py-20 md:py-28 bg-white border-b border-slate-100 relative overflow-hidden">
+                {/* Subtle Background Ambient Elements */}
+                <div className="absolute top-0 right-0 w-96 h-96 bg-rose-50/60 rounded-full blur-3xl pointer-events-none -mr-20 -mt-20"></div>
+                <div className="absolute bottom-0 left-0 w-96 h-96 bg-blue-50/60 rounded-full blur-3xl pointer-events-none -ml-20 -mb-20"></div>
+
+                <div className="max-w-6xl mx-auto px-4 sm:px-6 relative z-10">
+                    <div className="text-center mb-12 md:mb-16">
+                        <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-rose-50 text-rose-600 border border-rose-200/80 text-xs font-extrabold uppercase tracking-wider mb-4 shadow-sm">
+                            <AlertTriangle className="w-3.5 h-3.5 text-rose-600" />
+                            <span>Realita Pahit Trader & Investor Pemula</span>
+                        </div>
+                        <h2 className="text-2xl sm:text-3xl md:text-5xl font-black text-slate-900 mb-4 tracking-tight leading-tight">
+                            Apakah Anda Sering Mengalami <br className="hidden sm:block" />
+                            <span className="text-rose-600">Masalah Terbesar</span> Ini di Pasar Saham?
+                        </h2>
+                        <p className="text-slate-500 max-w-2xl mx-auto text-sm sm:text-base leading-relaxed">
+                            Jika Anda pernah merasakan salah satu dari situasi berikut, tenang—Anda tidak sendirian. 90% trader ritel terjebak di siklus yang sama sebelum akhirnya menemukan panduan yang tepat.
+                        </p>
+                    </div>
+
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-6 mb-12">
+                        {[
+                            {
+                                num: "01",
+                                title: "Jebakan FOMO & Beli di Pucuk",
+                                problem: "Tergiur cuan orang lain di media sosial atau bisikan grup. Begitu Anda beli (HAKA), harganya langsung terjun bebas.",
+                                impact: "Modal terkikis drastis dan selalu telat keluar dari pasar.",
+                                solution: "Kuasai Analisis Teknikal Mandiri & Entry Point Presisi"
+                            },
+                            {
+                                num: "02",
+                                title: "Modal Nyangkut & Gagal Cut Loss",
+                                problem: "Berharap harga akan balik naik (hope mode), tapi saham malah anjlok puluhan persen sampai modal mati berbulan-bulan.",
+                                impact: "Kehilangan kesempatan cuan di saham-saham potensial lain.",
+                                solution: "Trading Plan Disiplin & Money Management Profesional"
+                            },
+                            {
+                                num: "03",
+                                title: "Pusing Belajar Otodidak yang Ribet",
+                                problem: "Nonton puluhan video YouTube dan indikator rumit, tapi bukannya paham malah makin bingung karena sinyal saling bertabrakan.",
+                                impact: "Overthinking, analisa mandek, dan ragu saat eksekusi beli/jual.",
+                                solution: "Kurikulum 30 Hari Step-by-Step dengan Bahasa Tongkrongan"
+                            },
+                            {
+                                num: "04",
+                                title: "Ketergantungan Grup Berbayar",
+                                problem: "Bayar jutaan rupiah untuk grup sinyal VIP, tapi tetap saja boncos karena tidak pernah diajarkan alasan logis di baliknya.",
+                                impact: "Hanya jadi 'exit liquidity' bagi bandar atau influencer.",
+                                solution: "AI Mentor SahamPro 24/7 untuk Konsultasi & Belajar Mandiri"
+                            },
+                            {
+                                num: "05",
+                                title: "Emosi Panik & Serakah Menguasai",
+                                problem: "Panik saat portofolio merah (panic selling di dasar) dan serakah saat hijau hingga lupa take profit sampai berbalik rugi.",
+                                impact: "Psikologi trading hancur dan stres setiap market buka.",
+                                solution: "Fondasi Psikologi Trading & Kalkulator Risk-Reward Otomatis"
+                            },
+                            {
+                                num: "06",
+                                title: "Tidak Punya Mentor & Arah Jelas",
+                                problem: "Saat market bergejolak atau bingung screening saham, tidak tahu harus bertanya ke siapa tanpa harus bayar kelas jutaan.",
+                                impact: "Meraba-raba sendirian di market yang kejam.",
+                                solution: "Komunitas Diskusi & Asisten AI yang Selalu Siap 24 Jam"
+                            }
+                        ].map((item, idx) => (
+                            <div 
+                                key={idx} 
+                                className="bg-white rounded-2xl p-6 sm:p-7 border border-slate-200/90 hover:border-blue-400 hover:shadow-xl hover:shadow-blue-500/5 transition-all duration-300 flex flex-col justify-between group relative overflow-hidden"
+                            >
+                                <div className="absolute top-0 right-0 w-24 h-24 bg-gradient-to-br from-rose-50 to-transparent rounded-bl-full pointer-events-none opacity-60 group-hover:opacity-100 transition-opacity"></div>
+                                
+                                <div>
+                                    <div className="flex items-center justify-between mb-4">
+                                        <span className="text-xs font-black text-rose-600 bg-rose-50 border border-rose-200/70 px-2.5 py-1 rounded-lg">
+                                            Masalah {item.num}
+                                        </span>
+                                        <XCircle className="w-5 h-5 text-rose-400 group-hover:text-rose-500 transition-colors" />
+                                    </div>
+                                    <h3 className="font-black text-slate-900 text-lg mb-2.5 group-hover:text-blue-600 transition-colors">
+                                        {item.title}
+                                    </h3>
+                                    <p className="text-xs sm:text-sm text-slate-600 leading-relaxed mb-3">
+                                        {item.problem}
+                                    </p>
+                                    <p className="text-[11px] sm:text-xs text-rose-700 bg-rose-50/60 p-2.5 rounded-xl border border-rose-100 mb-4 font-medium">
+                                        ⚠️ <strong>Dampak:</strong> {item.impact}
+                                    </p>
+                                </div>
+
+                                <div className="pt-3 border-t border-slate-100 flex items-start gap-2">
+                                    <CheckCircle2 className="w-4 h-4 text-emerald-500 shrink-0 mt-0.5" />
+                                    <p className="text-[11px] sm:text-xs font-bold text-slate-800 leading-tight">
+                                        <span className="text-emerald-700">Solusi SahamMaster:</span> {item.solution}
+                                    </p>
+                                </div>
+                            </div>
+                        ))}
+                    </div>
+
+                    {/* Bottom Agitation & Conversion Card */}
+                    <div className="bg-gradient-to-br from-slate-900 via-slate-900 to-blue-950 text-white rounded-3xl p-6 sm:p-10 border border-slate-800 shadow-2xl relative overflow-hidden">
+                        <div className="absolute top-0 right-0 w-80 h-80 bg-blue-600/15 rounded-full blur-3xl pointer-events-none"></div>
+                        <div className="relative z-10 flex flex-col md:flex-row items-center justify-between gap-6 text-center md:text-left">
+                            <div className="max-w-2xl">
+                                <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-blue-500/20 text-blue-300 border border-blue-400/30 text-xs font-bold mb-3">
+                                    <Sparkles className="w-3.5 h-3.5 text-blue-400" />
+                                    <span>Anda Layak Mendapatkan Panduan yang Benar</span>
+                                </div>
+                                <h3 className="text-xl sm:text-2xl md:text-3xl font-black text-white mb-2 tracking-tight leading-tight">
+                                    Berapa Banyak Modal yang Sudah Habis untuk "Uang Sekolah" di Market?
+                                </h3>
+                                <p className="text-slate-300 text-xs sm:text-sm leading-relaxed">
+                                    Jangan biarkan uang kerja keras Anda terus tergerus akibat coba-coba tanpa arah. Investasi <strong className="text-white">sekali seumur hidup</strong> di SahamMaster jauh lebih murah daripada satu kali salah langkah (*cut loss*) di pasar saham.
+                                </p>
+                            </div>
+                            <div className="shrink-0 w-full md:w-auto">
+                                <button
+                                    onClick={() => setIsCheckoutOpen(true)}
+                                    className="w-full md:w-auto inline-flex items-center justify-center gap-2.5 px-8 py-4 bg-gradient-to-r from-blue-500 via-blue-600 to-indigo-600 hover:from-blue-600 hover:to-indigo-700 text-white font-extrabold text-sm sm:text-base rounded-2xl shadow-xl shadow-blue-500/25 hover:shadow-2xl hover:shadow-blue-500/40 transform hover:-translate-y-0.5 active:translate-y-0 transition-all duration-200 cursor-pointer"
+                                >
+                                    <span>Selesaikan Masalah Trading Saya</span>
+                                    <ArrowRight className="w-5 h-5" />
+                                </button>
                             </div>
                         </div>
                     </div>
