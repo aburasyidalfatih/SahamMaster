@@ -212,7 +212,7 @@ const CheckoutModal: React.FC<CheckoutModalProps> = ({ isOpen, onClose }) => {
                     <span>Memproses...</span>
                   </>
                 ) : (
-                  'Daftar & Bayar Sekarang'
+                  'Daftar Sekarang'
                 )}
               </button>
             </form>
