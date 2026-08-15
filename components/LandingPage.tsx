@@ -4,7 +4,8 @@ import {
   TrendingUp, BookOpen, MessageSquare, ShieldCheck, CheckCircle, 
   ArrowRight, Zap, Trophy, AlertTriangle, 
   Clock, DollarSign, ChevronDown, ChevronUp, Lock, BrainCircuit, Activity, Sparkles,
-  Gift, Calculator, FileText, Menu, X, ShoppingBag, Briefcase, GraduationCap, Baby, XCircle
+  Gift, Calculator, FileText, Menu, X, ShoppingBag, Briefcase, GraduationCap, Baby, XCircle,
+  Landmark, Target
 } from 'lucide-react';
 import { CURRICULUM } from '../data/curriculum';
 import CheckoutModal from './CheckoutModal';
@@ -502,12 +503,14 @@ const LandingPage: React.FC = () => {
                         <p className="text-slate-500 max-w-2xl mx-auto text-sm sm:text-base leading-relaxed">Kami menyederhanakan bahasa Wall Street menjadi bahasa tongkrongan agar mudah dipahami siapa saja.</p>
                     </div>
                     
-                    <div className="grid grid-cols-2 md:grid-cols-4 gap-3.5 sm:gap-4 md:gap-6">
+                    <div className="grid grid-cols-2 md:grid-cols-3 gap-3.5 sm:gap-4 md:gap-6">
                         {[
                             { icon: Briefcase, title: "Karyawan", desc: "Sibuk kerja tapi pengen uangnya berkembang." },
                             { icon: Baby, title: "Ibu Rumah Tangga", desc: "Ingin bantu ekonomi keluarga dari rumah." },
-                            { icon: GraduationCap, title: "Mahasiswa", desc: "Mulai investasi dini dengan modal kecil." },
-                            { icon: TrendingUp, title: "Pebisnis", desc: "Putar uang kas nganggur biar jadi aset." }
+                            { icon: Target, title: "Trader Sering Boncos", desc: "Pernah rugi ikut sinyal & ingin analisa mandiri." },
+                            { icon: Landmark, title: "Pensiunan", desc: "Ingin dana pensiun berkembang aman dari dividen." },
+                            { icon: TrendingUp, title: "Pebisnis", desc: "Putar uang kas nganggur biar jadi aset." },
+                            { icon: GraduationCap, title: "Mahasiswa / Pemula", desc: "Mulai investasi dini dengan modal terjangkau." }
                         ].map((item, idx) => (
                             <div key={idx} className="bg-white p-5 sm:p-7 rounded-2xl border border-slate-200/80 hover:border-blue-400 hover:shadow-xl hover:shadow-blue-500/5 transition-all duration-300 transform hover:-translate-y-1 text-center group cursor-default">
                                 <div className="w-13 h-13 sm:w-14 sm:h-14 bg-blue-50 rounded-2xl border border-blue-100/80 flex items-center justify-center mx-auto mb-4 group-hover:bg-blue-600 group-hover:border-blue-600 transition-all duration-300 shadow-sm">
