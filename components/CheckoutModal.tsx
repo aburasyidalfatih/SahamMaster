@@ -206,14 +206,14 @@ const CheckoutModal: React.FC<CheckoutModalProps> = ({ isOpen, onClose }) => {
                   id="checkout-password"
                   name="password"
                   type="password"
-                  placeholder="Buat Password"
-                  aria-label="Buat Password"
+                  placeholder="Buat Password (min. 8 karakter)"
+                  aria-label="Buat Password (min. 8 karakter)"
                   autoComplete="new-password"
                   value={password}
                   onChange={e => setPassword(e.target.value)}
                   className="w-full pl-8.5 sm:pl-10 pr-3 sm:pr-4 py-2 sm:py-2.5 rounded-lg sm:rounded-xl bg-slate-50/70 border border-slate-200 hover:border-slate-300 focus:bg-white focus:border-blue-600 focus:ring-2 focus:ring-blue-500/10 outline-none text-xs sm:text-sm text-slate-900 placeholder:text-slate-400 font-medium transition-all"
                   required
-                  minLength={6}
+                  minLength={8}
                 />
               </div>
 
