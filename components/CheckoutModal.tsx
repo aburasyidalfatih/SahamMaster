@@ -107,22 +107,6 @@ const CheckoutModal: React.FC<CheckoutModalProps> = ({ isOpen, onClose }) => {
               </div>
             </div>
 
-            {/* Total Bayar Banner */}
-            <div className="relative overflow-hidden bg-gradient-to-br from-blue-600 via-blue-700 to-indigo-800 text-white rounded-xl sm:rounded-2xl p-2.5 sm:p-4 mb-2.5 sm:mb-3.5 shadow-md shadow-blue-600/20 border border-blue-500/30">
-              <div className="absolute top-0 right-0 -mr-6 -mt-6 w-20 h-20 bg-white/10 rounded-full blur-xl pointer-events-none"></div>
-              <div className="relative z-10 flex justify-between items-center">
-                <div>
-                  <span className="text-blue-100 font-bold text-[10px] sm:text-xs tracking-wider uppercase block leading-none mb-0.5">Total Bayar</span>
-                  <span className="text-[10px] sm:text-xs text-blue-200/90 font-normal leading-none">Akses penuh seumur hidup</span>
-                </div>
-                <div className="text-right">
-                  <span className="text-white font-black text-lg sm:text-2xl tracking-tight block leading-none">
-                    {settings ? `Rp ${(settings.price || 0).toLocaleString('id-ID')}` : 'Loading...'}
-                  </span>
-                </div>
-              </div>
-            </div>
-
             {/* Benefit Items - 2 Col on mobile, full list on desktop */}
             <div className="mb-2.5 sm:mb-3.5 bg-slate-50/80 border border-slate-200/70 rounded-xl sm:rounded-2xl p-2.5 sm:p-3.5">
               <p className="text-[10px] sm:text-[11px] font-bold text-slate-500 uppercase tracking-wider mb-1.5 sm:mb-2.5 flex items-center gap-1.5 leading-none">
@@ -147,6 +131,22 @@ const CheckoutModal: React.FC<CheckoutModalProps> = ({ isOpen, onClose }) => {
               <div className="border-t border-slate-200/80 mt-1.5 pt-1.5 sm:mt-2.5 sm:pt-2 flex justify-between items-center leading-none">
                 <span className="text-[10px] sm:text-xs font-bold text-slate-500">Total Nilai Asli</span>
                 <span className="text-[11px] sm:text-xs font-bold text-red-500 line-through">Rp 3.250.000</span>
+              </div>
+            </div>
+
+            {/* Total Bayar Banner */}
+            <div className="relative overflow-hidden bg-gradient-to-br from-blue-600 via-blue-700 to-indigo-800 text-white rounded-xl sm:rounded-2xl p-2.5 sm:p-4 mb-2.5 sm:mb-3.5 shadow-md shadow-blue-600/20 border border-blue-500/30">
+              <div className="absolute top-0 right-0 -mr-6 -mt-6 w-20 h-20 bg-white/10 rounded-full blur-xl pointer-events-none"></div>
+              <div className="relative z-10 flex justify-between items-center">
+                <div>
+                  <span className="text-blue-100 font-bold text-[10px] sm:text-xs tracking-wider uppercase block leading-none mb-0.5">Total Bayar</span>
+                  <span className="text-[10px] sm:text-xs text-blue-200/90 font-normal leading-none">Akses penuh seumur hidup</span>
+                </div>
+                <div className="text-right">
+                  <span className="text-white font-black text-lg sm:text-2xl tracking-tight block leading-none">
+                    {settings ? `Rp ${(settings.price || 0).toLocaleString('id-ID')}` : 'Loading...'}
+                  </span>
+                </div>
               </div>
             </div>
 
