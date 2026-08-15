@@ -388,112 +388,6 @@ const LandingPage: React.FC = () => {
 
       {/* LAZY LOADED SECTIONS - Rendered on Scroll with MinHeight to prevent layout shift */}
       
-      {/* AI Technology Section */}
-      <LazySection id="ai-tech" className="bg-slate-950" minHeight="min-h-[600px]">
-            <section className="py-20 md:py-28 bg-slate-950 text-white relative overflow-hidden">
-                {/* Background Ambient Glow */}
-                <div className="absolute top-1/2 right-1/4 w-96 h-96 bg-blue-600/10 rounded-full blur-3xl pointer-events-none"></div>
-                <div className="absolute bottom-10 left-10 w-80 h-80 bg-indigo-600/10 rounded-full blur-3xl pointer-events-none"></div>
-                
-                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-16 items-center">
-                        <div>
-                            <div className="inline-flex items-center px-3.5 py-1.5 rounded-full bg-blue-500/10 text-blue-400 text-xs font-bold mb-6 border border-blue-500/25 tracking-wide">
-                                <Sparkles className="w-3.5 h-3.5 mr-2" />
-                                Teknologi Generasi Baru
-                            </div>
-                            <h2 className="text-3xl sm:text-4xl md:text-5xl font-black mb-6 leading-tight tracking-tight">
-                                Bukan Chatbot Biasa. <br/>
-                                Ini <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-sky-300 to-cyan-400">Coach SahamPro.</span>
-                            </h2>
-                            <p className="text-slate-400 text-base md:text-lg mb-8 leading-relaxed font-normal">
-                                Kebanyakan AI dilatih dengan data umum. AI kami dilatih khusus dengan data <strong>Pasar Modal Indonesia (IDX)</strong>.
-                                Dia mengerti apa itu "Gorengan", "Bandar", "Repo", "Haka", hingga "ARB".
-                            </p>
-
-                            <div className="space-y-4 sm:space-y-5">
-                                <div className="flex items-start bg-slate-900/60 border border-slate-800/80 hover:border-slate-700/80 rounded-2xl p-4 sm:p-5 transition-all">
-                                    <div className="bg-blue-500/15 p-3 rounded-xl mr-4 border border-blue-500/25 shrink-0">
-                                        <MessageSquare className="w-5 h-5 md:w-6 md:h-6 text-blue-400" />
-                                    </div>
-                                    <div>
-                                        <h3 className="text-base md:text-lg font-bold mb-1 text-white">Diskusi Per Materi</h3>
-                                        <p className="text-slate-400 text-xs sm:text-sm leading-relaxed">Setiap pelajaran ada tombol diskusi. Bingung tentang Candlestick? Tanya langsung di situ.</p>
-                                    </div>
-                                </div>
-                                <div className="flex items-start bg-slate-900/60 border border-slate-800/80 hover:border-slate-700/80 rounded-2xl p-4 sm:p-5 transition-all">
-                                    <div className="bg-indigo-500/15 p-3 rounded-xl mr-4 border border-indigo-500/25 shrink-0">
-                                        <Activity className="w-5 h-5 md:w-6 md:h-6 text-indigo-400" />
-                                    </div>
-                                    <div>
-                                        <h3 className="text-base md:text-lg font-bold mb-1 text-white">Analisa Real-Time</h3>
-                                        <p className="text-slate-400 text-xs sm:text-sm leading-relaxed">Minta AI menganalisa BBCA, TLKM, atau GOTO. Insight berdasarkan data fundamental dan teknikal.</p>
-                                    </div>
-                                </div>
-                                <div className="flex items-start bg-slate-900/60 border border-slate-800/80 hover:border-slate-700/80 rounded-2xl p-4 sm:p-5 transition-all">
-                                    <div className="bg-emerald-500/15 p-3 rounded-xl mr-4 border border-emerald-500/25 shrink-0">
-                                        <ShieldCheck className="w-5 h-5 md:w-6 md:h-6 text-emerald-400" />
-                                    </div>
-                                    <div>
-                                        <h3 className="text-base md:text-lg font-bold mb-1 text-white">Filter Anti-Pompom</h3>
-                                        <p className="text-slate-400 text-xs sm:text-sm leading-relaxed">AI kami objektif. Tidak akan menyuruh Anda beli saham gorengan yang sedang didistribusi bandar.</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        {/* AI Chat Visualization */}
-                        <div className="relative mt-8 md:mt-0">
-                            <div className="absolute inset-0 bg-gradient-to-r from-blue-600 via-indigo-600 to-cyan-500 rounded-3xl blur-2xl opacity-20 transform rotate-2 transform-gpu"></div>
-                            <div className="bg-slate-900/90 border border-slate-800/90 rounded-[28px] p-5 sm:p-7 shadow-2xl relative backdrop-blur-xl">
-                                {/* Fake Chat Interface */}
-                                <div className="flex items-center justify-between border-b border-slate-800 pb-4 mb-4">
-                                    <div className="flex items-center space-x-3">
-                                        <div className="w-10 h-10 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-xl flex items-center justify-center shrink-0 shadow-md shadow-blue-500/20">
-                                            <BrainCircuit className="w-6 h-6 text-white" />
-                                        </div>
-                                        <div>
-                                            <p className="font-bold text-white text-sm">Coach SahamPro (AI)</p>
-                                            <p className="text-xs text-emerald-400 flex items-center gap-1.5"><span className="w-2 h-2 bg-emerald-500 rounded-full animate-pulse"></span> Online</p>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div className="space-y-4 font-sans text-xs md:text-sm">
-                                    <div className="flex justify-end">
-                                        <div className="bg-gradient-to-r from-blue-600 to-blue-700 text-white p-3.5 rounded-2xl rounded-tr-sm max-w-[85%] shadow-md">
-                                            <p>Coach, saham ANTM lagi rame. Katanya mau digoreng bandar ZP. Boleh HAKA gak?</p>
-                                        </div>
-                                    </div>
-                                    <div className="flex justify-start">
-                                        <div className="bg-slate-800/90 text-slate-200 p-4 sm:p-5 rounded-2xl rounded-tl-sm max-w-[95%] shadow-lg border border-slate-700/70 leading-relaxed">
-                                            <p className="mb-2 font-bold text-amber-300 flex items-center gap-1">⚠️ Hati-hati FOMO!</p>
-                                            <ul className="list-disc list-inside space-y-1 mb-2 text-slate-300">
-                                                <li>Secara Teknikal, ANTM sedang di area <strong>Resistance Kuat 2200</strong>.</li>
-                                                <li>Broker Summary menunjukkan ZP memang beli, tapi <strong>YP (Ritel)</strong> juga banyak masuk di pucuk.</li>
-                                            </ul>
-                                            <p>Saran saya: <strong>Jangan HAKA sekarang</strong>.</p>
-                                        </div>
-                                    </div>
-                                    <div className="flex justify-end">
-                                        <div className="bg-gradient-to-r from-blue-600 to-blue-700 text-white p-3.5 rounded-2xl rounded-tr-sm max-w-[85%] shadow-md">
-                                            <p>Wah makasih Coach! Hampir aja boncos.</p>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                {/* Floating Badge */}
-                                <div className="absolute -bottom-4 md:-bottom-5 -left-2 md:-left-4 bg-white text-slate-900 px-4 py-2 rounded-xl shadow-2xl border border-slate-200/80 flex items-center transform -rotate-2 z-20">
-                                    <CheckCircle className="w-4 h-4 text-emerald-500 mr-2" />
-                                    <span className="font-extrabold text-[11px] md:text-xs">Diskusi 24 Jam</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </section>
-      </LazySection>
-
       {/* Problems & Why You Need SahamMaster Section */}
       <LazySection id="masalah-trader" className="bg-white" minHeight="min-h-[600px]">
             <section className="py-20 md:py-28 bg-white border-b border-slate-100 relative overflow-hidden">
@@ -619,6 +513,112 @@ const LandingPage: React.FC = () => {
                                     <span>Selesaikan Masalah Trading Saya</span>
                                     <ArrowRight className="w-5 h-5" />
                                 </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+      </LazySection>
+
+      {/* AI Technology Section */}
+      <LazySection id="ai-tech" className="bg-slate-950" minHeight="min-h-[600px]">
+            <section className="py-20 md:py-28 bg-slate-950 text-white relative overflow-hidden">
+                {/* Background Ambient Glow */}
+                <div className="absolute top-1/2 right-1/4 w-96 h-96 bg-blue-600/10 rounded-full blur-3xl pointer-events-none"></div>
+                <div className="absolute bottom-10 left-10 w-80 h-80 bg-indigo-600/10 rounded-full blur-3xl pointer-events-none"></div>
+                
+                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-16 items-center">
+                        <div>
+                            <div className="inline-flex items-center px-3.5 py-1.5 rounded-full bg-blue-500/10 text-blue-400 text-xs font-bold mb-6 border border-blue-500/25 tracking-wide">
+                                <Sparkles className="w-3.5 h-3.5 mr-2" />
+                                Teknologi Generasi Baru
+                            </div>
+                            <h2 className="text-3xl sm:text-4xl md:text-5xl font-black mb-6 leading-tight tracking-tight">
+                                Bukan Chatbot Biasa. <br/>
+                                Ini <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-sky-300 to-cyan-400">Coach SahamPro.</span>
+                            </h2>
+                            <p className="text-slate-400 text-base md:text-lg mb-8 leading-relaxed font-normal">
+                                Kebanyakan AI dilatih dengan data umum. AI kami dilatih khusus dengan data <strong>Pasar Modal Indonesia (IDX)</strong>.
+                                Dia mengerti apa itu "Gorengan", "Bandar", "Repo", "Haka", hingga "ARB".
+                            </p>
+
+                            <div className="space-y-4 sm:space-y-5">
+                                <div className="flex items-start bg-slate-900/60 border border-slate-800/80 hover:border-slate-700/80 rounded-2xl p-4 sm:p-5 transition-all">
+                                    <div className="bg-blue-500/15 p-3 rounded-xl mr-4 border border-blue-500/25 shrink-0">
+                                        <MessageSquare className="w-5 h-5 md:w-6 md:h-6 text-blue-400" />
+                                    </div>
+                                    <div>
+                                        <h3 className="text-base md:text-lg font-bold mb-1 text-white">Diskusi Per Materi</h3>
+                                        <p className="text-slate-400 text-xs sm:text-sm leading-relaxed">Setiap pelajaran ada tombol diskusi. Bingung tentang Candlestick? Tanya langsung di situ.</p>
+                                    </div>
+                                </div>
+                                <div className="flex items-start bg-slate-900/60 border border-slate-800/80 hover:border-slate-700/80 rounded-2xl p-4 sm:p-5 transition-all">
+                                    <div className="bg-indigo-500/15 p-3 rounded-xl mr-4 border border-indigo-500/25 shrink-0">
+                                        <Activity className="w-5 h-5 md:w-6 md:h-6 text-indigo-400" />
+                                    </div>
+                                    <div>
+                                        <h3 className="text-base md:text-lg font-bold mb-1 text-white">Analisa Real-Time</h3>
+                                        <p className="text-slate-400 text-xs sm:text-sm leading-relaxed">Minta AI menganalisa BBCA, TLKM, atau GOTO. Insight berdasarkan data fundamental dan teknikal.</p>
+                                    </div>
+                                </div>
+                                <div className="flex items-start bg-slate-900/60 border border-slate-800/80 hover:border-slate-700/80 rounded-2xl p-4 sm:p-5 transition-all">
+                                    <div className="bg-emerald-500/15 p-3 rounded-xl mr-4 border border-emerald-500/25 shrink-0">
+                                        <ShieldCheck className="w-5 h-5 md:w-6 md:h-6 text-emerald-400" />
+                                    </div>
+                                    <div>
+                                        <h3 className="text-base md:text-lg font-bold mb-1 text-white">Filter Anti-Pompom</h3>
+                                        <p className="text-slate-400 text-xs sm:text-sm leading-relaxed">AI kami objektif. Tidak akan menyuruh Anda beli saham gorengan yang sedang didistribusi bandar.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        {/* AI Chat Visualization */}
+                        <div className="relative mt-8 md:mt-0">
+                            <div className="absolute inset-0 bg-gradient-to-r from-blue-600 via-indigo-600 to-cyan-500 rounded-3xl blur-2xl opacity-20 transform rotate-2 transform-gpu"></div>
+                            <div className="bg-slate-900/90 border border-slate-800/90 rounded-[28px] p-5 sm:p-7 shadow-2xl relative backdrop-blur-xl">
+                                {/* Fake Chat Interface */}
+                                <div className="flex items-center justify-between border-b border-slate-800 pb-4 mb-4">
+                                    <div className="flex items-center space-x-3">
+                                        <div className="w-10 h-10 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-xl flex items-center justify-center shrink-0 shadow-md shadow-blue-500/20">
+                                            <BrainCircuit className="w-6 h-6 text-white" />
+                                        </div>
+                                        <div>
+                                            <p className="font-bold text-white text-sm">Coach SahamPro (AI)</p>
+                                            <p className="text-xs text-emerald-400 flex items-center gap-1.5"><span className="w-2 h-2 bg-emerald-500 rounded-full animate-pulse"></span> Online</p>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div className="space-y-4 font-sans text-xs md:text-sm">
+                                    <div className="flex justify-end">
+                                        <div className="bg-gradient-to-r from-blue-600 to-blue-700 text-white p-3.5 rounded-2xl rounded-tr-sm max-w-[85%] shadow-md">
+                                            <p>Coach, saham ANTM lagi rame. Katanya mau digoreng bandar ZP. Boleh HAKA gak?</p>
+                                        </div>
+                                    </div>
+                                    <div className="flex justify-start">
+                                        <div className="bg-slate-800/90 text-slate-200 p-4 sm:p-5 rounded-2xl rounded-tl-sm max-w-[95%] shadow-lg border border-slate-700/70 leading-relaxed">
+                                            <p className="mb-2 font-bold text-amber-300 flex items-center gap-1">⚠️ Hati-hati FOMO!</p>
+                                            <ul className="list-disc list-inside space-y-1 mb-2 text-slate-300">
+                                                <li>Secara Teknikal, ANTM sedang di area <strong>Resistance Kuat 2200</strong>.</li>
+                                                <li>Broker Summary menunjukkan ZP memang beli, tapi <strong>YP (Ritel)</strong> juga banyak masuk di pucuk.</li>
+                                            </ul>
+                                            <p>Saran saya: <strong>Jangan HAKA sekarang</strong>.</p>
+                                        </div>
+                                    </div>
+                                    <div className="flex justify-end">
+                                        <div className="bg-gradient-to-r from-blue-600 to-blue-700 text-white p-3.5 rounded-2xl rounded-tr-sm max-w-[85%] shadow-md">
+                                            <p>Wah makasih Coach! Hampir aja boncos.</p>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                {/* Floating Badge */}
+                                <div className="absolute -bottom-4 md:-bottom-5 -left-2 md:-left-4 bg-white text-slate-900 px-4 py-2 rounded-xl shadow-2xl border border-slate-200/80 flex items-center transform -rotate-2 z-20">
+                                    <CheckCircle className="w-4 h-4 text-emerald-500 mr-2" />
+                                    <span className="font-extrabold text-[11px] md:text-xs">Diskusi 24 Jam</span>
+                                </div>
                             </div>
                         </div>
                     </div>
