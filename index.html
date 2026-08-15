@@ -3,177 +3,239 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="theme-color" content="#1e40af" />
+    <meta name="theme-color" content="#1d4ed8" />
+    <meta name="color-scheme" content="light" />
     <meta name="apple-mobile-web-app-capable" content="yes" />
-    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="default" />
     <meta name="mobile-web-app-capable" content="yes" />
-    <script>
-      // Redirect old member area URL to new /member/ path
-      if(window.location.hash === '#/akses-member-area' || window.location.hash.indexOf('#/akses-member-area') === 0) {
-        window.location.href = '/member/';
-      }
-    </script>
-    <script>
-      // Dynamic price: fetch from API then replace all hardcoded prices in the DOM
-      (function(){
-        fetch('/api/public/checkout-settings').then(function(r){return r.json()}).then(function(d){
-          if(!d.price || d.price===99000) return; // skip if default
-          var formatted = 'Rp ' + d.price.toLocaleString('id-ID');
-          window.__SM_PRICE = formatted;
-          window.__SM_PRICE_RAW = d.price;
-          
-          function replacePrice(){
-            // Walk all text nodes and replace "Rp 99.000" with dynamic price
-            var walker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT, null, false);
-            var node;
-            while(node = walker.nextNode()){
-              if(node.nodeValue && node.nodeValue.indexOf('99.000') !== -1){
-                node.nodeValue = node.nodeValue.replace(/Rp\s*99\.000/g, formatted).replace(/99\.000/g, d.price.toLocaleString('id-ID'));
-              }
-              if(node.nodeValue && node.nodeValue.indexOf('Ambil Promo Rp') !== -1){
-                node.nodeValue = node.nodeValue.replace(/Ambil Promo Rp\s*99\.000/, 'Ambil Promo ' + formatted);
-              }
-            }
-          }
-          
-          // Run immediately and also observe for lazy-loaded content
-          setTimeout(replacePrice, 500);
-          setTimeout(replacePrice, 1500);
-          setTimeout(replacePrice, 3000);
-          
-          var observer = new MutationObserver(function(){ replacePrice(); });
-          observer.observe(document.body, {childList:true, subtree:true});
-          // Stop observing after 30s to save resources
-          setTimeout(function(){ observer.disconnect(); }, 30000);
-        }).catch(function(){});
-      })();
-    </script>
-    <title>SahamMaster 30 Hari - Belajar Trading Dari Nol</title>
+    <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
+    <meta name="ai-content-declaration" content="educational-course, stock-trading, indonesia-stock-exchange" />
+    
+    <title>SahamMaster 30 Hari - Belajar Trading & Investasi Saham Dari Nol</title>
+    <meta name="description" content="Platform edukasi saham terbaik di Indonesia dengan kurikulum 30 hari intensif, tools screening pro, dan bimbingan AI Mentor SahamPro 24/7." />
+    <link rel="canonical" href="https://saham.kelasmaster.id/" />
+    
     <link rel="icon" type="image/png" href="/logo.png" />
     <link rel="apple-touch-icon" href="/logo.png" />
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     
-    <!-- Critical CSS: Render Hero Section Instantly without waiting for Tailwind -->
+    <!-- Preconnect & DNS-Prefetch to Google Fonts and CDN -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="dns-prefetch" href="https://fonts.googleapis.com" />
+    
+    <!-- Preload Critical Logo Asset -->
+    <link rel="preload" as="image" href="/logo.png" fetchpriority="high" />
+    
+    <!-- Non-blocking Google Fonts with font-display: swap -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" media="print" onload="this.media='all'" />
+    <noscript>
+      <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" />
+    </noscript>
+
+    <!-- Critical CSS for Instant 0ms First Contentful Paint -->
     <style>
       body { margin: 0; font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background-color: #ffffff; color: #0f172a; -webkit-font-smoothing: antialiased; }
-      
-      /* Manual Styles for Critical Hero Section */
-      .c-nav { height: 80px; width: 100%; position: fixed; top: 0; z-index: 50; background: rgba(255,255,255,0.92); backdrop-filter: blur(16px); border-bottom: 1px solid rgba(241, 245, 249, 0.8); }
+      .c-nav { height: 80px; width: 100%; position: fixed; top: 0; z-index: 50; background: rgba(255,255,255,0.92); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); border-bottom: 1px solid rgba(241, 245, 249, 0.8); }
       .c-hero { padding-top: 130px; padding-bottom: 60px; text-align: center; position: relative; overflow: hidden; background: linear-gradient(180deg, #ffffff 0%, #f8fafc 50%, #eff6ff 100%); }
       .c-badge { display: inline-flex; align-items: center; padding: 6px 14px; background: #fff1f2; color: #be123c; border-radius: 99px; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; border: 1px solid #fecdd3; margin-bottom: 24px; }
       .c-title { font-size: 36px; font-weight: 900; line-height: 1.12; color: #0f172a; margin: 0 0 24px 0; letter-spacing: -0.03em; }
       .c-title span { color: #2563eb; }
-      .c-desc { font-size: 16px; color: #475569; margin: 0 auto 32px auto; max-width: 680px; line-height: 1.65; padding: 0 20px; font-weight: 400; }
+      .c-desc { font-size: 16px; color: #334155; margin: 0 auto 32px auto; max-width: 680px; line-height: 1.65; padding: 0 20px; font-weight: 400; }
       .c-btn { background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%); color: white; font-weight: 800; font-size: 17px; padding: 16px 36px; border-radius: 18px; border: none; cursor: pointer; display: inline-flex; align-items: center; text-decoration: none; box-shadow: 0 10px 25px -5px rgba(37, 99, 235, 0.4); transition: all 0.25s ease; }
       .c-btn:hover { background: linear-gradient(135deg, #1d4ed8 0%, #1e40af 100%); transform: translateY(-2px); box-shadow: 0 15px 30px -5px rgba(37, 99, 235, 0.5); }
       
-      /* Mobile optimization */
       @media (min-width: 768px) {
         .c-hero { padding-top: 150px; padding-bottom: 70px; }
         .c-title { font-size: 64px; margin-bottom: 28px; }
         .c-desc { font-size: 19px; margin-bottom: 40px; }
       }
 
-      /* Custom scrollbar */
       ::-webkit-scrollbar { width: 8px; height: 8px; }
       ::-webkit-scrollbar-track { background: #f1f5f9; }
       ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 4px; }
       ::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
       
-      /* Initial Loader to Prevent FOUC */
       #initial-loader {
         position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-        background: #f8fafc; display: flex; flex-direction: column; justify-content: center; align-items: center;
-        z-index: 99999; transition: opacity 0.5s ease, visibility 0.5s ease;
+        background: #ffffff; display: flex; flex-direction: column; justify-content: center; align-items: center;
+        z-index: 99999; transition: opacity 0.3s ease, visibility 0.3s ease;
       }
       .spinner {
-        width: 48px; height: 48px; border: 4px solid #e2e8f0; border-top: 4px solid #2563eb;
-        border-radius: 50%; animation: spin 1s linear infinite; margin-bottom: 16px;
+        width: 44px; height: 44px; border: 3.5px solid #e2e8f0; border-top: 3.5px solid #2563eb;
+        border-radius: 50%; animation: spin 0.8s linear infinite; margin-bottom: 12px;
       }
       @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
-      .loader-text { font-size: 14px; font-weight: 700; color: #64748b; letter-spacing: 1px; text-transform: uppercase; }
-      .hide-loader { opacity: 0; visibility: hidden; }
+      .loader-text { font-size: 13px; font-weight: 800; color: #475569; letter-spacing: 1.5px; text-transform: uppercase; }
+      .hide-loader { opacity: 0; visibility: hidden; pointer-events: none; }
     </style>
 
-    <link rel="dns-prefetch" href="https://esm.sh">
-    <link rel="preconnect" href="https://esm.sh" crossorigin>
-    
-    <!-- Preload critical assets -->
-    <link rel="preload" as="image" href="/logo.png">
-    <link rel="modulepreload" href="/assets/index-BlmYnIxO.js">
-
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
-    <meta name="description" content="Platform edukasi saham terbaik di Indonesia dengan kurikulum 30 hari dan bimbingan AI Mentor SahamPro." />
-    
     <!-- Open Graph / Facebook / WhatsApp -->
-    <meta property="og:type" content="website">
-    <meta property="og:url" content="https://saham.kelasmaster.id/">
-    <meta property="og:title" content="SahamMaster 30 Hari - Belajar Trading Dari Nol">
-    <meta property="og:description" content="Platform edukasi saham terbaik di Indonesia dengan kurikulum 30 hari dan bimbingan AI Mentor SahamPro.">
-    <meta property="og:image" content="https://saham.kelasmaster.id/logo.png">
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://saham.kelasmaster.id/" />
+    <meta property="og:title" content="SahamMaster 30 Hari - Belajar Trading Dari Nol" />
+    <meta property="og:description" content="Platform edukasi saham terbaik di Indonesia dengan kurikulum 30 hari dan bimbingan AI Mentor SahamPro." />
+    <meta property="og:image" content="https://saham.kelasmaster.id/logo.png" />
+    <meta property="og:locale" content="id_ID" />
+    <meta property="og:site_name" content="SahamMaster Indonesia" />
 
-    <!-- Twitter -->
-    <meta property="twitter:card" content="summary_large_image">
-    <meta property="twitter:url" content="https://saham.kelasmaster.id/">
-    <meta property="twitter:title" content="SahamMaster 30 Hari - Belajar Trading Dari Nol">
-    <meta property="twitter:description" content="Platform edukasi saham terbaik di Indonesia dengan kurikulum 30 hari dan bimbingan AI Mentor SahamPro.">
-    <meta property="twitter:image" content="https://saham.kelasmaster.id/logo.png">
+    <!-- Twitter Card -->
+    <meta property="twitter:card" content="summary_large_image" />
+    <meta property="twitter:url" content="https://saham.kelasmaster.id/" />
+    <meta property="twitter:title" content="SahamMaster 30 Hari - Belajar Trading Dari Nol" />
+    <meta property="twitter:description" content="Platform edukasi saham terbaik di Indonesia dengan kurikulum 30 hari dan bimbingan AI Mentor SahamPro." />
+    <meta property="twitter:image" content="https://saham.kelasmaster.id/logo.png" />
 
-    <link rel="canonical" href="https://saham.kelasmaster.id/" />
-    
-    <!-- Schema.org JSON-LD -->
+    <!-- Comprehensive Structured Data / JSON-LD for Agentic AI, Search Engines & LLM Navigation -->
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
-      "@type": "Course",
-      "name": "SahamMaster 30 Hari",
-      "description": "Pelatihan intensif 30 hari untuk belajar investasi dan trading saham dari nol hingga mahir bersama mentor profesional dan AI Mentor.",
-      "provider": {
-        "@type": "Organization",
-        "name": "SahamMaster",
-        "sameAs": "https://saham.kelasmaster.id"
+      "@graph": [
+        {
+          "@type": "WebSite",
+          "@id": "https://saham.kelasmaster.id/#website",
+          "url": "https://saham.kelasmaster.id/",
+          "name": "SahamMaster Indonesia",
+          "description": "Platform Edukasi Pasar Modal & Trading Saham IDX Nomor 1 di Indonesia",
+          "inLanguage": "id-ID",
+          "publisher": {
+            "@type": "Organization",
+            "@id": "https://saham.kelasmaster.id/#organization",
+            "name": "SahamMaster",
+            "url": "https://saham.kelasmaster.id/",
+            "logo": {
+              "@type": "ImageObject",
+              "url": "https://saham.kelasmaster.id/logo.png",
+              "width": 512,
+              "height": 512
+            }
+          }
+        },
+        {
+          "@type": "Course",
+          "@id": "https://saham.kelasmaster.id/#course",
+          "name": "SahamMaster 30 Hari - Belajar Trading & Investasi Dari Nol",
+          "description": "Pelatihan intensif 30 hari untuk menguasai analisa teknikal, fundamental, bandarmologi, dan psikologi trading saham di Bursa Efek Indonesia (IDX) didampingi AI Mentor 24/7.",
+          "provider": {
+            "@type": "Organization",
+            "name": "SahamMaster Indonesia",
+            "sameAs": "https://saham.kelasmaster.id/"
+          },
+          "educationalLevel": "Beginner to Advanced",
+          "inLanguage": "id-ID",
+          "hasCourseInstance": {
+            "@type": "CourseInstance",
+            "courseMode": "Online",
+            "courseWorkload": "PT30D",
+            "instructor": {
+              "@type": "Person",
+              "name": "Coach SahamPro AI & Tim Ahli IDX"
+            }
+          },
+          "offers": {
+            "@type": "Offer",
+            "price": "99000",
+            "priceCurrency": "IDR",
+            "availability": "https://schema.org/InStock",
+            "url": "https://saham.kelasmaster.id/",
+            "validFrom": "2026-01-01"
+          },
+          "aggregateRating": {
+            "@type": "AggregateRating",
+            "ratingValue": "4.9",
+            "reviewCount": "1420",
+            "bestRating": "5",
+            "worstRating": "1"
+          }
+        },
+        {
+          "@type": "FAQPage",
+          "@id": "https://saham.kelasmaster.id/#faq",
+          "mainEntity": [
+            {
+              "@type": "Question",
+              "name": "Apakah program ini cocok untuk pemula yang belum pernah trading saham?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Sangat cocok! Kurikulum kami dirancang khusus dari nol. Anda akan dibimbing langkah demi langkah mulai dari cara membuka rekening saham, memahami grafik, hingga strategi trading yang terbukti menghasilkan."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "Berapa lama saya bisa mengakses materi SahamMaster?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Anda mendapatkan akses seumur hidup (Lifetime Access) ke seluruh materi video, modul, dan grup komunitas tanpa biaya bulanan."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "Apakah saya mendapatkan pendampingan selama belajar?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Ya, kami menyediakan fitur AI Mentor (SahamPro) yang aktif 24/7 untuk menjawab pertanyaan teknikal Anda, serta akses ke grup diskusi eksklusif bersama para pakar."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "Apa saja yang didapatkan setelah mendaftar?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Anda mendapatkan Modul Trading 30 Hari, Akses AI Mentor IDX 24/7, Tools Analisis Pro, Ujian & Sertifikat Kelulusan Resmi, serta Ebook Bonus Psikologi Trading."
+              }
+            }
+          ]
+        },
+        {
+          "@type": "SpeakableSpecification",
+          "@id": "https://saham.kelasmaster.id/#speakable",
+          "cssSelector": [".c-title", ".c-desc", "#masalah-trader h2", "#masalah-trader p"]
+        }
+      ]
+    }
+    </script>
+    
+    <script>
+      // Redirect legacy hash routing
+      if(window.location.hash === '#/akses-member-area' || window.location.hash.indexOf('#/akses-member-area') === 0) {
+        window.location.href = '/member/';
       }
-    }
     </script>
-    <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "FAQPage",
-      "mainEntity": [{
-        "@type": "Question",
-        "name": "Apakah program ini cocok untuk pemula yang belum pernah trading saham?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "Sangat cocok! Kurikulum kami dirancang khusus dari nol. Anda akan dibimbing langkah demi langkah mulai dari cara membuka rekening saham, memahami grafik, hingga strategi trading yang terbukti menghasilkan."
-        }
-      }, {
-        "@type": "Question",
-        "name": "Berapa lama saya bisa mengakses materi SahamMaster?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "Anda mendapatkan akses seumur hidup (Lifetime Access) ke seluruh materi video, modul, dan grup komunitas tanpa biaya bulanan."
-        }
-      }, {
-        "@type": "Question",
-        "name": "Apakah saya mendapatkan pendampingan selama belajar?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "Ya, kami menyediakan fitur AI Mentor (SahamPro) yang aktif 24/7 untuk menjawab pertanyaan teknikal Anda, serta akses ke grup diskusi eksklusif bersama para pakar."
-        }
-      }]
-    }
-    </script>
-</head>
-    <body class="bg-slate-50 text-slate-900 antialiased">
-    
-
-    <div id="initial-loader" role="status" aria-live="polite" aria-label="Sedang memuat halaman SahamMaster">
+  </head>
+  <body class="bg-slate-50 text-slate-900 antialiased">
+    <!-- Initial Splash Loader -->
+    <div id="initial-loader" role="status" aria-live="polite" aria-label="Sedang memuat SahamMaster">
       <div class="spinner" aria-hidden="true"></div>
       <div class="loader-text" aria-hidden="true">SahamMaster</div>
     </div>
     
     <div id="root"></div>
-  <script type="module" src="/index.tsx"></script>
-</body>
+    <script type="module" src="/index.tsx"></script>
+    
+    <script>
+      // Non-blocking dynamic pricing updater
+      window.addEventListener('DOMContentLoaded', function(){
+        fetch('/api/public/checkout-settings')
+          .then(function(r){ return r.json(); })
+          .then(function(d){
+            if(!d || !d.price || d.price === 99000) return;
+            var formatted = 'Rp ' + d.price.toLocaleString('id-ID');
+            window.__SM_PRICE = formatted;
+            window.__SM_PRICE_RAW = d.price;
+            
+            function replaceNodes(){
+              var walker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT, null, false);
+              var node;
+              while(node = walker.nextNode()){
+                if(node.nodeValue && node.nodeValue.indexOf('99.000') !== -1){
+                  node.nodeValue = node.nodeValue.replace(/Rp\s*99\.000/g, formatted).replace(/99\.000/g, d.price.toLocaleString('id-ID'));
+                }
+              }
+            }
+            setTimeout(replaceNodes, 400);
+            setTimeout(replaceNodes, 1200);
+          })
+          .catch(function(){});
+      });
+    </script>
+  </body>
 </html>

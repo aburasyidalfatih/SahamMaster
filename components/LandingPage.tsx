@@ -236,7 +236,7 @@ const LandingPage: React.FC = () => {
             {/* Logo */}
             <div className="flex items-center space-x-3 cursor-pointer group" onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}>
               <div className="p-1.5 bg-gradient-to-b from-slate-50 to-slate-100 rounded-2xl border border-slate-200/80 shadow-sm group-hover:scale-105 transition-transform">
-                <img src="/logo.png" alt="SahamMaster" className="w-11 h-11 md:w-13 md:h-13 object-contain drop-shadow-sm" />
+                <img src="/logo.png" alt="Logo SahamMaster Indonesia" width="52" height="52" className="w-11 h-11 md:w-13 md:h-13 object-contain drop-shadow-sm" />
               </div>
               <div className="flex flex-col justify-center pt-0.5">
                 <span className="font-black text-xl md:text-2xl text-slate-900 tracking-tight block leading-none mb-1 group-hover:text-blue-600 transition-colors">SahamMaster</span>

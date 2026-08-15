@@ -97,7 +97,7 @@ const CheckoutModal: React.FC<CheckoutModalProps> = ({ isOpen, onClose }) => {
             {/* Header / Logo - Compact row on mobile, centered on desktop */}
             <div className="flex sm:flex-col items-center gap-2.5 sm:gap-0 sm:text-center mb-2.5 sm:mb-4">
               <div className="p-1 sm:p-2 bg-gradient-to-b from-slate-50 to-slate-100 rounded-xl sm:rounded-2xl border border-slate-200/80 shadow-sm sm:mb-2.5 shrink-0">
-                <img src="/logo.png" alt="SahamMaster" className="w-7 h-7 sm:w-11 sm:h-11 object-contain drop-shadow-sm" />
+                <img src="/logo.png" alt="Logo SahamMaster" width="44" height="44" className="w-7 h-7 sm:w-11 sm:h-11 object-contain drop-shadow-sm" />
               </div>
               <div className="pr-6 sm:pr-0">
                 <h2 className="text-sm sm:text-xl font-black text-slate-900 tracking-tight leading-tight">
@@ -153,10 +153,14 @@ const CheckoutModal: React.FC<CheckoutModalProps> = ({ isOpen, onClose }) => {
             {/* Registration Form */}
             <form onSubmit={handleFormSubmit} className="space-y-1.5 sm:space-y-2.5 mb-2 sm:mb-3">
               <div className="relative group">
-                <User className="absolute left-3 top-1/2 -translate-y-1/2 w-3.5 h-3.5 sm:w-4 sm:h-4 text-slate-400 group-focus-within:text-blue-600 transition-colors" />
+                <User className="absolute left-3 top-1/2 -translate-y-1/2 w-3.5 h-3.5 sm:w-4 sm:h-4 text-slate-400 group-focus-within:text-blue-600 transition-colors" aria-hidden="true" />
                 <input
+                  id="checkout-name"
+                  name="name"
                   type="text"
                   placeholder="Nama Lengkap"
+                  aria-label="Nama Lengkap"
+                  autoComplete="name"
                   value={name}
                   onChange={e => setName(e.target.value)}
                   className="w-full pl-8.5 sm:pl-10 pr-3 sm:pr-4 py-2 sm:py-2.5 rounded-lg sm:rounded-xl bg-slate-50/70 border border-slate-200 hover:border-slate-300 focus:bg-white focus:border-blue-600 focus:ring-2 focus:ring-blue-500/10 outline-none text-xs sm:text-sm text-slate-900 placeholder:text-slate-400 font-medium transition-all"
@@ -165,10 +169,14 @@ const CheckoutModal: React.FC<CheckoutModalProps> = ({ isOpen, onClose }) => {
               </div>
 
               <div className="relative group">
-                <Mail className="absolute left-3 top-1/2 -translate-y-1/2 w-3.5 h-3.5 sm:w-4 sm:h-4 text-slate-400 group-focus-within:text-blue-600 transition-colors" />
+                <Mail className="absolute left-3 top-1/2 -translate-y-1/2 w-3.5 h-3.5 sm:w-4 sm:h-4 text-slate-400 group-focus-within:text-blue-600 transition-colors" aria-hidden="true" />
                 <input
+                  id="checkout-email"
+                  name="email"
                   type="email"
                   placeholder="Email"
+                  aria-label="Alamat Email"
+                  autoComplete="email"
                   value={email}
                   onChange={e => setEmail(e.target.value)}
                   className="w-full pl-8.5 sm:pl-10 pr-3 sm:pr-4 py-2 sm:py-2.5 rounded-lg sm:rounded-xl bg-slate-50/70 border border-slate-200 hover:border-slate-300 focus:bg-white focus:border-blue-600 focus:ring-2 focus:ring-blue-500/10 outline-none text-xs sm:text-sm text-slate-900 placeholder:text-slate-400 font-medium transition-all"
@@ -177,10 +185,14 @@ const CheckoutModal: React.FC<CheckoutModalProps> = ({ isOpen, onClose }) => {
               </div>
 
               <div className="relative group">
-                <Phone className="absolute left-3 top-1/2 -translate-y-1/2 w-3.5 h-3.5 sm:w-4 sm:h-4 text-slate-400 group-focus-within:text-blue-600 transition-colors" />
+                <Phone className="absolute left-3 top-1/2 -translate-y-1/2 w-3.5 h-3.5 sm:w-4 sm:h-4 text-slate-400 group-focus-within:text-blue-600 transition-colors" aria-hidden="true" />
                 <input
+                  id="checkout-phone"
+                  name="phone"
                   type="tel"
                   placeholder="No. WhatsApp (08xxx)"
+                  aria-label="Nomor WhatsApp"
+                  autoComplete="tel"
                   value={phone}
                   onChange={e => setPhone(e.target.value)}
                   className="w-full pl-8.5 sm:pl-10 pr-3 sm:pr-4 py-2 sm:py-2.5 rounded-lg sm:rounded-xl bg-slate-50/70 border border-slate-200 hover:border-slate-300 focus:bg-white focus:border-blue-600 focus:ring-2 focus:ring-blue-500/10 outline-none text-xs sm:text-sm text-slate-900 placeholder:text-slate-400 font-medium transition-all"
@@ -189,10 +201,14 @@ const CheckoutModal: React.FC<CheckoutModalProps> = ({ isOpen, onClose }) => {
               </div>
 
               <div className="relative group">
-                <KeyRound className="absolute left-3 top-1/2 -translate-y-1/2 w-3.5 h-3.5 sm:w-4 sm:h-4 text-slate-400 group-focus-within:text-blue-600 transition-colors" />
+                <KeyRound className="absolute left-3 top-1/2 -translate-y-1/2 w-3.5 h-3.5 sm:w-4 sm:h-4 text-slate-400 group-focus-within:text-blue-600 transition-colors" aria-hidden="true" />
                 <input
+                  id="checkout-password"
+                  name="password"
                   type="password"
                   placeholder="Buat Password"
+                  aria-label="Buat Password"
+                  autoComplete="new-password"
                   value={password}
                   onChange={e => setPassword(e.target.value)}
                   className="w-full pl-8.5 sm:pl-10 pr-3 sm:pr-4 py-2 sm:py-2.5 rounded-lg sm:rounded-xl bg-slate-50/70 border border-slate-200 hover:border-slate-300 focus:bg-white focus:border-blue-600 focus:ring-2 focus:ring-blue-500/10 outline-none text-xs sm:text-sm text-slate-900 placeholder:text-slate-400 font-medium transition-all"
@@ -204,6 +220,7 @@ const CheckoutModal: React.FC<CheckoutModalProps> = ({ isOpen, onClose }) => {
               <button
                 type="submit"
                 disabled={loading}
+                aria-label="Daftar Sekarang"
                 className="w-full mt-1.5 py-2.5 sm:py-3 px-4 bg-gradient-to-r from-blue-600 via-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white font-bold rounded-lg sm:rounded-xl shadow-md shadow-blue-600/25 hover:shadow-lg hover:shadow-blue-600/35 active:scale-[0.99] transition-all duration-200 disabled:opacity-60 text-xs sm:text-sm flex items-center justify-center gap-2 cursor-pointer"
               >
                 {loading ? (

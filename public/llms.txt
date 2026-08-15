@@ -1,0 +1,27 @@
+# SahamMaster Indonesia
+
+> Platform edukasi pasar modal dan trading saham nomor 1 di Indonesia dengan kurikulum 30 hari intensif dan asisten AI Mentor SahamPro 24/7.
+
+## Ringkasan Program
+- **Nama Program**: SahamMaster 30 Hari
+- **Tujuan**: Membimbing pemula dari nol hingga mahir trading & investasi saham secara mandiri di Bursa Efek Indonesia (IDX).
+- **Mentor AI**: Coach SahamPro (didukung dataset istilah lokal, bandarmologi, teknikal, dan fundamental IDX).
+- **Akses**: Sekali bayar seumur hidup (Lifetime Access).
+- **Harga Promo**: Rp 99.000 (Harga Normal Rp 3.250.000).
+
+## Kurikulum 30 Hari
+1. **Minggu 1: Fondasi & Mindset Investor Juara** (Mindset pasar modal, broker, RDN, cara kerja bursa).
+2. **Minggu 2: Membaca Arah Pasar (Technical Analysis)** (Candlestick, Support/Resistance, Trendline, Indikator).
+3. **Minggu 3: Rahasia Pergerakan Uang Besar (Bandarmologi)** (Broker Summary, Akumulasi/Distribusi, Deteksi Fake Bid/Offer).
+4. **Minggu 4: Eksekusi, Money Management & Psikologi** (Risk/Reward, Position Sizing, Trading Plan anti-baper).
+
+## Fitur Utama
+- **AI Coach SahamPro 24/7**: Konsultasi saham real-time dan analisis teknikal/fundamental tanpa pom-pom.
+- **Kalkulator Risk-Reward Otomatis**: Menghitung lot dan batas risiko per transaksi secara presisi.
+- **Ujian & Sertifikasi Kelulusan**: Ujian kompetensi online untuk menguji pemahaman materi.
+- **Grup Komunitas Eksklusif**: Diskusi dan update harian bersama rekan trader se-Indonesia.
+
+## Pertanyaan Umum (FAQ)
+- **Apakah cocok untuk pemula?** Ya, kurikulum dirancang dari nol tanpa asumsi pengetahuan sebelumnya.
+- **Berapa lama masa aktif akun?** Akses seumur hidup tanpa biaya bulanan atau tahunan.
+- **Bagaimana cara mendaftar?** Kunjungi https://saham.kelasmaster.id/ lalu klik tombol Daftar Sekarang.
