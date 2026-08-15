@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { X, Lock, User, Mail, Phone, KeyRound } from 'lucide-react';
+import { X, Lock, User, Mail, Phone, KeyRound, ShieldCheck, Sparkles, Loader2 } from 'lucide-react';
 import { trackEvent } from './MetaPixel';
-
 
 interface CheckoutModalProps {
   isOpen: boolean;
@@ -78,118 +77,159 @@ const CheckoutModal: React.FC<CheckoutModalProps> = ({ isOpen, onClose }) => {
     }
   };
 
-
-
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/80 backdrop-blur-sm animate-in fade-in duration-200">
-      <div className="bg-white w-full max-w-md rounded-3xl shadow-2xl overflow-hidden relative animate-in zoom-in-95 duration-200 max-h-[90vh] flex flex-col">
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 bg-slate-950/75 backdrop-blur-md animate-in fade-in duration-200">
+      <div className="bg-white w-full max-w-[440px] rounded-[28px] shadow-[0_25px_60px_-15px_rgba(15,23,42,0.35)] border border-slate-100 ring-1 ring-slate-900/5 overflow-hidden relative animate-in zoom-in-95 duration-200 max-h-[92vh] flex flex-col">
+        {/* Top Decorative Subtle Accent */}
+        <div className="h-1.5 w-full bg-gradient-to-r from-blue-600 via-indigo-600 to-blue-500"></div>
+
         {/* Close Button */}
-        <button onClick={onClose} className="absolute top-4 right-4 text-slate-400 hover:text-slate-600 bg-white rounded-full p-1 z-10">
-          <X className="w-6 h-6" />
+        <button 
+          onClick={onClose} 
+          aria-label="Tutup"
+          className="absolute top-4 right-4 text-slate-400 hover:text-slate-700 bg-slate-100/80 hover:bg-slate-200 rounded-full p-1.5 transition-all z-10"
+        >
+          <X className="w-4 h-4" />
         </button>
 
-        <div className="overflow-y-auto overflow-x-hidden p-6 md:p-8 custom-scrollbar">
-            <div>
-              <div className="text-center mb-6">
-                <img src="/logo.png" alt="SahamMaster" className="w-16 h-16 object-contain mx-auto mb-3 drop-shadow-md" />
-                <h2 className="text-2xl font-black text-slate-900">{settings?.product_name || 'SahamMaster Membership'}</h2>
-                <p className="text-slate-500 text-sm mt-1">Lengkapi data untuk membuat akun</p>
+        <div className="overflow-y-auto overflow-x-hidden p-6 sm:p-7 custom-scrollbar">
+          <div>
+            {/* Header / Logo */}
+            <div className="text-center mb-5">
+              <div className="inline-flex p-2 bg-gradient-to-b from-slate-50 to-slate-100 rounded-2xl border border-slate-200/80 shadow-sm mb-3">
+                <img src="/logo.png" alt="SahamMaster" className="w-12 h-12 object-contain drop-shadow-sm" />
               </div>
+              <h2 className="text-xl sm:text-2xl font-black text-slate-900 tracking-tight leading-tight">
+                {settings?.product_name || 'SahamMaster Membership'}
+              </h2>
+              <p className="text-slate-500 text-xs sm:text-sm mt-1">Lengkapi data untuk membuat akun</p>
+            </div>
 
-              <div className="bg-blue-50 border border-blue-100 rounded-xl p-4 mb-5 flex justify-between items-center">
-                <span className="text-slate-600 font-semibold text-sm">Total Bayar</span>
-                <span className="text-blue-700 font-black text-xl">
-                  {settings ? `Rp ${(settings.price || 0).toLocaleString('id-ID')}` : 'Loading...'}
-                </span>
+            {/* Total Bayar Banner */}
+            <div className="relative overflow-hidden bg-gradient-to-br from-blue-600 via-blue-700 to-indigo-800 text-white rounded-2xl p-4 sm:p-5 mb-5 shadow-lg shadow-blue-600/20 border border-blue-500/30">
+              <div className="absolute top-0 right-0 -mr-6 -mt-6 w-24 h-24 bg-white/10 rounded-full blur-xl pointer-events-none"></div>
+              <div className="relative z-10 flex justify-between items-center">
+                <div>
+                  <span className="text-blue-100/90 font-semibold text-xs tracking-wider uppercase block">Total Bayar</span>
+                  <span className="text-xs text-blue-200/80 font-normal">Akses penuh seumur hidup</span>
+                </div>
+                <div className="text-right">
+                  <span className="text-white font-black text-2xl sm:text-3xl tracking-tight block">
+                    {settings ? `Rp ${(settings.price || 0).toLocaleString('id-ID')}` : 'Loading...'}
+                  </span>
+                </div>
               </div>
+            </div>
 
-              {/* Benefit Items */}
-              <div className="mb-5 border border-slate-100 rounded-xl p-4">
-                <p className="text-xs font-bold text-slate-500 uppercase tracking-wider mb-3">Apa yang Anda dapat:</p>
-                <div className="space-y-3">
-                  {[
-                    { icon: '📊', name: 'Modul Trading 30 Hari', price: 'Rp 1.500.000' },
-                    { icon: '🤖', name: 'Akses AI Mentor IDX', price: 'Rp 750.000' },
-                    { icon: '⚡', name: 'Tools Pro', price: 'Rp 500.000' },
-                    { icon: '🎓', name: 'Ujian & Sertifikat', price: 'Rp 500.000' },
-                  ].map((item, i) => (
-                    <div key={i} className="flex items-center justify-between">
-                      <div className="flex items-center gap-2.5">
-                        <span className="text-lg">{item.icon}</span>
-                        <span className="text-sm font-semibold text-slate-700">{item.name}</span>
-                      </div>
-                      <span className="text-xs text-slate-400 line-through">{item.price}</span>
+            {/* Benefit Items Accordion-like Box */}
+            <div className="mb-5 bg-slate-50/80 border border-slate-200/70 rounded-2xl p-4">
+              <p className="text-[11px] font-bold text-slate-500 uppercase tracking-wider mb-3 flex items-center gap-1.5">
+                <Sparkles className="w-3.5 h-3.5 text-blue-600" /> Apa yang Anda dapat:
+              </p>
+              <div className="space-y-2.5">
+                {[
+                  { icon: '📊', name: 'Modul Trading 30 Hari', price: 'Rp 1.500.000' },
+                  { icon: '🤖', name: 'Akses AI Mentor IDX', price: 'Rp 750.000' },
+                  { icon: '⚡', name: 'Tools Pro', price: 'Rp 500.000' },
+                  { icon: '🎓', name: 'Ujian & Sertifikat', price: 'Rp 500.000' },
+                ].map((item, i) => (
+                  <div key={i} className="flex items-center justify-between py-0.5">
+                    <div className="flex items-center gap-2">
+                      <span className="text-base">{item.icon}</span>
+                      <span className="text-xs sm:text-sm font-semibold text-slate-700">{item.name}</span>
                     </div>
-                  ))}
-                </div>
-                <div className="border-t border-slate-100 mt-3 pt-3 flex justify-between items-center">
-                  <span className="text-xs font-bold text-slate-500">Total Nilai Asli</span>
-                  <span className="text-sm font-bold text-red-400 line-through">Rp 3.250.000</span>
-                </div>
+                    <span className="text-[11px] sm:text-xs text-slate-400 line-through font-medium">{item.price}</span>
+                  </div>
+                ))}
               </div>
+              <div className="border-t border-slate-200/80 mt-3 pt-2.5 flex justify-between items-center">
+                <span className="text-xs font-bold text-slate-500">Total Nilai Asli</span>
+                <span className="text-xs sm:text-sm font-bold text-red-500 line-through">Rp 3.250.000</span>
+              </div>
+            </div>
 
-              {/* Registration Form */}
-              <form onSubmit={handleFormSubmit} className="space-y-3 mb-4">
-                <div className="relative">
-                  <User className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
+            {/* Registration Form */}
+            <form onSubmit={handleFormSubmit} className="space-y-3 mb-4">
+              <div className="space-y-1">
+                <div className="relative group">
+                  <User className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400 group-focus-within:text-blue-600 transition-colors" />
                   <input
                     type="text"
                     placeholder="Nama Lengkap"
                     value={name}
                     onChange={e => setName(e.target.value)}
-                    className="w-full pl-10 pr-4 py-3 rounded-xl border border-slate-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-100 outline-none text-sm transition-all"
+                    className="w-full pl-10 pr-4 py-3 rounded-xl bg-slate-50/60 border border-slate-200 hover:border-slate-300 focus:bg-white focus:border-blue-600 focus:ring-4 focus:ring-blue-500/10 outline-none text-sm text-slate-900 placeholder:text-slate-400 font-medium transition-all"
                     required
                   />
                 </div>
-                <div className="relative">
-                  <Mail className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
+              </div>
+
+              <div className="space-y-1">
+                <div className="relative group">
+                  <Mail className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400 group-focus-within:text-blue-600 transition-colors" />
                   <input
                     type="email"
                     placeholder="Email"
                     value={email}
                     onChange={e => setEmail(e.target.value)}
-                    className="w-full pl-10 pr-4 py-3 rounded-xl border border-slate-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-100 outline-none text-sm transition-all"
+                    className="w-full pl-10 pr-4 py-3 rounded-xl bg-slate-50/60 border border-slate-200 hover:border-slate-300 focus:bg-white focus:border-blue-600 focus:ring-4 focus:ring-blue-500/10 outline-none text-sm text-slate-900 placeholder:text-slate-400 font-medium transition-all"
                     required
                   />
                 </div>
-                <div className="relative">
-                  <Phone className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
+              </div>
+
+              <div className="space-y-1">
+                <div className="relative group">
+                  <Phone className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400 group-focus-within:text-blue-600 transition-colors" />
                   <input
                     type="tel"
                     placeholder="No. WhatsApp (08xxx)"
                     value={phone}
                     onChange={e => setPhone(e.target.value)}
-                    className="w-full pl-10 pr-4 py-3 rounded-xl border border-slate-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-100 outline-none text-sm transition-all"
+                    className="w-full pl-10 pr-4 py-3 rounded-xl bg-slate-50/60 border border-slate-200 hover:border-slate-300 focus:bg-white focus:border-blue-600 focus:ring-4 focus:ring-blue-500/10 outline-none text-sm text-slate-900 placeholder:text-slate-400 font-medium transition-all"
                     required
                   />
                 </div>
-                <div className="relative">
-                  <KeyRound className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
+              </div>
+
+              <div className="space-y-1">
+                <div className="relative group">
+                  <KeyRound className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400 group-focus-within:text-blue-600 transition-colors" />
                   <input
                     type="password"
                     placeholder="Buat Password"
                     value={password}
                     onChange={e => setPassword(e.target.value)}
-                    className="w-full pl-10 pr-4 py-3 rounded-xl border border-slate-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-100 outline-none text-sm transition-all"
+                    className="w-full pl-10 pr-4 py-3 rounded-xl bg-slate-50/60 border border-slate-200 hover:border-slate-300 focus:bg-white focus:border-blue-600 focus:ring-4 focus:ring-blue-500/10 outline-none text-sm text-slate-900 placeholder:text-slate-400 font-medium transition-all"
                     required
                     minLength={6}
                   />
                 </div>
+              </div>
 
-                <button
-                  type="submit"
-                  disabled={loading}
-                  className="w-full py-3.5 bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white font-bold rounded-xl shadow-lg shadow-blue-500/25 transition-all duration-200 disabled:opacity-50 text-sm"
-                >
-                  {loading ? 'Memproses...' : 'Daftar & Bayar Sekarang'}
-                </button>
-              </form>
+              <button
+                type="submit"
+                disabled={loading}
+                className="w-full mt-2 py-3.5 px-4 bg-gradient-to-r from-blue-600 via-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white font-bold rounded-xl shadow-lg shadow-blue-600/25 hover:shadow-xl hover:shadow-blue-600/35 active:scale-[0.99] transition-all duration-200 disabled:opacity-60 text-sm flex items-center justify-center gap-2 cursor-pointer"
+              >
+                {loading ? (
+                  <>
+                    <Loader2 className="w-4 h-4 animate-spin" />
+                    <span>Memproses...</span>
+                  </>
+                ) : (
+                  'Daftar & Bayar Sekarang'
+                )}
+              </button>
+            </form>
 
-
-              <p className="text-center text-xs text-slate-400 mt-6 flex items-center justify-center gap-1">
-                <Lock className="w-3 h-3" /> Data Anda aman & terenkripsi
+            {/* Security Guarantee Footer */}
+            <div className="pt-2 border-t border-slate-100 text-center">
+              <p className="text-xs text-slate-400 flex items-center justify-center gap-1.5 font-medium">
+                <Lock className="w-3.5 h-3.5 text-emerald-600" /> Data Anda aman & terenkripsi
               </p>
             </div>
+          </div>
         </div>
       </div>
     </div>
@@ -197,3 +237,4 @@ const CheckoutModal: React.FC<CheckoutModalProps> = ({ isOpen, onClose }) => {
 };
 
 export default CheckoutModal;
+

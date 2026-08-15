@@ -227,27 +227,29 @@ const LandingPage: React.FC = () => {
   }, [isLowPriorityReady]);
 
   return (
-    <div className="min-h-screen bg-white font-sans text-slate-900 overflow-x-hidden pb-20 md:pb-0">
-      {/* Navigation - Uses c-nav class from Critical CSS */}
-      <nav className="c-nav shadow-sm transition-all duration-300">
+    <div className="min-h-screen bg-white font-sans text-slate-900 overflow-x-hidden pb-20 md:pb-0 selection:bg-blue-600 selection:text-white">
+      {/* Navigation - Uses c-nav class from Critical CSS with modern glassmorphism */}
+      <nav className="c-nav shadow-[0_4px_20px_-4px_rgba(15,23,42,0.05)] backdrop-blur-xl bg-white/90 border-b border-slate-100/80 transition-all duration-300">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-20">
             {/* Logo */}
-            <div className="flex items-center space-x-3 cursor-pointer" onClick={() => window.scrollTo(0,0)}>
-              <img src="/logo.png" alt="SahamMaster" className="w-14 h-14 md:w-16 md:h-16 object-contain drop-shadow-md" />
-              <div className="flex flex-col justify-center pt-1">
-                <span className="font-black text-xl md:text-[26px] text-slate-900 tracking-tight block leading-none mb-1">SahamMaster</span>
-                <span className="text-[10px] md:text-xs text-blue-600 font-extrabold tracking-[0.15em] uppercase leading-none">Indonesia</span>
+            <div className="flex items-center space-x-3 cursor-pointer group" onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}>
+              <div className="p-1.5 bg-gradient-to-b from-slate-50 to-slate-100 rounded-2xl border border-slate-200/80 shadow-sm group-hover:scale-105 transition-transform">
+                <img src="/logo.png" alt="SahamMaster" className="w-11 h-11 md:w-13 md:h-13 object-contain drop-shadow-sm" />
+              </div>
+              <div className="flex flex-col justify-center pt-0.5">
+                <span className="font-black text-xl md:text-2xl text-slate-900 tracking-tight block leading-none mb-1 group-hover:text-blue-600 transition-colors">SahamMaster</span>
+                <span className="text-[10px] md:text-[11px] text-blue-600 font-extrabold tracking-[0.2em] uppercase leading-none">Indonesia</span>
               </div>
             </div>
 
             {/* Desktop Menu */}
-            <div className="hidden md:flex items-center space-x-6">
-              <button onClick={() => scrollToSection('ai-tech')} className="text-slate-500 hover:text-blue-700 font-medium text-sm transition-colors">Teknologi AI</button>
-              <button onClick={() => scrollToSection('kurikulum')} className="text-slate-500 hover:text-blue-700 font-medium text-sm transition-colors">Kurikulum</button>
-              <button onClick={() => scrollToSection('bonus')} className="text-slate-500 hover:text-blue-700 font-medium text-sm transition-colors">Bonus</button>
-              <button onClick={() => scrollToSection('harga')} className="text-slate-500 hover:text-blue-700 font-medium text-sm transition-colors">Investasi</button>
-              <a href="/login" className="text-slate-500 hover:text-blue-700 font-bold text-sm transition-colors">Login</a>
+            <div className="hidden md:flex items-center space-x-7">
+              <button onClick={() => scrollToSection('ai-tech')} className="text-slate-600 hover:text-blue-600 font-semibold text-sm transition-colors cursor-pointer">Teknologi AI</button>
+              <button onClick={() => scrollToSection('kurikulum')} className="text-slate-600 hover:text-blue-600 font-semibold text-sm transition-colors cursor-pointer">Kurikulum</button>
+              <button onClick={() => scrollToSection('bonus')} className="text-slate-600 hover:text-blue-600 font-semibold text-sm transition-colors cursor-pointer">Bonus</button>
+              <button onClick={() => scrollToSection('harga')} className="text-slate-600 hover:text-blue-600 font-semibold text-sm transition-colors cursor-pointer">Investasi</button>
+              <a href="/login" className="text-slate-600 hover:text-blue-600 font-bold text-sm transition-colors">Login</a>
             </div>
 
             {/* CTA Daftar */}
@@ -257,10 +259,10 @@ const LandingPage: React.FC = () => {
                   handleTrackAddToCart();
                   setIsCheckoutOpen(true);
                 }} 
-                className="bg-slate-900 text-white px-6 py-3 rounded-xl font-bold hover:bg-slate-800 transition-all shadow-lg hover:shadow-slate-900/30 transform hover:-translate-y-0.5 text-sm flex items-center"
+                className="bg-gradient-to-r from-slate-900 via-slate-900 to-slate-800 hover:from-blue-600 hover:to-indigo-600 text-white px-6 py-2.5 rounded-xl font-bold transition-all duration-300 shadow-md hover:shadow-xl hover:shadow-blue-600/20 transform hover:-translate-y-0.5 text-sm flex items-center gap-1.5 cursor-pointer"
                 >
                 Daftar Sekarang
-                <ArrowRight className="w-4 h-4 ml-2" />
+                <ArrowRight className="w-4 h-4 ml-1" />
                 </button>
             </div>
 
@@ -268,31 +270,32 @@ const LandingPage: React.FC = () => {
             <div className="md:hidden flex items-center">
                 <button 
                     onClick={() => setIsMenuOpen(!isMenuOpen)}
-                    className="text-slate-600 hover:text-blue-600 p-2 focus:outline-none"
+                    className="text-slate-700 hover:text-blue-600 p-2 rounded-xl bg-slate-50 hover:bg-slate-100 border border-slate-200/60 focus:outline-none transition-all"
                     aria-label="Menu"
                 >
-                    {isMenuOpen ? <X className="w-7 h-7" /> : <Menu className="w-7 h-7" />}
+                    {isMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
                 </button>
             </div>
           </div>
         </div>
 
         {isMenuOpen && (
-            <div className="md:hidden bg-white border-t border-slate-100 absolute w-full left-0 top-20 p-4 shadow-xl flex flex-col space-y-4 animate-in slide-in-from-top-5">
-                <button onClick={() => scrollToSection('ai-tech')} className="text-slate-600 font-bold text-lg py-2 border-b border-slate-50">Teknologi AI</button>
-                <button onClick={() => scrollToSection('kurikulum')} className="text-slate-600 font-bold text-lg py-2 border-b border-slate-50">Kurikulum</button>
-                <button onClick={() => scrollToSection('bonus')} className="text-slate-600 font-bold text-lg py-2 border-b border-slate-50">Bonus Eksklusif</button>
-                <button onClick={() => scrollToSection('harga')} className="text-slate-600 font-bold text-lg py-2 border-b border-slate-50">Investasi</button>
-                <a href="/login" className="text-slate-600 font-bold text-lg py-2 border-b border-slate-50 block text-center">Login Member</a>
+            <div className="md:hidden bg-white/95 backdrop-blur-xl border-b border-slate-200/80 absolute w-full left-0 top-20 p-5 shadow-2xl flex flex-col space-y-3 animate-in slide-in-from-top-4 duration-200">
+                <button onClick={() => scrollToSection('ai-tech')} className="text-slate-700 font-bold text-base py-2.5 border-b border-slate-100 text-left">Teknologi AI</button>
+                <button onClick={() => scrollToSection('kurikulum')} className="text-slate-700 font-bold text-base py-2.5 border-b border-slate-100 text-left">Kurikulum</button>
+                <button onClick={() => scrollToSection('bonus')} className="text-slate-700 font-bold text-base py-2.5 border-b border-slate-100 text-left">Bonus Eksklusif</button>
+                <button onClick={() => scrollToSection('harga')} className="text-slate-700 font-bold text-base py-2.5 border-b border-slate-100 text-left">Investasi</button>
+                <a href="/login" className="text-slate-700 font-bold text-base py-2.5 border-b border-slate-100 block text-left">Login Member</a>
                 
                 <button 
                   onClick={() => {
                     handleTrackAddToCart();
                     setIsCheckoutOpen(true);
                   }} 
-                  className="bg-slate-900 text-white w-full py-4 rounded-xl font-bold shadow-lg mt-2"
+                  className="bg-gradient-to-r from-blue-600 to-indigo-600 text-white w-full py-3.5 rounded-xl font-bold shadow-lg shadow-blue-600/25 mt-2 flex items-center justify-center gap-2"
                 >
                   Daftar Sekarang
+                  <ArrowRight className="w-4 h-4" />
                 </button>
             </div>
         )}
@@ -300,19 +303,22 @@ const LandingPage: React.FC = () => {
 
       {/* Hero Section - CRITICAL PATH (Always Rendered Instantly) */}
       {/* Menggunakan Class Manual (c-hero) agar CSS Critical bekerja sebelum JS load */}
-      <section className="c-hero">
+      <section className="c-hero relative overflow-hidden bg-gradient-to-b from-white via-slate-50/50 to-blue-50/40">
+        {/* Subtle Ambient Radial Highlight */}
+        <div className="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[350px] bg-gradient-to-tr from-blue-400/10 via-indigo-400/10 to-sky-300/10 rounded-full blur-3xl pointer-events-none -z-10"></div>
+
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
-            <div className="c-badge">
-              <AlertTriangle className="w-3 h-3 mr-2" />
-              Stop Membakar Uang Anda
+            <div className="c-badge shadow-sm inline-flex items-center gap-2">
+              <AlertTriangle className="w-3.5 h-3.5 text-rose-600" />
+              <span>Stop Membakar Uang Anda</span>
             </div>
             
-            <h1 className="c-title">
+            <h1 className="c-title tracking-tight">
               Kuasai Pasar Modal Indonesia <br className="hidden md:block"/>
-              <span>Dalam 30 Hari.</span>
+              <span className="bg-gradient-to-r from-blue-600 via-blue-600 to-indigo-600 bg-clip-text text-transparent">Dalam 30 Hari.</span>
             </h1>
             
-            <p className="c-desc">
+            <p className="c-desc font-normal">
               Satu-satunya platform edukasi saham dengan <strong>AI Mentor Profesional</strong> yang dilatih khusus data IDX. 
               Pahami Bandarmologi, Teknikal, dan Fundamental tanpa bahasa rumit.
             </p>
@@ -323,56 +329,56 @@ const LandingPage: React.FC = () => {
                   handleTrackAddToCart();
                   setIsCheckoutOpen(true);
                 }}
-                className="c-btn"
+                className="c-btn group cursor-pointer"
               >
-                Ambil Promo Rp {dynamicPrice ? dynamicPrice.toLocaleString('id-ID') : '99.000'}
-                <ArrowRight className="w-5 h-5 ml-2" />
+                <span>Ambil Promo Rp {dynamicPrice ? dynamicPrice.toLocaleString('id-ID') : '99.000'}</span>
+                <ArrowRight className="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform" />
               </button>
             </div>
 
             <div className="mt-6 md:mt-4">
-                <p className="text-xs text-slate-500 font-medium flex items-center justify-center">
-                   <Zap className="w-4 h-4 text-yellow-500 mr-1.5 fill-yellow-500" />
+                <p className="text-xs text-slate-500 font-medium flex items-center justify-center gap-1.5">
+                   <Zap className="w-4 h-4 text-amber-500 fill-amber-500" />
                    Setelah daftar langsung bisa Belajar dan Akses Full fitur canggih
                 </p>
             </div>
 
             {/* Trust Badges - Static Layout to prevent Layout Shift */}
-            <div className="mt-12 md:mt-16 pt-8 border-t border-slate-100 grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6 text-left max-w-5xl mx-auto">
-                <div className="flex items-center p-3 md:p-4 rounded-xl hover:bg-slate-50 transition-colors cursor-default">
-                    <div className="bg-blue-100 p-2 rounded-lg mr-3 md:mr-4 shrink-0">
+            <div className="mt-12 md:mt-16 pt-8 border-t border-slate-200/60 grid grid-cols-2 md:grid-cols-4 gap-3.5 sm:gap-4 md:gap-6 text-left max-w-5xl mx-auto">
+                <div className="flex items-center p-3.5 md:p-4 rounded-2xl bg-white/80 border border-slate-200/70 hover:border-blue-200 hover:shadow-md hover:bg-white transition-all duration-200 cursor-default">
+                    <div className="bg-blue-50 border border-blue-100 p-2.5 rounded-xl mr-3 md:mr-4 shrink-0">
                         <Clock className="w-5 h-5 md:w-6 md:h-6 text-blue-600" />
                     </div>
                     <div>
                         <p className="font-bold text-slate-900 text-sm md:text-base">30 Hari</p>
-                        <p className="text-[10px] md:text-xs text-slate-500">Kurikulum Intensif</p>
+                        <p className="text-[10px] md:text-xs text-slate-500 font-medium">Kurikulum Intensif</p>
                     </div>
                 </div>
-                <div className="flex items-center p-3 md:p-4 rounded-xl hover:bg-slate-50 transition-colors cursor-default">
-                    <div className="bg-indigo-100 p-2 rounded-lg mr-3 md:mr-4 shrink-0">
+                <div className="flex items-center p-3.5 md:p-4 rounded-2xl bg-white/80 border border-slate-200/70 hover:border-indigo-200 hover:shadow-md hover:bg-white transition-all duration-200 cursor-default">
+                    <div className="bg-indigo-50 border border-indigo-100 p-2.5 rounded-xl mr-3 md:mr-4 shrink-0">
                         <BrainCircuit className="w-5 h-5 md:w-6 md:h-6 text-indigo-600" />
                     </div>
                     <div>
                         <p className="font-bold text-slate-900 text-sm md:text-base">IDX AI Mentor</p>
-                        <p className="text-[10px] md:text-xs text-slate-500">Paham Istilah Lokal</p>
+                        <p className="text-[10px] md:text-xs text-slate-500 font-medium">Paham Istilah Lokal</p>
                     </div>
                 </div>
-                <div className="flex items-center p-3 md:p-4 rounded-xl hover:bg-slate-50 transition-colors cursor-default">
-                    <div className="bg-yellow-100 p-2 rounded-lg mr-3 md:mr-4 shrink-0">
-                        <Trophy className="w-5 h-5 md:w-6 md:h-6 text-yellow-600" />
+                <div className="flex items-center p-3.5 md:p-4 rounded-2xl bg-white/80 border border-slate-200/70 hover:border-amber-200 hover:shadow-md hover:bg-white transition-all duration-200 cursor-default">
+                    <div className="bg-amber-50 border border-amber-100 p-2.5 rounded-xl mr-3 md:mr-4 shrink-0">
+                        <Trophy className="w-5 h-5 md:w-6 md:h-6 text-amber-600" />
                     </div>
                     <div>
                         <p className="font-bold text-slate-900 text-sm md:text-base">Sertifikat</p>
-                        <p className="text-[10px] md:text-xs text-slate-500">Kelulusan Resmi</p>
+                        <p className="text-[10px] md:text-xs text-slate-500 font-medium">Kelulusan Resmi</p>
                     </div>
                 </div>
-                <div className="flex items-center p-3 md:p-4 rounded-xl hover:bg-slate-50 transition-colors cursor-default">
-                    <div className="bg-green-100 p-2 rounded-lg mr-3 md:mr-4 shrink-0">
-                        <DollarSign className="w-5 h-5 md:w-6 md:h-6 text-green-600" />
+                <div className="flex items-center p-3.5 md:p-4 rounded-2xl bg-white/80 border border-slate-200/70 hover:border-emerald-200 hover:shadow-md hover:bg-white transition-all duration-200 cursor-default">
+                    <div className="bg-emerald-50 border border-emerald-100 p-2.5 rounded-xl mr-3 md:mr-4 shrink-0">
+                        <DollarSign className="w-5 h-5 md:w-6 md:h-6 text-emerald-600" />
                     </div>
                     <div>
                         <p className="font-bold text-slate-900 text-sm md:text-base">Sekali Bayar</p>
-                        <p className="text-[10px] md:text-xs text-slate-500">Tanpa Langganan</p>
+                        <p className="text-[10px] md:text-xs text-slate-500 font-medium">Tanpa Langganan</p>
                     </div>
                 </div>
             </div>
@@ -382,53 +388,54 @@ const LandingPage: React.FC = () => {
       {/* LAZY LOADED SECTIONS - Rendered on Scroll with MinHeight to prevent layout shift */}
       
       {/* AI Technology Section */}
-      <LazySection id="ai-tech" className="bg-slate-900" minHeight="min-h-[600px]">
-            <section className="py-16 md:py-24 bg-slate-900 text-white relative overflow-hidden">
-                {/* Background Patterns Optimized */}
-                <div className="absolute inset-0 bg-slate-900"></div>
+      <LazySection id="ai-tech" className="bg-slate-950" minHeight="min-h-[600px]">
+            <section className="py-20 md:py-28 bg-slate-950 text-white relative overflow-hidden">
+                {/* Background Ambient Glow */}
+                <div className="absolute top-1/2 right-1/4 w-96 h-96 bg-blue-600/10 rounded-full blur-3xl pointer-events-none"></div>
+                <div className="absolute bottom-10 left-10 w-80 h-80 bg-indigo-600/10 rounded-full blur-3xl pointer-events-none"></div>
                 
-                <div className="max-w-7xl mx-auto px-4 relative z-10">
+                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-16 items-center">
                         <div>
-                            <div className="inline-flex items-center px-3 py-1 rounded-full bg-blue-500/20 text-blue-300 text-xs font-bold mb-6 border border-blue-500/30">
-                                <Sparkles className="w-3 h-3 mr-2" />
+                            <div className="inline-flex items-center px-3.5 py-1.5 rounded-full bg-blue-500/10 text-blue-400 text-xs font-bold mb-6 border border-blue-500/25 tracking-wide">
+                                <Sparkles className="w-3.5 h-3.5 mr-2" />
                                 Teknologi Generasi Baru
                             </div>
-                            <h2 className="text-3xl md:text-5xl font-black mb-6 leading-tight">
+                            <h2 className="text-3xl sm:text-4xl md:text-5xl font-black mb-6 leading-tight tracking-tight">
                                 Bukan Chatbot Biasa. <br/>
-                                Ini <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-cyan-400">Coach SahamPro.</span>
+                                Ini <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-sky-300 to-cyan-400">Coach SahamPro.</span>
                             </h2>
-                            <p className="text-slate-400 text-base md:text-lg mb-8 leading-relaxed">
+                            <p className="text-slate-400 text-base md:text-lg mb-8 leading-relaxed font-normal">
                                 Kebanyakan AI dilatih dengan data umum. AI kami dilatih khusus dengan data <strong>Pasar Modal Indonesia (IDX)</strong>.
                                 Dia mengerti apa itu "Gorengan", "Bandar", "Repo", "Haka", hingga "ARB".
                             </p>
 
-                            <div className="space-y-6">
-                                <div className="flex items-start">
-                                    <div className="bg-blue-600/20 p-3 rounded-xl mr-4 border border-blue-500/30 shrink-0">
+                            <div className="space-y-4 sm:space-y-5">
+                                <div className="flex items-start bg-slate-900/60 border border-slate-800/80 hover:border-slate-700/80 rounded-2xl p-4 sm:p-5 transition-all">
+                                    <div className="bg-blue-500/15 p-3 rounded-xl mr-4 border border-blue-500/25 shrink-0">
                                         <MessageSquare className="w-5 h-5 md:w-6 md:h-6 text-blue-400" />
                                     </div>
                                     <div>
-                                        <h3 className="text-lg md:text-xl font-bold mb-1">Diskusi Per Materi</h3>
-                                        <p className="text-slate-400 text-sm">Setiap pelajaran ada tombol diskusi. Bingung tentang Candlestick? Tanya langsung di situ.</p>
+                                        <h3 className="text-base md:text-lg font-bold mb-1 text-white">Diskusi Per Materi</h3>
+                                        <p className="text-slate-400 text-xs sm:text-sm leading-relaxed">Setiap pelajaran ada tombol diskusi. Bingung tentang Candlestick? Tanya langsung di situ.</p>
                                     </div>
                                 </div>
-                                <div className="flex items-start">
-                                    <div className="bg-indigo-600/20 p-3 rounded-xl mr-4 border border-indigo-500/30 shrink-0">
+                                <div className="flex items-start bg-slate-900/60 border border-slate-800/80 hover:border-slate-700/80 rounded-2xl p-4 sm:p-5 transition-all">
+                                    <div className="bg-indigo-500/15 p-3 rounded-xl mr-4 border border-indigo-500/25 shrink-0">
                                         <Activity className="w-5 h-5 md:w-6 md:h-6 text-indigo-400" />
                                     </div>
                                     <div>
-                                        <h3 className="text-lg md:text-xl font-bold mb-1">Analisa Real-Time</h3>
-                                        <p className="text-slate-400 text-sm">Minta AI menganalisa BBCA, TLKM, atau GOTO. Insight berdasarkan data fundamental dan teknikal.</p>
+                                        <h3 className="text-base md:text-lg font-bold mb-1 text-white">Analisa Real-Time</h3>
+                                        <p className="text-slate-400 text-xs sm:text-sm leading-relaxed">Minta AI menganalisa BBCA, TLKM, atau GOTO. Insight berdasarkan data fundamental dan teknikal.</p>
                                     </div>
                                 </div>
-                                <div className="flex items-start">
-                                    <div className="bg-emerald-600/20 p-3 rounded-xl mr-4 border border-emerald-500/30 shrink-0">
+                                <div className="flex items-start bg-slate-900/60 border border-slate-800/80 hover:border-slate-700/80 rounded-2xl p-4 sm:p-5 transition-all">
+                                    <div className="bg-emerald-500/15 p-3 rounded-xl mr-4 border border-emerald-500/25 shrink-0">
                                         <ShieldCheck className="w-5 h-5 md:w-6 md:h-6 text-emerald-400" />
                                     </div>
                                     <div>
-                                        <h3 className="text-lg md:text-xl font-bold mb-1">Filter Anti-Pompom</h3>
-                                        <p className="text-slate-400 text-sm">AI kami objektif. Tidak akan menyuruh Anda beli saham gorengan yang sedang didistribusi bandar.</p>
+                                        <h3 className="text-base md:text-lg font-bold mb-1 text-white">Filter Anti-Pompom</h3>
+                                        <p className="text-slate-400 text-xs sm:text-sm leading-relaxed">AI kami objektif. Tidak akan menyuruh Anda beli saham gorengan yang sedang didistribusi bandar.</p>
                                     </div>
                                 </div>
                             </div>
@@ -436,30 +443,30 @@ const LandingPage: React.FC = () => {
 
                         {/* AI Chat Visualization */}
                         <div className="relative mt-8 md:mt-0">
-                            <div className="absolute inset-0 bg-gradient-to-r from-blue-600 to-indigo-600 rounded-3xl blur-2xl opacity-30 transform rotate-3 transform-gpu"></div>
-                            <div className="bg-slate-800 border border-slate-700 rounded-3xl p-4 md:p-6 shadow-2xl relative">
+                            <div className="absolute inset-0 bg-gradient-to-r from-blue-600 via-indigo-600 to-cyan-500 rounded-3xl blur-2xl opacity-20 transform rotate-2 transform-gpu"></div>
+                            <div className="bg-slate-900/90 border border-slate-800/90 rounded-[28px] p-5 sm:p-7 shadow-2xl relative backdrop-blur-xl">
                                 {/* Fake Chat Interface */}
-                                <div className="flex items-center justify-between border-b border-slate-700 pb-4 mb-4">
+                                <div className="flex items-center justify-between border-b border-slate-800 pb-4 mb-4">
                                     <div className="flex items-center space-x-3">
-                                        <div className="w-10 h-10 bg-gradient-to-br from-blue-500 to-indigo-500 rounded-full flex items-center justify-center shrink-0">
+                                        <div className="w-10 h-10 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-xl flex items-center justify-center shrink-0 shadow-md shadow-blue-500/20">
                                             <BrainCircuit className="w-6 h-6 text-white" />
                                         </div>
                                         <div>
                                             <p className="font-bold text-white text-sm">Coach SahamPro (AI)</p>
-                                            <p className="text-xs text-green-400 flex items-center"><span className="w-2 h-2 bg-green-500 rounded-full mr-1"></span> Online</p>
+                                            <p className="text-xs text-emerald-400 flex items-center gap-1.5"><span className="w-2 h-2 bg-emerald-500 rounded-full animate-pulse"></span> Online</p>
                                         </div>
                                     </div>
                                 </div>
 
                                 <div className="space-y-4 font-sans text-xs md:text-sm">
                                     <div className="flex justify-end">
-                                        <div className="bg-blue-600 text-white p-3 rounded-2xl rounded-tr-none max-w-[85%] shadow-lg">
+                                        <div className="bg-gradient-to-r from-blue-600 to-blue-700 text-white p-3.5 rounded-2xl rounded-tr-sm max-w-[85%] shadow-md">
                                             <p>Coach, saham ANTM lagi rame. Katanya mau digoreng bandar ZP. Boleh HAKA gak?</p>
                                         </div>
                                     </div>
                                     <div className="flex justify-start">
-                                        <div className="bg-slate-700 text-slate-200 p-4 rounded-2xl rounded-tl-none max-w-[95%] shadow-lg border border-slate-600">
-                                            <p className="mb-2 font-bold text-blue-300">⚠️ Hati-hati FOMO!</p>
+                                        <div className="bg-slate-800/90 text-slate-200 p-4 sm:p-5 rounded-2xl rounded-tl-sm max-w-[95%] shadow-lg border border-slate-700/70 leading-relaxed">
+                                            <p className="mb-2 font-bold text-amber-300 flex items-center gap-1">⚠️ Hati-hati FOMO!</p>
                                             <ul className="list-disc list-inside space-y-1 mb-2 text-slate-300">
                                                 <li>Secara Teknikal, ANTM sedang di area <strong>Resistance Kuat 2200</strong>.</li>
                                                 <li>Broker Summary menunjukkan ZP memang beli, tapi <strong>YP (Ritel)</strong> juga banyak masuk di pucuk.</li>
@@ -468,16 +475,16 @@ const LandingPage: React.FC = () => {
                                         </div>
                                     </div>
                                     <div className="flex justify-end">
-                                        <div className="bg-blue-600 text-white p-3 rounded-2xl rounded-tr-none max-w-[85%] shadow-lg animate-pulse">
+                                        <div className="bg-gradient-to-r from-blue-600 to-blue-700 text-white p-3.5 rounded-2xl rounded-tr-sm max-w-[85%] shadow-md">
                                             <p>Wah makasih Coach! Hampir aja boncos.</p>
                                         </div>
                                     </div>
                                 </div>
 
                                 {/* Floating Badge */}
-                                <div className="absolute -bottom-4 md:-bottom-6 -left-2 md:-left-6 bg-white text-slate-900 px-3 py-1.5 md:px-4 md:py-2 rounded-xl shadow-xl border border-slate-200 flex items-center transform -rotate-3 z-20">
-                                    <CheckCircle className="w-3 h-3 md:w-4 md:h-4 text-green-500 mr-2" />
-                                    <span className="font-bold text-[10px] md:text-xs">Diskusi 24 Jam</span>
+                                <div className="absolute -bottom-4 md:-bottom-5 -left-2 md:-left-4 bg-white text-slate-900 px-4 py-2 rounded-xl shadow-2xl border border-slate-200/80 flex items-center transform -rotate-2 z-20">
+                                    <CheckCircle className="w-4 h-4 text-emerald-500 mr-2" />
+                                    <span className="font-extrabold text-[11px] md:text-xs">Diskusi 24 Jam</span>
                                 </div>
                             </div>
                         </div>
@@ -487,29 +494,35 @@ const LandingPage: React.FC = () => {
       </LazySection>
 
       {/* Target Audience Section */}
-      <LazySection className="bg-slate-50" minHeight="min-h-[400px]">
-            <section className="py-16 md:py-20 bg-slate-50 border-b border-slate-200">
-                <div className="max-w-6xl mx-auto px-4">
-                    <div className="text-center mb-12">
-                        <h2 className="text-2xl md:text-4xl font-black text-slate-900 mb-4">Kelas Ini Didesain Khusus Untuk...</h2>
-                        <p className="text-slate-500 max-w-2xl mx-auto">Kami menyederhanakan bahasa Wall Street menjadi bahasa tongkrongan agar mudah dipahami siapa saja.</p>
+      <LazySection className="bg-slate-50/80" minHeight="min-h-[400px]">
+            <section className="py-20 md:py-24 bg-slate-50/80 border-b border-slate-200/80">
+                <div className="max-w-6xl mx-auto px-4 sm:px-6">
+                    <div className="text-center mb-12 md:mb-16">
+                        <h2 className="text-2xl sm:text-3xl md:text-4xl font-black text-slate-900 mb-4 tracking-tight">Kelas Ini Didesain Khusus Untuk...</h2>
+                        <p className="text-slate-500 max-w-2xl mx-auto text-sm sm:text-base leading-relaxed">Kami menyederhanakan bahasa Wall Street menjadi bahasa tongkrongan agar mudah dipahami siapa saja.</p>
                     </div>
                     
-                    <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+                    <div className="grid grid-cols-2 md:grid-cols-4 gap-3.5 sm:gap-4 md:gap-6">
                         {[
                             { icon: Briefcase, title: "Karyawan", desc: "Sibuk kerja tapi pengen uangnya berkembang." },
                             { icon: Baby, title: "Ibu Rumah Tangga", desc: "Ingin bantu ekonomi keluarga dari rumah." },
                             { icon: GraduationCap, title: "Mahasiswa", desc: "Mulai investasi dini dengan modal kecil." },
                             { icon: TrendingUp, title: "Pebisnis", desc: "Putar uang kas nganggur biar jadi aset." }
                         ].map((item, idx) => (
-                            <div key={idx} className="bg-white p-6 rounded-2xl border border-slate-200 hover:border-blue-400 hover:shadow-lg transition-all text-center group cursor-default">
-                                <div className="w-14 h-14 bg-blue-50 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:bg-blue-600 transition-colors">
-                                    <item.icon className="w-7 h-7 text-blue-600 group-hover:text-white transition-colors" />
+                            <div key={idx} className="bg-white p-5 sm:p-7 rounded-2xl border border-slate-200/80 hover:border-blue-400 hover:shadow-xl hover:shadow-blue-500/5 transition-all duration-300 transform hover:-translate-y-1 text-center group cursor-default">
+                                <div className="w-13 h-13 sm:w-14 sm:h-14 bg-blue-50 rounded-2xl border border-blue-100/80 flex items-center justify-center mx-auto mb-4 group-hover:bg-blue-600 group-hover:border-blue-600 transition-all duration-300 shadow-sm">
+                                    <item.icon className="w-6 h-6 sm:w-7 sm:h-7 text-blue-600 group-hover:text-white transition-colors duration-300" />
                                 </div>
-                                <h3 className="font-bold text-slate-900 mb-1">{item.title}</h3>
-                                <p className="text-xs text-slate-500 leading-snug">{item.desc}</p>
+                                <h3 className="font-bold text-slate-900 mb-1.5 text-base sm:text-lg">{item.title}</h3>
+                                <p className="text-xs text-slate-500 leading-relaxed font-normal">{item.desc}</p>
                             </div>
                         ))}
+                    </div>
+                    
+                    <div className="mt-8 bg-gradient-to-r from-blue-50/90 via-indigo-50/70 to-blue-50/90 border border-blue-100/80 rounded-2xl p-4 sm:p-5 max-w-3xl mx-auto text-center shadow-sm">
+                        <p className="text-blue-900 font-medium text-sm md:text-base">
+                            ...serta <strong className="text-blue-700 font-black">siapapun yang ingin belajar saham dari NOL hingga MASTER</strong> dengan kurikulum yang terstruktur.
+                        </p>
                     </div>
                 </div>
             </section>
@@ -517,88 +530,92 @@ const LandingPage: React.FC = () => {
       
       {/* Comparison Section */}
       <LazySection id="perbandingan" className="bg-white" minHeight="min-h-[600px]">
-            <section className="py-16 md:py-24 bg-white">
-                <div className="max-w-6xl mx-auto px-4">
-                    <div className="text-center mb-10 md:mb-16">
-                        <h2 className="text-3xl md:text-5xl font-black text-slate-900 mb-4">Cara Lama vs Cara SahamMaster</h2>
-                        <p className="text-slate-500 text-base md:text-lg">Kenapa 90% Trader Pemula Gagal? Karena metode belajar yang salah.</p>
+            <section className="py-20 md:py-28 bg-white">
+                <div className="max-w-6xl mx-auto px-4 sm:px-6">
+                    <div className="text-center mb-12 md:mb-16">
+                        <h2 className="text-3xl md:text-5xl font-black text-slate-900 mb-4 tracking-tight">Cara Lama vs Cara SahamMaster</h2>
+                        <p className="text-slate-500 text-base md:text-lg max-w-xl mx-auto">Kenapa 90% Trader Pemula Gagal? Karena metode belajar yang salah.</p>
                     </div>
 
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-0 relative">
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-0 relative items-stretch">
                         {/* Connector Icon */}
-                        <div className="hidden md:flex absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-16 h-16 bg-white rounded-full items-center justify-center shadow-xl z-20 border-4 border-slate-50 text-slate-300 font-black text-xl">
+                        <div className="hidden md:flex absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-14 h-14 bg-white rounded-full items-center justify-center shadow-xl z-20 border-4 border-slate-100 text-slate-400 font-black text-sm tracking-wider">
                             VS
                         </div>
 
                         {/* Otodidak */}
-                        <div className="bg-slate-50 p-6 md:p-12 rounded-3xl md:rounded-r-none border border-slate-200">
-                            <h3 className="text-xl md:text-2xl font-bold text-slate-400 mb-8 flex items-center">
-                                <XCircle className="w-6 h-6 md:w-8 md:h-8 mr-3 text-red-400" />
-                                Belajar Otodidak
-                            </h3>
-                            <ul className="space-y-6">
-                                <li className="flex items-start text-slate-500 text-sm md:text-base">
-                                    <XCircle className="w-5 h-5 mr-3 text-red-400 flex-shrink-0 mt-0.5" />
-                                    <div>
-                                        <strong className="text-slate-700 block">Informasi Teracak</strong>
-                                        Video Youtube acak-acakan, tidak ada struktur.
-                                    </div>
-                                </li>
-                                <li className="flex items-start text-slate-500 text-sm md:text-base">
-                                    <XCircle className="w-5 h-5 mr-3 text-red-400 flex-shrink-0 mt-0.5" />
-                                    <div>
-                                        <strong className="text-slate-700 block">Sendirian & Bingung</strong>
-                                        Tidak ada tempat bertanya yang valid saat rugi.
-                                    </div>
-                                </li>
-                                <li className="flex items-start text-slate-500 text-sm md:text-base">
-                                    <XCircle className="w-5 h-5 mr-3 text-red-400 flex-shrink-0 mt-0.5" />
-                                    <div>
-                                        <strong className="text-slate-700 block">Jebakan Pom-Pom</strong>
-                                        Korban cuci piring bandar di grup gratisan.
-                                    </div>
-                                </li>
-                            </ul>
+                        <div className="bg-slate-50/90 p-6 sm:p-10 md:p-12 rounded-3xl md:rounded-r-none border border-slate-200/80 flex flex-col justify-between">
+                            <div>
+                              <h3 className="text-xl md:text-2xl font-bold text-slate-500 mb-8 flex items-center">
+                                  <XCircle className="w-6 h-6 md:w-8 md:h-8 mr-3 text-rose-500" />
+                                  Belajar Otodidak
+                              </h3>
+                              <ul className="space-y-6">
+                                  <li className="flex items-start text-slate-600 text-sm md:text-base">
+                                      <XCircle className="w-5 h-5 mr-3 text-rose-500 flex-shrink-0 mt-0.5" />
+                                      <div>
+                                          <strong className="text-slate-900 block font-bold mb-0.5">Informasi Teracak</strong>
+                                          Video Youtube acak-acakan, tidak ada struktur.
+                                      </div>
+                                  </li>
+                                  <li className="flex items-start text-slate-600 text-sm md:text-base">
+                                      <XCircle className="w-5 h-5 mr-3 text-rose-500 flex-shrink-0 mt-0.5" />
+                                      <div>
+                                          <strong className="text-slate-900 block font-bold mb-0.5">Sendirian & Bingung</strong>
+                                          Tidak ada tempat bertanya yang valid saat rugi.
+                                      </div>
+                                  </li>
+                                  <li className="flex items-start text-slate-600 text-sm md:text-base">
+                                      <XCircle className="w-5 h-5 mr-3 text-rose-500 flex-shrink-0 mt-0.5" />
+                                      <div>
+                                          <strong className="text-slate-900 block font-bold mb-0.5">Jebakan Pom-Pom</strong>
+                                          Korban cuci piring bandar di grup gratisan.
+                                      </div>
+                                  </li>
+                              </ul>
+                            </div>
                         </div>
 
                         {/* SahamMaster */}
-                        <div className="bg-gradient-to-br from-blue-600 to-indigo-700 p-6 md:p-12 rounded-3xl md:rounded-l-none text-white shadow-2xl md:scale-[1.02] z-10 relative overflow-hidden">
-                            <div className="absolute top-0 right-0 w-32 h-32 bg-white opacity-10 rounded-full blur-2xl -mr-16 -mt-16"></div>
-                            <div className="absolute top-0 right-0 bg-yellow-400 text-blue-900 text-[10px] md:text-xs font-bold px-4 py-1.5 rounded-bl-xl">RECOMMENDED</div>
+                        <div className="bg-gradient-to-br from-blue-600 via-blue-700 to-indigo-800 p-6 sm:p-10 md:p-12 rounded-3xl md:rounded-l-none text-white shadow-2xl md:scale-[1.02] z-10 relative overflow-hidden border border-blue-500/40 flex flex-col justify-between">
+                            <div className="absolute top-0 right-0 w-40 h-40 bg-white/10 rounded-full blur-3xl -mr-16 -mt-16 pointer-events-none"></div>
+                            <div className="absolute top-0 right-0 bg-gradient-to-r from-amber-400 to-yellow-400 text-blue-950 text-[11px] md:text-xs font-black px-4 py-1.5 rounded-bl-xl shadow-md uppercase tracking-wider">RECOMMENDED</div>
                             
-                            <h3 className="text-xl md:text-2xl font-bold text-white mb-8 flex items-center">
-                                <CheckCircle className="w-6 h-6 md:w-8 md:h-8 mr-3 text-green-300" />
-                                Metode SahamMaster
-                            </h3>
-                            <ul className="space-y-6">
-                                <li className="flex items-start text-sm md:text-base">
-                                    <div className="bg-white/20 p-1 rounded-full mr-3 mt-0.5 shrink-0">
-                                        <CheckCircle className="w-3 h-3 md:w-4 md:h-4 text-white" />
-                                    </div>
-                                    <div>
-                                        <strong className="text-white block text-base md:text-lg">Kurikulum 30 Hari</strong>
-                                        Step-by-step dari Nol sampai Mahir.
-                                    </div>
-                                </li>
-                                <li className="flex items-start text-sm md:text-base">
-                                    <div className="bg-white/20 p-1 rounded-full mr-3 mt-0.5 shrink-0">
-                                        <CheckCircle className="w-3 h-3 md:w-4 md:h-4 text-white" />
-                                    </div>
-                                    <div>
-                                        <strong className="text-white block text-base md:text-lg">Mentor AI Pribadi 24/7</strong>
-                                        Diskusi materi kapanpun sampai paham.
-                                    </div>
-                                </li>
-                                <li className="flex items-start text-sm md:text-base">
-                                    <div className="bg-white/20 p-1 rounded-full mr-3 mt-0.5 shrink-0">
-                                        <CheckCircle className="w-3 h-3 md:w-4 md:h-4 text-white" />
-                                    </div>
-                                    <div>
-                                        <strong className="text-white block text-base md:text-lg">Objektif & Data-Driven</strong>
-                                        Belajar analisa mandiri, bukan bergantung sinyal.
-                                    </div>
-                                </li>
-                            </ul>
+                            <div>
+                              <h3 className="text-xl md:text-2xl font-bold text-white mb-8 flex items-center">
+                                  <CheckCircle className="w-6 h-6 md:w-8 md:h-8 mr-3 text-emerald-400" />
+                                  Metode SahamMaster
+                              </h3>
+                              <ul className="space-y-6">
+                                  <li className="flex items-start text-sm md:text-base">
+                                      <div className="bg-white/20 p-1 rounded-full mr-3 mt-0.5 shrink-0">
+                                          <CheckCircle className="w-3.5 h-3.5 text-white" />
+                                      </div>
+                                      <div>
+                                          <strong className="text-white block text-base md:text-lg font-bold mb-0.5">Kurikulum 30 Hari</strong>
+                                          Step-by-step dari Nol sampai Mahir.
+                                      </div>
+                                  </li>
+                                  <li className="flex items-start text-sm md:text-base">
+                                      <div className="bg-white/20 p-1 rounded-full mr-3 mt-0.5 shrink-0">
+                                          <CheckCircle className="w-3.5 h-3.5 text-white" />
+                                      </div>
+                                      <div>
+                                          <strong className="text-white block text-base md:text-lg font-bold mb-0.5">Mentor AI Pribadi 24/7</strong>
+                                          Diskusi materi kapanpun sampai paham.
+                                      </div>
+                                  </li>
+                                  <li className="flex items-start text-sm md:text-base">
+                                      <div className="bg-white/20 p-1 rounded-full mr-3 mt-0.5 shrink-0">
+                                          <CheckCircle className="w-3.5 h-3.5 text-white" />
+                                      </div>
+                                      <div>
+                                          <strong className="text-white block text-base md:text-lg font-bold mb-0.5">Objektif & Data-Driven</strong>
+                                          Belajar analisa mandiri, bukan bergantung sinyal.
+                                      </div>
+                                  </li>
+                              </ul>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -606,25 +623,25 @@ const LandingPage: React.FC = () => {
       </LazySection>
 
       {/* Curriculum Breakdown */}
-      <LazySection id="kurikulum" className="bg-slate-50" minHeight="min-h-[800px]">
-            <section className="py-16 md:py-20 bg-slate-50 border-y border-slate-200 scroll-mt-20">
-                <div className="max-w-5xl mx-auto px-4">
+      <LazySection id="kurikulum" className="bg-slate-50/80" minHeight="min-h-[800px]">
+            <section className="py-20 md:py-24 bg-slate-50/80 border-y border-slate-200/80 scroll-mt-20">
+                <div className="max-w-5xl mx-auto px-4 sm:px-6">
                     <div className="text-center mb-10 md:mb-12">
-                        <span className="text-blue-600 font-bold tracking-widest text-xs uppercase mb-2 block">Peta Jalan Anda</span>
-                        <h2 className="text-3xl md:text-4xl font-black text-slate-900 mb-4">Kurikulum 30 Hari</h2>
-                        <p className="text-slate-500 max-w-2xl mx-auto text-sm md:text-base">Kami tidak menjual "mimpi kaya cepat". Kami menjual skill bertahan hidup dan berkembang di pasar modal yang kejam.</p>
+                        <span className="text-blue-600 font-extrabold tracking-widest text-xs uppercase mb-2 block">Peta Jalan Anda</span>
+                        <h2 className="text-3xl md:text-4xl font-black text-slate-900 mb-4 tracking-tight">Kurikulum 30 Hari</h2>
+                        <p className="text-slate-500 max-w-2xl mx-auto text-sm md:text-base leading-relaxed font-normal">Kami tidak menjual "mimpi kaya cepat". Kami menjual skill bertahan hidup dan berkembang di pasar modal yang kejam.</p>
                     </div>
 
                     {/* Week Tabs - Scrollable on mobile */}
-                    <div className="flex flex-nowrap md:flex-wrap justify-start md:justify-center gap-2 mb-8 overflow-x-auto pb-4 md:pb-0 px-2 scrollbar-hide">
+                    <div className="flex flex-nowrap md:flex-wrap justify-start md:justify-center gap-2.5 mb-8 overflow-x-auto pb-4 md:pb-0 px-1 scrollbar-hide">
                         {[1, 2, 3, 4].map((week) => (
                             <button
                                 key={week}
                                 onClick={() => setActiveWeek(week)}
-                                className={`flex-none px-5 py-2.5 md:px-6 md:py-3 rounded-full text-xs md:text-sm font-bold transition-all transform whitespace-nowrap ${
+                                className={`flex-none px-5 py-3 md:px-6 md:py-3.5 rounded-2xl text-xs md:text-sm font-bold transition-all transform whitespace-nowrap cursor-pointer ${
                                     activeWeek === week 
-                                    ? 'bg-blue-600 text-white shadow-lg ring-2 ring-blue-100' 
-                                    : 'bg-white text-slate-500 border border-slate-200 hover:border-blue-300 hover:text-blue-600'
+                                    ? 'bg-blue-600 text-white shadow-lg shadow-blue-600/25 ring-2 ring-blue-100 scale-102' 
+                                    : 'bg-white text-slate-600 border border-slate-200/80 hover:border-blue-300 hover:text-blue-600 shadow-sm'
                                 }`}
                             >
                                 {week === 1 && "Minggu 1: Mindset & Fondasi"}
@@ -636,30 +653,30 @@ const LandingPage: React.FC = () => {
                     </div>
 
                     {/* Lesson List */}
-                    <div className="space-y-4 animate-in fade-in slide-in-from-bottom-4 duration-500">
+                    <div className="space-y-3.5 animate-in fade-in slide-in-from-bottom-4 duration-500">
                         {getWeekData(activeWeek).map((lesson) => (
-                            <div key={lesson.day} className="bg-white p-5 md:p-6 rounded-2xl border border-slate-200 hover:border-blue-300 shadow-sm hover:shadow-md transition-all group">
-                                <div className="flex items-start md:items-center gap-4 md:gap-6">
+                            <div key={lesson.day} className="bg-white p-5 sm:p-6 rounded-2xl border border-slate-200/80 hover:border-blue-300 shadow-sm hover:shadow-md transition-all duration-200 group">
+                                <div className="flex items-start sm:items-center gap-4 sm:gap-6">
                                     <div className={`
-                                        w-10 h-10 md:w-14 md:h-14 rounded-xl md:rounded-2xl flex-shrink-0 flex items-center justify-center font-black text-base md:text-xl border
+                                        w-11 h-11 sm:w-14 sm:h-14 rounded-2xl flex-shrink-0 flex items-center justify-center font-black text-base sm:text-xl border shadow-sm
                                         ${activeWeek === 1 ? 'bg-blue-50 text-blue-600 border-blue-100' : ''}
                                         ${activeWeek === 2 ? 'bg-purple-50 text-purple-600 border-purple-100' : ''}
-                                        ${activeWeek === 3 ? 'bg-orange-50 text-orange-600 border-orange-100' : ''}
-                                        ${activeWeek === 4 ? 'bg-green-50 text-green-600 border-green-100' : ''}
+                                        ${activeWeek === 3 ? 'bg-amber-50 text-amber-600 border-amber-100' : ''}
+                                        ${activeWeek === 4 ? 'bg-emerald-50 text-emerald-600 border-emerald-100' : ''}
                                     `}>
                                         {lesson.day}
                                     </div>
                                     <div className="flex-1">
-                                        <h3 className="font-bold text-base md:text-xl text-slate-900 group-hover:text-blue-700 transition-colors mb-1 md:mb-2">
+                                        <h3 className="font-bold text-base sm:text-lg text-slate-900 group-hover:text-blue-600 transition-colors mb-1 sm:mb-1.5">
                                             {lesson.title}
                                         </h3>
-                                        <p className="text-slate-500 text-xs md:text-sm leading-relaxed line-clamp-2 md:line-clamp-none">
+                                        <p className="text-slate-500 text-xs sm:text-sm leading-relaxed line-clamp-2 sm:line-clamp-none font-normal">
                                             {lesson.description}
                                         </p>
                                     </div>
-                                    <div className="hidden md:block">
-                                        <div className="w-8 h-8 rounded-full bg-slate-50 flex items-center justify-center group-hover:bg-blue-600 group-hover:text-white transition-colors">
-                                            <Lock className="w-4 h-4" />
+                                    <div className="hidden sm:block">
+                                        <div className="w-8 h-8 rounded-full bg-slate-50 border border-slate-100 flex items-center justify-center group-hover:bg-blue-600 group-hover:border-blue-600 group-hover:text-white transition-all text-slate-400">
+                                            <Lock className="w-3.5 h-3.5" />
                                         </div>
                                     </div>
                                 </div>
@@ -671,16 +688,18 @@ const LandingPage: React.FC = () => {
                         {activeWeek < 4 ? (
                             <button 
                                 onClick={() => setActiveWeek(prev => prev + 1)}
-                                className="inline-flex items-center text-blue-600 font-bold hover:text-blue-800 transition-colors text-sm md:text-base bg-transparent border-none cursor-pointer"
+                                className="inline-flex items-center text-blue-600 font-bold hover:text-blue-800 transition-colors text-sm sm:text-base bg-transparent border-none cursor-pointer group"
                             >
-                                Lihat materi minggu ke {activeWeek + 1} <ArrowRight className="w-4 h-4 ml-2" />
+                                <span>Lihat materi minggu ke {activeWeek + 1}</span> 
+                                <ArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" />
                             </button>
                         ) : (
                             <button 
                                 onClick={() => scrollToSection('harga')}
-                                className="inline-flex items-center text-blue-600 font-bold hover:text-blue-800 transition-colors text-sm md:text-base"
+                                className="inline-flex items-center text-blue-600 font-bold hover:text-blue-800 transition-colors text-sm sm:text-base cursor-pointer group"
                             >
-                                Daftar Sekarang Untuk Akses Penuh <ArrowRight className="w-4 h-4 ml-2" />
+                                <span>Daftar Sekarang Untuk Akses Penuh</span> 
+                                <ArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" />
                             </button>
                         )}
                     </div>
@@ -689,89 +708,97 @@ const LandingPage: React.FC = () => {
       </LazySection>
 
       {/* BONUS SECTION */}
-      <LazySection id="bonus" className="bg-slate-900" minHeight="min-h-[500px]">
-            <section className="py-16 md:py-24 bg-slate-900 relative overflow-hidden">
-                <div className="max-w-7xl mx-auto px-4 relative z-10">
+      <LazySection id="bonus" className="bg-slate-950" minHeight="min-h-[500px]">
+            <section className="py-20 md:py-28 bg-slate-950 text-white relative overflow-hidden">
+                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
                     <div className="text-center mb-12 md:mb-16">
-                        <div className="inline-flex items-center px-4 py-1.5 rounded-full bg-yellow-400/10 text-yellow-400 text-[10px] md:text-xs font-bold mb-6 border border-yellow-400/20 uppercase tracking-widest animate-pulse shadow-[0_0_15px_rgba(250,204,21,0.3)]">
-                            <Gift className="w-3 h-3 md:w-4 md:h-4 mr-2" />
+                        <div className="inline-flex items-center px-4 py-1.5 rounded-full bg-amber-400/10 text-amber-400 text-[11px] md:text-xs font-bold mb-6 border border-amber-400/25 uppercase tracking-widest shadow-[0_0_20px_rgba(251,191,36,0.2)]">
+                            <Gift className="w-3.5 h-3.5 mr-2" />
                             Limited Time Bonus
                         </div>
-                        <h2 className="text-3xl md:text-5xl font-black text-white mb-4 md:mb-6">
+                        <h2 className="text-3xl sm:text-4xl md:text-5xl font-black text-white mb-4 md:mb-6 leading-tight tracking-tight">
                             Bukan Cuma Materi Daging. <br/>
-                            Dapatkan <span className="text-transparent bg-clip-text bg-gradient-to-r from-yellow-300 to-amber-500">Fitur Super Canggih</span> Sebagai Senjata Lengkap.
+                            Dapatkan <span className="text-transparent bg-clip-text bg-gradient-to-r from-amber-300 via-yellow-400 to-amber-500">Fitur Super Canggih</span> Sebagai Senjata Lengkap.
                         </h2>
-                        <p className="text-slate-400 text-base md:text-lg max-w-2xl mx-auto">
+                        <p className="text-slate-400 text-base md:text-lg max-w-2xl mx-auto font-normal leading-relaxed">
                             Kami berikan tools & akses eksklusif senilai <strong>Rp 2.500.000+</strong> secara GRATIS.
                         </p>
                     </div>
 
-                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
                         {/* Bonus 1 */}
-                        <div className="bg-slate-800/40 backdrop-blur-md border border-slate-700 p-6 rounded-2xl group hover:bg-slate-800 transition-all hover:border-blue-500/50 hover:shadow-lg">
-                            <div className="w-12 h-12 md:w-14 md:h-14 bg-blue-500/20 rounded-xl flex items-center justify-center mb-4 md:mb-6 group-hover:scale-110 transition-transform">
-                                <BrainCircuit className="w-6 h-6 md:w-8 md:h-8 text-blue-400" />
+                        <div className="bg-slate-900/80 backdrop-blur-md border border-slate-800/80 p-6 rounded-2xl group hover:bg-slate-900 transition-all hover:border-blue-500/50 hover:shadow-xl hover:shadow-blue-500/10 flex flex-col justify-between">
+                            <div>
+                              <div className="w-13 h-13 md:w-14 md:h-14 bg-blue-500/15 border border-blue-500/25 rounded-2xl flex items-center justify-center mb-5 group-hover:scale-105 transition-transform">
+                                  <BrainCircuit className="w-6 h-6 md:w-7 md:h-7 text-blue-400" />
+                              </div>
+                              <div className="mb-4">
+                                  <h3 className="text-lg md:text-xl font-bold text-white mb-2">AI Mentor SahamPro</h3>
+                                  <p className="text-slate-400 text-xs sm:text-sm leading-relaxed">Asisten pribadi 24/7. Tanya analisa saham kapanpun.</p>
+                              </div>
                             </div>
-                            <div className="mb-4">
-                                <h3 className="text-lg md:text-xl font-bold text-white mb-2">AI Mentor SahamPro</h3>
-                                <p className="text-slate-400 text-xs md:text-sm">Asisten pribadi 24/7. Tanya analisa saham kapanpun.</p>
-                            </div>
-                            <div className="pt-4 border-t border-slate-700 flex justify-between items-center">
-                                <span className="text-[10px] md:text-xs text-slate-500 uppercase font-bold tracking-wider">Value</span>
-                                <span className="text-xs md:text-sm font-bold text-slate-300 line-through decoration-red-500">Rp 750.000</span>
+                            <div className="pt-4 border-t border-slate-800 flex justify-between items-center">
+                                <span className="text-[11px] text-slate-500 uppercase font-bold tracking-wider">Value</span>
+                                <span className="text-xs sm:text-sm font-bold text-slate-300 line-through decoration-rose-500">Rp 750.000</span>
                             </div>
                         </div>
 
                         {/* Bonus 2 */}
-                        <div className="bg-slate-800/40 backdrop-blur-md border border-slate-700 p-6 rounded-2xl group hover:bg-slate-800 transition-all hover:border-indigo-500/50 hover:shadow-lg">
-                            <div className="w-12 h-12 md:w-14 md:h-14 bg-indigo-500/20 rounded-xl flex items-center justify-center mb-4 md:mb-6 group-hover:scale-110 transition-transform">
-                                <Calculator className="w-6 h-6 md:w-8 md:h-8 text-indigo-400" />
+                        <div className="bg-slate-900/80 backdrop-blur-md border border-slate-800/80 p-6 rounded-2xl group hover:bg-slate-900 transition-all hover:border-indigo-500/50 hover:shadow-xl hover:shadow-indigo-500/10 flex flex-col justify-between">
+                            <div>
+                              <div className="w-13 h-13 md:w-14 md:h-14 bg-indigo-500/15 border border-indigo-500/25 rounded-2xl flex items-center justify-center mb-5 group-hover:scale-105 transition-transform">
+                                  <Calculator className="w-6 h-6 md:w-7 md:h-7 text-indigo-400" />
+                              </div>
+                              <div className="mb-4">
+                                  <h3 className="text-lg md:text-xl font-bold text-white mb-2">Trading Tools Pro</h3>
+                                  <p className="text-slate-400 text-xs sm:text-sm leading-relaxed">Akses Kalkulator Fee, Simulasi Compounding, dan Jurnal Trading.</p>
+                              </div>
                             </div>
-                            <div className="mb-4">
-                                <h3 className="text-lg md:text-xl font-bold text-white mb-2">Trading Tools Pro</h3>
-                                <p className="text-slate-400 text-xs md:text-sm">Akses Kalkulator Fee, Simulasi Compounding, dan Jurnal Trading.</p>
-                            </div>
-                            <div className="pt-4 border-t border-slate-700 flex justify-between items-center">
-                                <span className="text-[10px] md:text-xs text-slate-500 uppercase font-bold tracking-wider">Value</span>
-                                <span className="text-xs md:text-sm font-bold text-slate-300 line-through decoration-red-500">Rp 500.000</span>
+                            <div className="pt-4 border-t border-slate-800 flex justify-between items-center">
+                                <span className="text-[11px] text-slate-500 uppercase font-bold tracking-wider">Value</span>
+                                <span className="text-xs sm:text-sm font-bold text-slate-300 line-through decoration-rose-500">Rp 500.000</span>
                             </div>
                         </div>
 
                         {/* Bonus 3 */}
-                        <div className="bg-slate-800/40 backdrop-blur-md border border-slate-700 p-6 rounded-2xl group hover:bg-slate-800 transition-all hover:border-emerald-500/50 hover:shadow-lg">
-                            <div className="w-12 h-12 md:w-14 md:h-14 bg-emerald-500/20 rounded-xl flex items-center justify-center mb-4 md:mb-6 group-hover:scale-110 transition-transform">
-                                <FileText className="w-6 h-6 md:w-8 md:h-8 text-emerald-400" />
+                        <div className="bg-slate-900/80 backdrop-blur-md border border-slate-800/80 p-6 rounded-2xl group hover:bg-slate-900 transition-all hover:border-emerald-500/50 hover:shadow-xl hover:shadow-emerald-500/10 flex flex-col justify-between">
+                            <div>
+                              <div className="w-13 h-13 md:w-14 md:h-14 bg-emerald-500/15 border border-emerald-500/25 rounded-2xl flex items-center justify-center mb-5 group-hover:scale-105 transition-transform">
+                                  <FileText className="w-6 h-6 md:w-7 md:h-7 text-emerald-400" />
+                              </div>
+                              <div className="mb-4">
+                                  <h3 className="text-lg md:text-xl font-bold text-white mb-2">Kamus & Cheat Sheet</h3>
+                                  <p className="text-slate-400 text-xs sm:text-sm leading-relaxed">Bank istilah saham lengkap & contekan pola candlestick.</p>
+                              </div>
                             </div>
-                            <div className="mb-4">
-                                <h3 className="text-lg md:text-xl font-bold text-white mb-2">Kamus & Cheat Sheet</h3>
-                                <p className="text-slate-400 text-xs md:text-sm">Bank istilah saham lengkap & contekan pola candlestick.</p>
-                            </div>
-                            <div className="pt-4 border-t border-slate-700 flex justify-between items-center">
-                                <span className="text-[10px] md:text-xs text-slate-500 uppercase font-bold tracking-wider">Value</span>
-                                <span className="text-xs md:text-sm font-bold text-slate-300 line-through decoration-red-500">Rp 250.000</span>
+                            <div className="pt-4 border-t border-slate-800 flex justify-between items-center">
+                                <span className="text-[11px] text-slate-500 uppercase font-bold tracking-wider">Value</span>
+                                <span className="text-xs sm:text-sm font-bold text-slate-300 line-through decoration-rose-500">Rp 250.000</span>
                             </div>
                         </div>
 
                         {/* Bonus 4 */}
-                        <div className="bg-slate-800/40 backdrop-blur-md border border-slate-700 p-6 rounded-2xl group hover:bg-slate-800 transition-all hover:border-yellow-500/50 hover:shadow-lg">
-                            <div className="w-12 h-12 md:w-14 md:h-14 bg-yellow-500/20 rounded-xl flex items-center justify-center mb-4 md:mb-6 group-hover:scale-110 transition-transform">
-                                <Trophy className="w-6 h-6 md:w-8 md:h-8 text-yellow-400" />
+                        <div className="bg-slate-900/80 backdrop-blur-md border border-slate-800/80 p-6 rounded-2xl group hover:bg-slate-900 transition-all hover:border-amber-500/50 hover:shadow-xl hover:shadow-amber-500/10 flex flex-col justify-between">
+                            <div>
+                              <div className="w-13 h-13 md:w-14 md:h-14 bg-amber-500/15 border border-amber-500/25 rounded-2xl flex items-center justify-center mb-5 group-hover:scale-105 transition-transform">
+                                  <Trophy className="w-6 h-6 md:w-7 md:h-7 text-amber-400" />
+                              </div>
+                              <div className="mb-4">
+                                  <h3 className="text-lg md:text-xl font-bold text-white mb-2">Sertifikat Resmi</h3>
+                                  <p className="text-slate-400 text-xs sm:text-sm leading-relaxed">Bukti kelulusan ujian kompetensi trading.</p>
+                              </div>
                             </div>
-                            <div className="mb-4">
-                                <h3 className="text-lg md:text-xl font-bold text-white mb-2">Sertifikat Resmi</h3>
-                                <p className="text-slate-400 text-xs md:text-sm">Bukti kelulusan ujian kompetensi trading.</p>
-                            </div>
-                            <div className="pt-4 border-t border-slate-700 flex justify-between items-center">
-                                <span className="text-[10px] md:text-xs text-slate-500 uppercase font-bold tracking-wider">Value</span>
-                                <span className="text-xs md:text-sm font-bold text-slate-300 line-through decoration-red-500">Rp 500.000</span>
+                            <div className="pt-4 border-t border-slate-800 flex justify-between items-center">
+                                <span className="text-[11px] text-slate-500 uppercase font-bold tracking-wider">Value</span>
+                                <span className="text-xs sm:text-sm font-bold text-slate-300 line-through decoration-rose-500">Rp 500.000</span>
                             </div>
                         </div>
                     </div>
 
                     <div className="mt-12 text-center">
-                        <div className="inline-block bg-white/5 backdrop-blur-sm border border-white/10 rounded-xl p-4">
+                        <div className="inline-block bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl px-6 py-4 shadow-lg">
                             <p className="text-slate-300 text-xs md:text-sm font-medium">
-                                <span className="text-green-400 font-bold">Total Bonus Value: Rp 2.000.000</span> (Gratis untuk 50 pendaftar hari ini)
+                                <span className="text-emerald-400 font-bold">Total Bonus Value: Rp 2.000.000</span> (Gratis untuk 50 pendaftar hari ini)
                             </p>
                         </div>
                     </div>
@@ -781,57 +808,59 @@ const LandingPage: React.FC = () => {
 
       {/* Pricing Section */}
       <LazySection id="harga" className="bg-white" minHeight="min-h-[600px]">
-            <section className="py-16 md:py-24 bg-white relative overflow-hidden">
-                <div className="absolute top-0 left-1/2 transform -translate-x-1/2 w-[600px] md:w-[1000px] h-[500px] bg-blue-50 rounded-[100%] blur-[100px] -z-10 opacity-60"></div>
+            <section className="py-20 md:py-28 bg-white relative overflow-hidden">
+                <div className="absolute top-0 left-1/2 transform -translate-x-1/2 w-[600px] md:w-[1000px] h-[500px] bg-gradient-to-b from-blue-50/80 to-transparent rounded-[100%] blur-[100px] -z-10 opacity-70"></div>
 
-                <div className="max-w-4xl mx-auto px-4">
-                    <div className="text-center mb-10">
-                        <h2 className="text-3xl md:text-5xl font-black text-slate-900 mb-4">Investasi Leher ke Atas</h2>
-                        <p className="text-slate-500 text-base md:text-lg">Berapa harga yang pantas untuk skill yang bisa menghasilkan uang seumur hidup?</p>
+                <div className="max-w-4xl mx-auto px-4 sm:px-6">
+                    <div className="text-center mb-12">
+                        <h2 className="text-3xl md:text-5xl font-black text-slate-900 mb-4 tracking-tight">Investasi Leher ke Atas</h2>
+                        <p className="text-slate-500 text-base md:text-lg max-w-xl mx-auto font-normal leading-relaxed">Berapa harga yang pantas untuk skill yang bisa menghasilkan uang seumur hidup?</p>
                     </div>
 
-                    <div className="bg-white rounded-3xl shadow-2xl overflow-hidden border border-slate-200 ring-4 ring-slate-50/50">
-                        <div className="bg-slate-900 p-3 md:p-4 text-center">
-                            <p className="text-yellow-400 font-bold tracking-widest text-[10px] md:text-sm uppercase flex items-center justify-center animate-pulse">
-                                <Zap className="w-3 h-3 md:w-4 md:h-4 mr-2" /> Penawaran Berakhir Dalam: {timeLeft.minutes < 10 ? '0'+timeLeft.minutes : timeLeft.minutes}:{timeLeft.seconds < 10 ? '0'+timeLeft.seconds : timeLeft.seconds}
+                    <div className="bg-white rounded-[28px] shadow-[0_20px_60px_-15px_rgba(15,23,42,0.12)] overflow-hidden border border-slate-200/80 ring-1 ring-slate-900/5">
+                        <div className="bg-slate-950 p-3.5 md:p-4 text-center border-b border-slate-800">
+                            <p className="text-amber-400 font-bold tracking-widest text-[11px] md:text-sm uppercase flex items-center justify-center gap-2">
+                                <Zap className="w-3.5 h-3.5 text-amber-400 fill-amber-400" /> Penawaran Berakhir Dalam: {timeLeft.minutes < 10 ? '0'+timeLeft.minutes : timeLeft.minutes}:{timeLeft.seconds < 10 ? '0'+timeLeft.seconds : timeLeft.seconds}
                             </p>
                         </div>
                         
-                        <div className="grid grid-cols-1 md:grid-cols-2">
+                        <div className="grid grid-cols-1 md:grid-cols-2 items-stretch">
                             {/* Value Stack */}
-                            <div className="p-6 md:p-12 border-b md:border-b-0 md:border-r border-slate-100 bg-slate-50/50">
-                                <h3 className="text-sm md:text-lg font-bold text-slate-400 uppercase mb-4 md:mb-6 tracking-wide">Apa yang Anda Dapat:</h3>
-                                <ul className="space-y-4 md:space-y-5">
-                                    <li className="flex justify-between items-center text-slate-700 text-sm md:text-base">
-                                        <span className="flex items-center font-medium"><BookOpen className="w-4 h-4 md:w-5 md:h-5 mr-3 text-blue-500 shrink-0" /> Modul Trading 30 Hari</span>
-                                        <span className="font-bold text-slate-300 line-through decoration-slate-400 text-xs md:text-base">Rp 1.500.000</span>
-                                    </li>
-                                    <li className="flex justify-between items-center text-slate-700 text-sm md:text-base">
-                                        <span className="flex items-center font-medium"><MessageSquare className="w-4 h-4 md:w-5 md:h-5 mr-3 text-blue-500 shrink-0" /> Akses AI Mentor IDX</span>
-                                        <span className="font-bold text-slate-300 line-through decoration-slate-400 text-xs md:text-base">Rp 750.000</span>
-                                    </li>
-                                    <li className="flex justify-between items-center text-slate-700 text-sm md:text-base">
-                                        <span className="flex items-center font-medium"><Zap className="w-4 h-4 md:w-5 md:h-5 mr-3 text-blue-500 shrink-0" /> Tools Pro</span>
-                                        <span className="font-bold text-slate-300 line-through decoration-slate-400 text-xs md:text-base">Rp 500.000</span>
-                                    </li>
-                                    <li className="flex justify-between items-center text-slate-700 text-sm md:text-base">
-                                        <span className="flex items-center font-medium"><Trophy className="w-4 h-4 md:w-5 md:h-5 mr-3 text-blue-500 shrink-0" /> Ujian & Sertifikat</span>
-                                        <span className="font-bold text-slate-300 line-through decoration-slate-400 text-xs md:text-base">Rp 500.000</span>
-                                    </li>
-                                </ul>
+                            <div className="p-6 sm:p-10 md:p-12 border-b md:border-b-0 md:border-r border-slate-200/70 bg-slate-50/60 flex flex-col justify-between">
+                                <div>
+                                  <h3 className="text-xs md:text-sm font-extrabold text-slate-400 uppercase mb-5 md:mb-6 tracking-wider">Apa yang Anda Dapat:</h3>
+                                  <ul className="space-y-4 md:space-y-5">
+                                      <li className="flex justify-between items-center text-slate-700 text-sm md:text-base">
+                                          <span className="flex items-center font-medium"><BookOpen className="w-4 h-4 md:w-5 md:h-5 mr-3 text-blue-600 shrink-0" /> Modul Trading 30 Hari</span>
+                                          <span className="font-bold text-slate-400 line-through decoration-slate-400 text-xs md:text-base">Rp 1.500.000</span>
+                                      </li>
+                                      <li className="flex justify-between items-center text-slate-700 text-sm md:text-base">
+                                          <span className="flex items-center font-medium"><MessageSquare className="w-4 h-4 md:w-5 md:h-5 mr-3 text-blue-600 shrink-0" /> Akses AI Mentor IDX</span>
+                                          <span className="font-bold text-slate-400 line-through decoration-slate-400 text-xs md:text-base">Rp 750.000</span>
+                                      </li>
+                                      <li className="flex justify-between items-center text-slate-700 text-sm md:text-base">
+                                          <span className="flex items-center font-medium"><Zap className="w-4 h-4 md:w-5 md:h-5 mr-3 text-blue-600 shrink-0" /> Tools Pro</span>
+                                          <span className="font-bold text-slate-400 line-through decoration-slate-400 text-xs md:text-base">Rp 500.000</span>
+                                      </li>
+                                      <li className="flex justify-between items-center text-slate-700 text-sm md:text-base">
+                                          <span className="flex items-center font-medium"><Trophy className="w-4 h-4 md:w-5 md:h-5 mr-3 text-blue-600 shrink-0" /> Ujian & Sertifikat</span>
+                                          <span className="font-bold text-slate-400 line-through decoration-slate-400 text-xs md:text-base">Rp 500.000</span>
+                                      </li>
+                                  </ul>
+                                </div>
                                 <div className="mt-8 pt-6 border-t border-slate-200 flex justify-between items-center">
                                     <span className="font-bold text-slate-500 text-sm md:text-base">Total Nilai Asli</span>
-                                    <span className="font-black text-xl md:text-2xl text-slate-400 line-through decoration-red-500 decoration-2">Rp 3.250.000</span>
+                                    <span className="font-black text-xl md:text-2xl text-slate-400 line-through decoration-rose-500 decoration-2">Rp 3.250.000</span>
                                 </div>
                             </div>
 
                             {/* Final Price */}
-                            <div className="p-8 md:p-12 flex flex-col justify-center items-center bg-white relative">
+                            <div className="p-8 sm:p-10 md:p-12 flex flex-col justify-center items-center bg-white relative">
                                 <div className="absolute top-0 right-0 p-4">
-                                    <div className="bg-red-100 text-red-600 text-[10px] md:text-xs font-bold px-3 py-1 rounded-full uppercase">Hemat 97%</div>
+                                    <div className="bg-rose-50 border border-rose-200 text-rose-600 text-[11px] md:text-xs font-black px-3.5 py-1 rounded-full uppercase tracking-wider shadow-sm">Hemat 97%</div>
                                 </div>
-                                <p className="text-slate-500 font-medium mb-2 uppercase tracking-wide text-[10px] md:text-xs">Harga Promo Spesial</p>
-                                <h3 className="text-4xl md:text-6xl font-black text-blue-600 mb-2">Rp {dynamicPrice ? dynamicPrice.toLocaleString('id-ID') : '99.000'}</h3>
+                                <p className="text-slate-500 font-semibold mb-2 uppercase tracking-wider text-[11px] md:text-xs">Harga Promo Spesial</p>
+                                <h3 className="text-4xl sm:text-5xl md:text-6xl font-black text-blue-600 mb-2 tracking-tight">Rp {dynamicPrice ? dynamicPrice.toLocaleString('id-ID') : '99.000'}</h3>
                                 <p className="text-xs md:text-sm text-slate-400 mb-6 md:mb-8 font-medium">Sekali bayar. Akses selamanya.</p>
                                 
                                 <button 
@@ -839,14 +868,14 @@ const LandingPage: React.FC = () => {
                                       handleTrackAddToCart();
                                       setIsCheckoutOpen(true);
                                     }}
-                                    className="w-full text-center px-8 py-4 md:py-5 text-lg font-bold text-white bg-green-500 rounded-2xl hover:bg-green-600 transition-all shadow-xl hover:shadow-2xl hover:shadow-green-500/20 transform hover:-translate-y-1 animate-pulse"
+                                    className="w-full text-center px-8 py-4 md:py-4.5 text-lg font-black text-white bg-gradient-to-r from-emerald-500 via-emerald-600 to-green-600 hover:from-emerald-600 hover:to-green-700 rounded-2xl transition-all duration-200 shadow-xl shadow-emerald-600/25 hover:shadow-2xl hover:shadow-emerald-600/35 transform hover:-translate-y-0.5 active:translate-y-0 cursor-pointer"
                                 >
                                     Ambil Akses Sekarang
                                 </button>
                                 
-                                <div className="mt-6 flex items-center justify-center space-x-2 bg-slate-50 px-4 py-2 rounded-lg border border-slate-100">
-                                    <ShieldCheck className="w-5 h-5 text-green-600" />
-                                    <p className="text-[10px] md:text-xs text-slate-500 font-bold">
+                                <div className="mt-6 flex items-center justify-center space-x-2 bg-slate-50 px-4 py-2.5 rounded-xl border border-slate-100">
+                                    <ShieldCheck className="w-4 h-4 text-emerald-600" />
+                                    <p className="text-[10px] md:text-xs text-slate-600 font-bold">
                                         30-Hari Garansi Uang Kembali
                                     </p>
                                 </div>
@@ -861,11 +890,11 @@ const LandingPage: React.FC = () => {
       </LazySection>
 
       {/* FAQ Section */}
-      <LazySection className="bg-slate-50" minHeight="min-h-[400px]">
-            <section className="py-16 md:py-20 bg-slate-50 border-t border-slate-200">
-                <div className="max-w-3xl mx-auto px-4">
-                    <h2 className="text-2xl md:text-3xl font-bold text-center mb-8 md:mb-12 text-slate-900">Pertanyaan Sering Diajukan</h2>
-                    <div className="space-y-4">
+      <LazySection className="bg-slate-50/80" minHeight="min-h-[400px]">
+            <section className="py-20 md:py-24 bg-slate-50/80 border-t border-slate-200/80">
+                <div className="max-w-3xl mx-auto px-4 sm:px-6">
+                    <h2 className="text-2xl md:text-3xl font-black text-center mb-8 md:mb-12 text-slate-900 tracking-tight">Pertanyaan Sering Diajukan</h2>
+                    <div className="space-y-3.5">
                         {[
                             { q: "Apakah cocok untuk pemula yang nol putul?", a: "Sangat cocok. Materi didesain khusus dari dasar (Mindset) hingga Advanced. Bahasa yang digunakan juga bahasa manusia, bukan bahasa robot." },
                             { q: "Seberapa pintar AI-nya? Apakah bisa dipercaya?", a: "AI kami (Coach SahamPro) dilatih spesifik dengan data pasar modal Indonesia. Dia mengerti konteks lokal seperti 'Bandar', 'Right Issue', 'Waran', dll. Jauh lebih relevan dibanding ChatGPT biasa." },
@@ -873,16 +902,16 @@ const LandingPage: React.FC = () => {
                             { q: "Apakah ada grup sinyal/rekomendasi saham?", a: "TIDAK ADA. Kami mendidik Anda jadi 'Nelayan' yang bisa cari ikan sendiri. Memberi ikan (sinyal) itu menyesatkan, memberi kail (ilmu) itu menghidupkan." },
                             { q: "Berapa lama akses materinya?", a: "Akses SEUMUR HIDUP (Lifetime). Anda bisa mengulang materi kapan saja." },
                         ].map((item, idx) => (
-                            <div key={idx} className="border border-slate-200 rounded-2xl overflow-hidden shadow-sm">
+                            <div key={idx} className="border border-slate-200/80 bg-white rounded-2xl overflow-hidden shadow-sm hover:border-slate-300 transition-colors">
                                 <button 
                                     onClick={() => toggleFaq(idx)}
-                                    className="w-full flex justify-between items-center p-4 md:p-5 text-left bg-white hover:bg-slate-50 transition-colors"
+                                    className="w-full flex justify-between items-center p-4 sm:p-5 text-left bg-white hover:bg-slate-50/60 transition-colors cursor-pointer"
                                 >
-                                    <span className="font-bold text-slate-800 text-sm md:text-base">{item.q}</span>
-                                    {openFaq === idx ? <ChevronUp className="w-5 h-5 text-slate-400" /> : <ChevronDown className="w-5 h-5 text-slate-400" />}
+                                    <span className="font-bold text-slate-900 text-sm md:text-base pr-4">{item.q}</span>
+                                    {openFaq === idx ? <ChevronUp className="w-5 h-5 text-blue-600 shrink-0" /> : <ChevronDown className="w-5 h-5 text-slate-400 shrink-0" />}
                                 </button>
                                 {openFaq === idx && (
-                                    <div className="p-4 md:p-5 pt-0 bg-white text-slate-600 leading-relaxed border-t border-slate-100 text-sm md:text-base">
+                                    <div className="p-4 sm:p-5 pt-0 bg-white text-slate-600 leading-relaxed border-t border-slate-100 text-sm md:text-base font-normal animate-in fade-in duration-200">
                                         {item.a}
                                     </div>
                                 )}
@@ -894,37 +923,39 @@ const LandingPage: React.FC = () => {
       </LazySection>
 
       {/* Final CTA */}
-      <LazySection className="bg-slate-900" minHeight="min-h-[300px]">
-            <section className="py-16 md:py-20 bg-slate-900 text-white text-center relative overflow-hidden">
-                <div className="absolute inset-0 bg-blue-600/10 blur-3xl"></div>
-                <div className="max-w-4xl mx-auto px-4 relative z-10">
-                    <h2 className="text-3xl md:text-5xl font-black mb-4 md:mb-6 leading-tight">Waktu Terbaik Mulai Investasi <br/>Adalah Kemarin.</h2>
-                    <p className="text-base md:text-xl text-slate-400 mb-8 md:mb-10 max-w-2xl mx-auto">Waktu terbaik kedua adalah SEKARANG. Jangan biarkan inflasi memakan tabungan Anda.</p>
+      <LazySection className="bg-slate-950" minHeight="min-h-[300px]">
+            <section className="py-20 md:py-24 bg-slate-950 text-white text-center relative overflow-hidden">
+                <div className="absolute inset-0 bg-blue-600/10 blur-3xl pointer-events-none"></div>
+                <div className="max-w-4xl mx-auto px-4 sm:px-6 relative z-10">
+                    <h2 className="text-3xl md:text-5xl font-black mb-4 md:mb-6 leading-tight tracking-tight">Waktu Terbaik Mulai Investasi <br/>Adalah Kemarin.</h2>
+                    <p className="text-base md:text-xl text-slate-400 mb-8 md:mb-10 max-w-2xl mx-auto font-normal leading-relaxed">Waktu terbaik kedua adalah SEKARANG. Jangan biarkan inflasi memakan tabungan Anda.</p>
                     <button 
                         onClick={() => {
                           handleTrackAddToCart();
                           setIsCheckoutOpen(true);
                         }}
-                        className="inline-flex items-center justify-center px-8 py-4 md:px-10 md:py-5 text-lg font-bold text-blue-900 bg-white rounded-2xl hover:bg-blue-50 transition-all shadow-2xl hover:shadow-white/20 transform hover:-translate-y-1 w-full md:w-auto"
+                        className="inline-flex items-center justify-center px-8 py-4 md:px-10 md:py-5 text-base sm:text-lg font-black text-slate-950 bg-white hover:bg-slate-100 rounded-2xl transition-all shadow-2xl hover:shadow-white/20 transform hover:-translate-y-1 active:translate-y-0 w-full md:w-auto cursor-pointer gap-2"
                     >
-                        Gabung Kelas SahamMaster
-                        <ArrowRight className="w-6 h-6 ml-2" />
+                        <span>Gabung Kelas SahamMaster</span>
+                        <ArrowRight className="w-5 h-5 ml-1" />
                     </button>
                 </div>
             </section>
       </LazySection>
 
       {/* Footer */}
-      <footer className="bg-white border-t border-slate-100 py-8 md:py-12">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row justify-between items-center">
-            <div className="mb-4 md:mb-0 flex items-center space-x-3">
-                <img src="/logo.png" alt="SahamMaster" className="w-12 h-12 object-contain drop-shadow-md" />
-                <div className="flex flex-col justify-center pt-1">
-                    <span className="font-black text-xl text-slate-900 block leading-none mb-1">SahamMaster</span>
+      <footer className="bg-white border-t border-slate-200/80 py-8 md:py-12">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row justify-between items-center gap-4">
+            <div className="flex items-center space-x-3">
+                <div className="p-1 bg-slate-50 rounded-xl border border-slate-200/80">
+                  <img src="/logo.png" alt="SahamMaster" className="w-10 h-10 object-contain drop-shadow-sm" />
+                </div>
+                <div className="flex flex-col justify-center pt-0.5">
+                    <span className="font-black text-lg text-slate-900 block leading-none mb-1">SahamMaster</span>
                     <p className="text-[10px] text-slate-500 font-bold tracking-wide uppercase leading-none">Platform Edukasi Saham #1</p>
                 </div>
             </div>
-            <div className="text-sm text-slate-400">
+            <div className="text-xs sm:text-sm text-slate-400 font-medium">
                 &copy; {new Date().getFullYear()} SahamMaster ID. All rights reserved.
             </div>
         </div>
@@ -932,13 +963,13 @@ const LandingPage: React.FC = () => {
 
       {/* Sticky Bottom CTA (Mobile Only) */}
       <div 
-        className={`fixed bottom-0 left-0 w-full bg-white border-t border-slate-200 p-4 shadow-[0_-4px_6px_-1px_rgba(0,0,0,0.1)] z-40 md:hidden transition-transform duration-300 ${
+        className={`fixed bottom-0 left-0 w-full bg-white/95 backdrop-blur-md border-t border-slate-200/80 p-3.5 sm:p-4 shadow-[0_-4px_20px_-1px_rgba(0,0,0,0.1)] z-40 md:hidden transition-transform duration-300 ${
             showStickyCTA ? 'translate-y-0' : 'translate-y-full'
         }`}
       >
-        <div className="flex items-center justify-between">
+        <div className="flex items-center justify-between gap-3">
             <div>
-                <p className="text-[10px] text-slate-500 line-through">Rp 3.250.000</p>
+                <p className="text-[10px] text-slate-400 line-through font-semibold leading-none mb-1">Rp 3.250.000</p>
                 <p className="text-lg font-black text-blue-600 leading-none">Rp {dynamicPrice ? dynamicPrice.toLocaleString('id-ID') : '99.000'}</p>
             </div>
             <button 
@@ -946,22 +977,22 @@ const LandingPage: React.FC = () => {
                   handleTrackAddToCart();
                   setIsCheckoutOpen(true);
                 }}
-                className="bg-green-600 text-white px-6 py-2.5 rounded-xl font-bold shadow-lg text-sm flex items-center"
+                className="bg-gradient-to-r from-emerald-500 to-green-600 text-white px-5 py-2.5 rounded-xl font-bold shadow-md shadow-emerald-500/20 text-sm flex items-center gap-1 cursor-pointer"
             >
-                Ambil Promo <ArrowRight className="w-4 h-4 ml-1" />
+                Ambil Promo <ArrowRight className="w-4 h-4 ml-0.5" />
             </button>
         </div>
       </div>
 
       {/* Social Proof Notification */}
-      <div className={`fixed bottom-24 md:bottom-6 left-4 bg-slate-900 text-white p-3 rounded-xl shadow-2xl border border-slate-700 flex items-center transform transition-all duration-500 z-40 max-w-[280px] ${socialProof.show ? 'translate-x-0 opacity-100' : '-translate-x-full opacity-0'}`}>
-        <div className="w-10 h-10 bg-green-500 rounded-lg flex items-center justify-center shrink-0 mr-3">
+      <div className={`fixed bottom-24 md:bottom-6 left-4 bg-slate-950/95 backdrop-blur-md text-white p-3.5 rounded-2xl shadow-[0_15px_30px_rgba(0,0,0,0.3)] border border-slate-800 flex items-center transform transition-all duration-500 z-40 max-w-[290px] ${socialProof.show ? 'translate-x-0 opacity-100' : '-translate-x-full opacity-0'}`}>
+        <div className="w-10 h-10 bg-gradient-to-br from-emerald-500 to-green-600 rounded-xl flex items-center justify-center shrink-0 mr-3 shadow-md shadow-emerald-500/20">
           <ShoppingBag className="w-5 h-5 text-white" />
         </div>
         <div>
-          <p className="text-xs text-slate-300"><span className="font-bold text-white">{socialProof.name}</span> baru saja mendaftar</p>
-          <p className="text-[10px] text-slate-400 mt-0.5 flex items-center">
-            <CheckCircle className="w-3 h-3 text-green-400 mr-1" /> Terverifikasi • {socialProof.time}
+          <p className="text-xs text-slate-200"><span className="font-bold text-white">{socialProof.name}</span> baru saja mendaftar</p>
+          <p className="text-[10px] text-slate-400 mt-0.5 flex items-center gap-1 font-medium">
+            <CheckCircle className="w-3 h-3 text-emerald-400" /> Terverifikasi • {socialProof.time}
           </p>
         </div>
       </div>
@@ -969,8 +1000,8 @@ const LandingPage: React.FC = () => {
       <CheckoutModal isOpen={isCheckoutOpen} onClose={() => setIsCheckoutOpen(false)} />
 
       {/* Floating Sparkle Icon */}
-      <div className="fixed bottom-0 right-0 pointer-events-none p-4 md:p-10 z-0 opacity-20">
-         <Zap size={200} className="text-yellow-400 rotate-12 hidden md:block" />
+      <div className="fixed bottom-0 right-0 pointer-events-none p-4 md:p-10 z-0 opacity-10">
+         <Zap size={180} className="text-yellow-400 rotate-12 hidden md:block" />
       </div>
 
       <style>{`
